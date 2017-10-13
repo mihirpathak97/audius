@@ -7,7 +7,7 @@ resultPromise = electronInstaller.createWindowsInstaller({
     authors: 'Mihir Pathak',
     exe: 'Audius.exe',
     noMsi: true,
-    setupExe: 'Audius-0.3.21-x64-setup.exe'
+    setupExe: 'Audius-0.3.22-x64-setup.exe'
   });
 
 resultPromise.then(() => console.log("It worked!"), (e) => console.log(`No dice: ${e.message}`));
