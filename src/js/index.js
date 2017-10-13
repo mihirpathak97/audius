@@ -1,4 +1,7 @@
 const remote = require('electron').remote;
+var w3js = document.createElement('script');
+w3js.src = 'src/js/w3.js';
+document.head.appendChild(w3js);
 
 function minimize() {
   var window = remote.getCurrentWindow();
@@ -25,7 +28,7 @@ function run_search() {
   }
   output.innerHTML = 'Please wait, querying...';
   queue = document.getElementById('queue');
-  albumart = queue.getElementsByTagName('img')[0];
+  albumart = document.getElementById('albumart');
   document.getElementById('queue').style.display = 'block';
   progress = document.getElementById('inner');
   progress.style.width = '0%';
@@ -34,7 +37,10 @@ function run_search() {
   var ls = process.execFile(path.join(__dirname + '/src/core-api/win/audius.exe'), ['--download', query], ['-o', format]);
   ls.stdout.on('data', function(data){
     if (data.indexOf('albumart:') > -1) {
-      albumart.src = data.substring(11);
+      w3.removeClass('#albumart', 'spin');
+      img = albumart.getElementsByTagName('img')[0];
+      img.style.display = 'block';
+      img.src = data.substring(11);
       progress.style.width = '30%';
     }
     else if(data.indexOf('Downloading') > -1) {

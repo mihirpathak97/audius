@@ -11,6 +11,22 @@ body{
                 "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+.menu{
+  float: left;
+  top: 0;
+  margin: 0.3% 0 0 3%;
+  -webkit-app-region: no-drag;
+  color: grey;
+  overflow: hidden;
+}
+
+.menu .disclaimer{
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
 .nav{
   float: right;
   top: 0;
@@ -46,18 +62,15 @@ body{
 }
 
 .heading{
-  padding-top: 5%;
   display: block;
   margin: auto;
   text-align: center;
 }
 
-.heading h1{
-  font-size: 32px;
-  font-weight: 400;
-}
-
 .heading .headlogo{
+  margin-top: 10%;
+  margin-left: -5%;
+  margin-bottom: -3%;
   width: 40%;
 }
 
@@ -154,6 +167,24 @@ body{
   margin-left: 10%;
   height: 100px;
   width: 100px;
+}
+
+.spin{
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #56439C;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+.output .albumart .img{
+  display: none;
+  width: 100px;
+  height: 100px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 #queue{
