@@ -3,7 +3,7 @@
   "productName": "Audius",
   "description": "An audio downloading, recognition and metadata fixing software",
   "license": "Apache",
-  "version": "0.3.22",
+  "version": "0.3.23",
   "main": "src/js/main.js",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
