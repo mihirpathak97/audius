@@ -14,8 +14,8 @@ body{
 .menu{
   float: left;
   top: 0;
-  margin: 0.3% 0 0 3%;
-  -webkit-app-region: no-drag;
+  margin: 2% 0 0 3%;
+  -webkit-app-region: drag;
   color: grey;
   overflow: hidden;
 }
@@ -25,6 +25,10 @@ body{
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline;
+  -webkit-app-region: no-drag;
 }
 
 .nav{

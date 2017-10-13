@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Audius</title>
+    <link rel="stylesheet" href="src/style/disclaimer.css">
+    <link rel="stylesheet" href="src/style/font-awesome/css/font-awesome.css">
+  </head>
+  <body>
+
+    <div class="nav">
+      <span class="minimize" onclick="minimize()"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>&nbsp;&nbsp;
+      <!-- <span class="max"><i class="fa fa-window-maximize" aria-hidden="true"></i></span> -->
+      <span class="close" onclick="quit()"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+    </div>
+
+    <div class="heading">
+      <img src="assets/audius_big.png" class="headlogo">
+    </div>
+
+    <div class="content">
+      <h1>Disclaimer</h1>
+      <p>
+        Downloading audio or video from YouTube is illegal in some countries.<br>
+        The developer is not responsible for any improper use of this software to download copyrighted content.
+      </p>
+    </div>
+
+    <script>
+      const remote = require('electron').remote;
+      function minimize() {
+        var window = remote.getCurrentWindow();
+        window.minimize();
+      }
+      function quit() {
+        var window = remote.getCurrentWindow();
+        window.close();
+      }
+    </script>
+  </body>
+</html>

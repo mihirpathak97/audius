@@ -1,0 +1,77 @@
+
+body{
+  margin: 0;
+  color: rgba(0,0,0,0.8);
+  -webkit-app-region: drag;
+  overflow: hidden;
+  background-color: #f2f2f2;
+  font-family: -apple-system,BlinkMacSystemFont,
+                "Segoe UI", Helvetica,Arial,sans-serif,
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.nav{
+  float: right;
+  top: 0;
+  margin: 1% 2% 0 0;
+  -webkit-app-region: no-drag;
+}
+
+.nav span{
+  font-size: 19px;
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+.nav .close{
+  color: #ff3333;
+}
+
+.nav .close:hover{
+  opacity: 1;
+}
+
+.nav .minimize{
+  color: #47d147;
+}
+
+.nav .minimize:hover{
+  opacity: 1;
+}
+
+.nav .max{
+  color: yellow;
+  opacity: 0.5;
+}
+
+.heading{
+  float: left;
+  top: 0;
+  margin-top: 2%;
+  margin-left: 3%;
+  overflow: hidden;
+  width: 20%;
+}
+
+.heading .headlogo{
+  width: 70%;
+}
+
+.content{
+  display: block;
+  position: absolute;
+  margin: auto;
+  margin-left: 5%;
+  text-align: center;
+  margin-top: 15%;
+}
+
+.content h1{
+  color: #ff3333;
+  text-transform: uppercase;
+}
+
+.content p{
+  width: 50%;
+  margin-left: 25%;
+}

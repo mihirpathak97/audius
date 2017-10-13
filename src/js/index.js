@@ -3,6 +3,13 @@ var w3js = document.createElement('script');
 w3js.src = 'src/js/w3.js';
 document.head.appendChild(w3js);
 
+function loadDisclaimer() {
+  const BrowserWindow = remote.BrowserWindow;
+
+  var win = new BrowserWindow({frame:false, width: 800, height: 600, resizable:false});
+  win.loadURL('file://' + __dirname + '/disclaimer.html');
+}
+
 function minimize() {
   var window = remote.getCurrentWindow();
   window.minimize();
