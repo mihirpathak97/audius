@@ -1,0 +1,24 @@
+{
+  "name": "Audius",
+  "productName": "Audius",
+  "description": "An audio downloading, recognition and metadata fixing software",
+  "license": "Apache",
+  "version": "0.3.21",
+  "main": "src/js/main.js",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "asar": "^0.13.0",
+    "electron": "^1.7.8",
+    "electron-packager": "^9.1.0",
+    "electron-winstaller": "^2.6.3"
+  },
+  "build": {
+    "asar": "false"
+  },
+  "scripts": {
+    "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --icon=assets/audius_inverted_icon.ico --prune=true --out=builds/packages --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Audius\"",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/1024x1024.png --prune=true --out=builds/packages"
+  }
+}

@@ -1,0 +1,196 @@
+/* Master CSS file for Audius */
+
+body{
+  margin: 0;
+  color: rgba(0,0,0,0.8);
+  -webkit-app-region: drag;
+  overflow: hidden;
+  background-color: #f2f2f2;
+  font-family: -apple-system,BlinkMacSystemFont,
+                "Segoe UI", Helvetica,Arial,sans-serif,
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.nav{
+  float: right;
+  top: 0;
+  margin: 1% 2% 0 0;
+  -webkit-app-region: no-drag;
+}
+
+.nav span{
+  font-size: 19px;
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+.nav .close{
+  color: #ff3333;
+}
+
+.nav .close:hover{
+  opacity: 1;
+}
+
+.nav .minimize{
+  color: #47d147;
+}
+
+.nav .minimize:hover{
+  opacity: 1;
+}
+
+.nav .max{
+  color: yellow;
+  opacity: 0.5;
+}
+
+.heading{
+  padding-top: 5%;
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+.heading h1{
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.heading .headlogo{
+  width: 40%;
+}
+
+.option{
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+
+.search{
+  display: block;
+  margin: auto;
+  margin-top: 8%;
+  width: 70%;
+  text-align: center;
+}
+
+.search input[type="text"]{
+  padding: 4%;
+  display: block;
+  margin: auto;
+  width: 80%;
+  color: #9f7be1;
+  background: transparent;
+  border: 1px solid;
+  border-color: rgba(159,123,225,0.8);
+  border-radius: 2px;
+  height: 24px;
+  font-size: 18px;
+  overflow: hidden;
+  -webkit-app-region: no-drag;
+}
+
+.search input[type="text"]:focus{
+  outline: 0;
+}
+
+.modal {
+  display: none;
+  text-align: center;
+  position: fixed;
+  z-index: 1;
+  margin: auto;
+  margin-top: 10%;
+  margin-left: 25%;
+  width: 50%;
+  overflow: auto;
+  border: 0.5px solid red;
+  background-color: white;
+  -webkit-app-region: no-drag;
+}
+
+.modal h4{
+  font-family: 'Roboto', sans-serif;
+  color: red;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.modal p{
+  font-size: 16px;
+}
+
+.modal input{
+  margin-bottom: 5%;
+}
+
+.search input[type="checkbox"]{
+  -webkit-app-region: no-drag;
+  text-align: left;
+  cursor: pointer;
+}
+
+.search input[type="button"]{
+  padding: 1%;
+  margin-top: 3%;
+  display: inline;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  background: #56439C;
+  color: #c2c2c2;
+  width: 25%;
+  -webkit-app-region: no-drag;
+}
+
+.output{
+  margin-top: 0;
+  width: 100%;
+}
+
+.output .albumart{
+  float: left;
+  margin-left: 10%;
+  height: 100px;
+  width: 100px;
+}
+
+#queue{
+  display: none;
+}
+
+.output .cont #output{
+  position: fixed;
+  margin-bottom: 1px;
+  height: 3%;
+  margin-left: 25%;
+}
+
+
+.output .cont .outer{
+  position: fixed;
+  width: 55%;
+  height: 10px;
+  float: left;
+  margin-left: 4%;
+  margin-top: 7%;
+  background: #cccccc;
+  border-radius: 5px;
+}
+
+.output .cont .outer .inner{
+  height: 10px;
+  float: left;
+  background: green;
+  border-radius: 5px;
+}
+
+#output{
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  float: left;
+  margin-left: 5%;
+  -webkit-app-region: drag;
+}

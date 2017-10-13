@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Audius</title>
+    <link rel="stylesheet" href="src/style/w3.css">
+    <link rel="stylesheet" href="src/style/master.css">
+    <link rel="stylesheet" href="src/style/font-awesome/css/font-awesome.css">
+  </head>
+  <body>
+    <div class="nav">
+      <span class="minimize" onclick="minimize()"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>&nbsp;&nbsp;
+      <!-- <span class="max"><i class="fa fa-window-maximize" aria-hidden="true"></i></span> -->
+      <span class="close" onclick="quit()"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+    </div>
+
+    <div class="heading">
+      <img src="assets/audius_big.png" class="headlogo">
+    </div>
+
+    <div class="modal">
+      <h4>Error!</h4>
+      <p></p>
+      <input type="button" onclick="hideModal()" value="OK">
+    </div>
+
+    <div class="search">
+      <input type="text" name="" value="" id="query" placeholder="Song Name/Spotify Link">
+      <br><br>
+      <input type="checkbox" value="m4a" id="m4a"> Download AAC (.m4a) instead of MPEG-3
+      <br><br>
+      <input type="button" onclick="run_search()" value="Search">
+      <br><br><br>
+    </div>
+
+    <div class="output">
+      <div class="queue" id="queue">
+        <img src="assets/notfound.png" class="albumart">
+        <div class="cont">
+          <p id="output"></p>
+          <span class="outer" id="outer"><span class="inner" id="inner"></span></span>
+        </div>
+      </div>
+    </div>
+
+    <script src="src/js/index.js" charset="utf-8"></script>
+  </body>
+</html>
