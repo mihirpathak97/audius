@@ -43,13 +43,13 @@ function run_search() {
   progress.style.width = '0%';
   const process = require('child_process');
   const path = require('path');
-  var ls = process.execFile(path.join(__dirname + '/src/core-api/win/audius.exe'), ['--download', query], ['-o', format]);
+  var ls = process.execFile(path.join(__dirname + '/src/core-api/win/audius.exe'), ['--download', query, '-o', format]);
   ls.stdout.on('data', function(data){
     if (data.indexOf('albumart:') > -1) {
       w3.removeClass('#albumart', 'spin');
       img = albumart.getElementsByTagName('img')[0];
       img.style.display = 'block';
-      img.src = data.substring(11);
+      img.src = data.toString().substring(11);
       progress.style.width = '30%';
     }
     else if(data.indexOf('Downloading') > -1) {
