@@ -30,6 +30,7 @@ function run_search() {
   w3.addClass('#albumart', 'spin');
   queue = document.getElementById('queue');
   albumart = document.getElementById('albumart');
+  albumart.getElementsByTagName('img')[0].style.display = 'none';
   document.getElementById('queue').style.display = 'block';
   progress = document.getElementById('inner');
   progress.style.width = '0%';
