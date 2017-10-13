@@ -74,5 +74,6 @@ function run_search() {
       modal.getElementsByTagName('p')[0].innerHTML = 'There was some error!';
       modal.style.display = 'block';
     }
+    document.getElementById('queue').style.display = 'none';
   })
 }

@@ -136,6 +136,10 @@ body{
 
 .modal input{
   margin-bottom: 5%;
+  border: none;
+  width: 80px;
+  border-radius: 3px;
+  background: red;
 }
 
 .search input[type="checkbox"]{
