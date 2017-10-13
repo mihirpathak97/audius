@@ -27,6 +27,7 @@ function run_search() {
     format = '.mp3';
   }
   output.innerHTML = 'Please wait, querying...';
+  w3.addClass('#albumart', 'spin');
   queue = document.getElementById('queue');
   albumart = document.getElementById('albumart');
   document.getElementById('queue').style.display = 'block';
@@ -52,6 +53,10 @@ function run_search() {
       progress.style.width = '80%';
     }
     else if(data.indexOf('Done :)') > -1) {
+      output.innerHTML = data;
+      progress.style.width = '100%';
+    }
+    else if(data.indexOf('Song already exists') > -1) {
       output.innerHTML = data;
       progress.style.width = '100%';
     }
