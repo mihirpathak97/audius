@@ -61,17 +61,16 @@ body{
   display: block;
   position: absolute;
   margin: auto;
-  margin-left: 5%;
   text-align: center;
-  margin-top: 15%;
+  margin-top: 10%;
 }
 
-.content h1{
+.content h3{
   color: #ff3333;
   text-transform: uppercase;
 }
 
 .content p{
-  width: 50%;
-  margin-left: 25%;
+  width: 60%;
+  margin: auto;
 }

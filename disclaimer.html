@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="src/style/disclaimer.css">
     <link rel="stylesheet" href="src/style/font-awesome/css/font-awesome.css">
   </head>
+  <style media="screen">
+    span{
+      color: blue;
+      cursor: pointer;
+    }
+  </style>
   <body>
 
     <div class="nav">
@@ -19,15 +25,25 @@
     </div>
 
     <div class="content">
-      <h1>Disclaimer</h1>
+      <h3>Copyright and Trademark</h3>
       <p>
-        Downloading audio or video from YouTube is illegal in some countries.<br>
+        All the images and core technology provided by this software is owned by Mihir Pathak, hereby adressed "the developer". The Audius logo in any form displayed within this software is the intellectual property of Mihir Pathak and Sri Ganesh.
+      </p>
+      <h3>Disclaimer</h3>
+      <p>
+        Downloading audio or video from YouTube is illegal in some countries.
         The developer is not responsible for any improper use of this software to download copyrighted content.
+      </p>
+      <h3>Other Opensource and Third-Party Licenses</h3>
+      <p>
+        FFmpeg (<span onclick="openExt('http://www.ffmpeg.com/legal.html')">LGPL</span>)<br>
+        Chromaprint (<span onclick="openExt('https://github.com/acoustid/chromaprint/blob/master/LICENSE.md')">MIT/LGPL</span>)
       </p>
     </div>
 
     <script>
       const remote = require('electron').remote;
+      const shell = require('electron').shell;
       function minimize() {
         var window = remote.getCurrentWindow();
         window.minimize();
@@ -35,6 +51,9 @@
       function quit() {
         var window = remote.getCurrentWindow();
         window.close();
+      }
+      function openExt(url) {
+        shell.openExternal(url);
       }
     </script>
   </body>
