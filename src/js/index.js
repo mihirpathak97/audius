@@ -45,7 +45,14 @@ function run_search() {
   const path = require('path');
   var ls = process.execFile(path.join(__dirname + '/src/core-api/win/audius.exe'), ['--download', query, '-o', format]);
   ls.stdout.on('data', function(data){
-    if (data.indexOf('albumart:') > -1) {
+    if (data.indexOf('could not be found') > -1){
+      w3.removeClass('#albumart', 'spin');
+      img = albumart.getElementsByTagName('img')[0];
+      img.style.display = 'block';
+      img.src = 'assets/notfound.png';
+      progress.style.width = '30%';
+    }
+    else if (data.indexOf('albumart:') > -1) {
       w3.removeClass('#albumart', 'spin');
       img = albumart.getElementsByTagName('img')[0];
       img.style.display = 'block';
