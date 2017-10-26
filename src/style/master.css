@@ -168,6 +168,8 @@ body{
 .output{
   margin-top: 0;
   width: 100%;
+  height: 15%;
+  margin-left: 3%;
 }
 
 .output .albumart{
@@ -178,8 +180,8 @@ body{
 }
 
 .spin{
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #56439C;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #56439C;
   border-radius: 50%;
   animation: spin 2s linear infinite;
 }
@@ -188,6 +190,7 @@ body{
   display: none;
   width: 100px;
   height: 100px;
+  border-radius: 50%;
 }
 
 @keyframes spin {
