@@ -6,7 +6,8 @@
   "version": "0.3.27",
   "main": "src/js/main.js",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "jquery": "^3.2.1"
   },
   "devDependencies": {
     "asar": "^0.13.0",

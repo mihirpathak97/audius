@@ -1,11 +1,7 @@
 const remote = require('electron').remote;
-var w3js = document.createElement('script');
-w3js.src = 'src/js/w3.js';
-document.head.appendChild(w3js);
 
 function loadDisclaimer() {
   const BrowserWindow = remote.BrowserWindow;
-
   var win = new BrowserWindow({frame:false, width: 800, height: 600, resizable:false});
   win.loadURL('file://' + __dirname + '/disclaimer.html');
 }
@@ -21,74 +17,67 @@ function quit() {
 }
 
 function hideModal() {
-  document.getElementsByClassName('modal')[0].style.display = 'none';
+  $('.modal').hide();
 }
 
 function run_search() {
-  output = document.getElementById('output');
-  query = document.getElementById('query').value;
+  query = $('#query').val();
   if(document.getElementById('m4a').checked){
     format = '.m4a';
   }
   else {
     format = '.mp3';
   }
-  output.innerHTML = 'Please wait, querying...';
-  w3.addClass('#albumart', 'spin');
-  queue = document.getElementById('queue');
-  albumart = document.getElementById('albumart');
-  albumart.getElementsByTagName('img')[0].style.display = 'none';
-  document.getElementById('queue').style.display = 'block';
-  progress = document.getElementById('inner');
-  progress.style.width = '0%';
+  $('#output').html('Please wait, querying...');
+  $('#albumart').addClass('spin');
+  $('#albumart').children('img').css('display','none');
+  $('#queue').show();
+  $('#inner').css('width', '0%');
   const process = require('child_process');
   const path = require('path');
   var ls = process.execFile(path.join(__dirname + '/src/core-api/win/audius.exe'), ['--download', query, '-o', format]);
   ls.stdout.on('data', function(data){
     if (data.indexOf('could not be found') > -1){
-      w3.removeClass('#albumart', 'spin');
-      img = albumart.getElementsByTagName('img')[0];
-      img.style.display = 'block';
-      img.src = 'assets/notfound.png';
-      progress.style.width = '30%';
+      $('#albumart').removeClass('spin');
+      $('#albumart').children('img').css('display','block');
+      $('#albumart').children('img').attr("src", "assets/notfound.png");
+      $('#inner').css('width', '30%');
     }
     else if (data.indexOf('albumart:') > -1) {
-      w3.removeClass('#albumart', 'spin');
-      img = albumart.getElementsByTagName('img')[0];
-      img.style.display = 'block';
-      img.src = data.toString().substring(11);
-      progress.style.width = '30%';
+      $('#albumart').removeClass('spin');
+      $('#albumart').children('img').css('display','block');
+      $('#albumart').children('img').attr("src", data.toString().substring(11));
+      $('#inner').css('width', '30%');
     }
     else if(data.indexOf('Downloading') > -1) {
-      output.innerHTML = 'Downloading...';
-      progress.style.width = '60%';
+      $('#output').html('Downloading...');
+      $('#inner').css('width', '60%');
     }
     else if(data.indexOf('Converting') > -1) {
-      output.innerHTML = data;
-      progress.style.width = '80%';
+      $('#output').html(data);
+      $('#inner').css('width', '80%');
     }
     else if(data.indexOf('Done :)') > -1) {
-      output.innerHTML = data;
-      progress.style.width = '100%';
+      $('#output').html(data);
+      $('#inner').css('width', '100%');
     }
     else if(data.indexOf('Song already exists') > -1) {
-      output.innerHTML = data;
-      progress.style.width = '100%';
+      $('#output').html(data);
+      $('#inner').css('width', '100%');
     }
     else {
-      output.innerHTML = data;
+      $('#output').html(data);
     }
   });
   ls.stderr.on('data', function (data) {
-    var modal = document.getElementsByClassName('modal')[0]
     if (data.indexOf('ConnectionError') > -1) {
-      modal.getElementsByTagName('p')[0].innerHTML = 'Please check your internet connection!';
-      modal.style.display = 'block';
+      $('.modal').children('p').html('Please check your internet connection!');
+      $('.modal').show();
     }
     else {
-      modal.getElementsByTagName('p')[0].innerHTML = 'There was some error!';
-      modal.style.display = 'block';
+      $('.modal').children('p').html('There was some error!');
+      $('.modal').show();
     }
-    document.getElementById('queue').style.display = 'none';
+    $('#queue').hide();
   })
 }

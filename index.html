@@ -51,7 +51,8 @@
         </div>
       </div>
     </div>
-
+    <!-- apparently electron cant use jQuery normally because 'module' is defined -->
+    <script>window.$ = window.jQuery = require('jquery');</script>
     <script src="src/js/index.js" charset="utf-8"></script>
   </body>
 </html>
