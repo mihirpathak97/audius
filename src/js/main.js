@@ -30,47 +30,10 @@ app.on('window-all-closed', function () {
 
 const template = [
    {
-      label: 'File',
-      submenu: [
-         {
-            role: 'quit'
-         }
-      ]
-   },
-
-   {
       label: 'View',
       submenu: [
          {
-            role: 'reload'
-         },
-         {
-            role: 'resetzoom'
-         },
-         {
-            role: 'zoomin'
-         },
-         {
-            role: 'zoomout'
-         },
-         {
-            role: 'togglefullscreen'
-         }
-        //  ,
-        //  {
-        //    role: 'toggledevtools'
-        //  }
-      ]
-   },
-
-   {
-      role: 'window',
-      submenu: [
-         {
-            role: 'minimize'
-         },
-         {
-            role: 'close'
+           role: 'toggledevtools'
          }
       ]
    }
