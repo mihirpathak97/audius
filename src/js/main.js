@@ -32,9 +32,9 @@ const template = [
    {
       label: 'View',
       submenu: [
-         {
-           role: 'toggledevtools'
-         }
+        //  {
+        //    role: 'toggledevtools'
+        //  }
       ]
    }
 ]
