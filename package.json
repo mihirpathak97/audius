@@ -22,6 +22,6 @@
     "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --ignore=\"builds|src/core-api/linux\" --icon=assets/audius_inverted_icon.ico --prune=true --out=builds/packages --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Audius\"",
     "package-linux": "electron-packager . Audius --overwrite --platform=linux --arch=x64 --ignore=\"builds|src/core-api/win\" --icon=assets/icon.png --prune=true --out=builds/packages",
     "make-winstaller": "node installer.js",
-    "make-debian": "electron-installer-debian --src builds/installer/linux --arch amd64 --config debian.json"
+    "make-debian": "electron-installer-debian --src builds/packages/Audius-linux-x64 --arch amd64 --config debian.json"
   }
 }
