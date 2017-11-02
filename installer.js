@@ -1,7 +1,7 @@
 var electronInstaller = require('electron-winstaller');
 resultPromise = electronInstaller.createWindowsInstaller({
     appDirectory: 'C:/Users/Mihir/Documents/Projects/Audius/builds/packages/Audius-win32-x64',
-    outputDirectory: 'C:/Users/Mihir/Documents/Projects/Audius/builds/installer',
+    outputDirectory: 'C:/Users/Mihir/Documents/Projects/Audius/builds/installer/win32',
     iconUrl: 'C:/Users/Mihir/Documents/Projects/Audius/assets/audius_inverted_icon.ico',
     setupIcon: 'C:/Users/Mihir/Documents/Projects/Audius/assets/audius_inverted_icon.ico',
     authors: 'Mihir Pathak',
