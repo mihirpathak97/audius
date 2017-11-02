@@ -1,4 +1,5 @@
 const remote = require('electron').remote;
+const platform = require('process').platform;
 
 function loadDisclaimer() {
   const BrowserWindow = remote.BrowserWindow;
@@ -35,7 +36,12 @@ function run_search() {
   $('#inner').css('width', '0%');
   const process = require('child_process');
   const path = require('path');
-  var ls = process.execFile(path.join(__dirname + '/src/core-api/win/audius.exe'), ['--download', query, '-o', format]);
+  if (platform == 'win32') {
+    var ls = process.execFile(path.join(__dirname + '/src/core-api/win/audius.exe'), ['--download', query, '-o', format]);
+  }
+  else if (platform == 'linux') {
+    var ls = process.execFile(path.join(__dirname + '/src/core-api/linux/audius'), ['--download', query, '-o', format]);
+  }
   ls.stdout.on('data', function(data){
     if (data.indexOf('could not be found') > -1){
       $('#albumart').removeClass('spin');
@@ -46,7 +52,12 @@ function run_search() {
     else if (data.indexOf('albumart:') > -1) {
       $('#albumart').removeClass('spin');
       $('#albumart').children('img').css('display','block');
-      $('#albumart').children('img').attr("src", data.toString().substring(11));
+      if (platform == 'win32') {
+        $('#albumart').children('img').attr("src", data.toString().substring(11));
+      }
+      else {
+        $('#albumart').children('img').attr("src", data.toString().substring(10));
+      }
       $('#inner').css('width', '30%');
     }
     else if(data.indexOf('Downloading') > -1) {
