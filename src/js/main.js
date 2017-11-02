@@ -2,18 +2,23 @@ const {app, BrowserWindow, Menu, MenuItem} = require('electron')
 const path = require('path')
 const url = require('url')
 const {ipcMain} = require('electron')
+const platform = require('process').platform;
 
 if (require('electron-squirrel-startup')) return;
 
 let win
 
 function createWindow () {
-  win = new BrowserWindow({frame:false, width: 900, height: 700, resizable:false})
+  if (platform == 'linux') {
+    win = new BrowserWindow({frame:false, width: 900, height: 700, resizable:false, icon: path.join(__dirname, '../../assets/icon.png')})
+  }
+  else {
+    win = new BrowserWindow({frame:false, width: 900, height: 700, resizable:false, icon: path.join(__dirname, '../../assets/audius_inverted_icon.ico')})
+  }
   win.loadURL(url.format({
     pathname: path.join(__dirname, '../../index.html'),
     protocol: 'file:',
-    slashes: true,
-    icon: path.join(__dirname, 'assets/audius_inverted_icon.ico')
+    slashes: true
   }))
 
   win.on('closed', () => {

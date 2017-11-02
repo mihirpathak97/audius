@@ -1,0 +1,13 @@
+{
+  "dest": "builds/installer/linux/",
+  "icon": "assets/icon.png",
+	"maintainer": "Mihir Pathak <mihirpathak97@gmail.com>",
+	"name": "Audius",
+  "categories": [
+    "Utility",
+		"Audio"
+  ],
+  "lintianOverrides": [
+    "changelog-file-missing-in-native-package"
+  ]
+}
