@@ -29,6 +29,8 @@ function run_search() {
   else {
     format = '.mp3';
   }
+  $('#searchbutton').prop('disabled', true);
+  $('#searchbutton').css('opacity', '0.4');
   $('#output').html('Please wait, querying...');
   $('#albumart').addClass('spin');
   $('#albumart').children('img').css('display','none');
@@ -71,10 +73,14 @@ function run_search() {
     else if(data.indexOf('Done :)') > -1) {
       $('#output').html(data);
       $('#inner').css('width', '100%');
+      $('#searchbutton').prop('disabled', false);
+      $('#searchbutton').css('opacity', '1.0');
     }
     else if(data.indexOf('Song already exists') > -1) {
       $('#output').html(data);
       $('#inner').css('width', '100%');
+      $('#searchbutton').prop('disabled', false);
+      $('#searchbutton').css('opacity', '1.0');
     }
     else {
       $('#output').html(data);
