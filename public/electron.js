@@ -4,9 +4,7 @@ const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
 const url = require('url');
-
-// set global var to check dev environment
-const isDev = process.env.NODE_ENV == 'development'? true : false;
+const isDev = require('electron-is-dev');
 
 let mainWindow;
 
@@ -19,7 +17,7 @@ function createWindow() {
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
-  // Don't quit app on MacOS 
+  // Don't quit app on MacOS
   if (process.platform !== 'darwin') {
     app.quit();
   }
