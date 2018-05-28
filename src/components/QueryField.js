@@ -25,12 +25,12 @@ const styles = theme => ({
 
 class QueryField extends React.Component {
   state = {
-    name: '',
+    query: '',
   };
 
   handleChange = name => event => {
     this.setState({
-      name: event.target.value,
+      query: event.target.value,
     });
   };
 
@@ -43,8 +43,8 @@ class QueryField extends React.Component {
           id="query"
           label="Enter Song Name, Spotify or YouTube Link"
           className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange('name')}
+          value={this.state.query}
+          onChange={this.handleChange('query')}
           margin="normal"
         />
         <Button color="primary" variant="raised" className={classes.button}>
