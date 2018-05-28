@@ -5,6 +5,8 @@ import {
 } from 'react-router-dom';
 
 import Home from './views/Home';
+import About from './views/About';
+import Settings from './views/Settings';
 
 import './App.css';
 
@@ -12,7 +14,9 @@ class App extends Component {
 
   static Views() {
     return {
-      Home: <Home />
+      Home: <Home />,
+      About: <About />,
+      Settings: <Settings />
     }
   }
 
