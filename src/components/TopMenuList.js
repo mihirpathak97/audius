@@ -10,6 +10,7 @@ const { BrowserWindow } = window.require('electron').remote;
 const path = require('path');
 
 console.log('hello');
+console.log(__dirname);
 
 class TopMenuList extends React.Component {
   state = {
@@ -25,11 +26,15 @@ class TopMenuList extends React.Component {
   };
 
   handleSettings = () => {
-    // TODO: window open logic
+    const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
+    aboutWindow.setResizable(false);
+    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Settings' : `file://${path.join(__dirname, '../build/index.html?Settings')}`);
   };
 
   handleAbout = () => {
-    // TODO: window open logic
+    const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
+    aboutWindow.setResizable(false);
+    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?About' : `file://${path.join(__dirname, '../build/index.html?About')}`);
   };
 
   handleMinimize = () => {
