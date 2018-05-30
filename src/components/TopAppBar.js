@@ -8,10 +8,11 @@ import {
   Typography
 } from '@material-ui/core';
 import TopMenuList from './TopMenuList';
+import WindowHandlers from './WindowHandlers';
 
 const styles = {
   root: {
-    flexGrow: 1
+    width: '100%'
   },
   flex: {
     marginLeft: 30
@@ -32,6 +33,7 @@ function TopAppBar(props) {
           <Typography variant="title" color="inherit" className={classes.flex}>
             Audius
           </Typography>
+          <WindowHandlers />
         </Toolbar>
       </AppBar>
     </div>
