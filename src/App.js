@@ -7,6 +7,7 @@ import {
 import Home from './views/Home';
 import About from './views/About';
 import Settings from './views/Settings';
+import Query from './views/Query';
 
 import './App.css';
 
@@ -16,12 +17,13 @@ class App extends Component {
     return {
       Home: <Home />,
       About: <About />,
-      Settings: <Settings />
+      Settings: <Settings />,
+      Query: <Query />
     }
   }
 
   static View(props) {
-    let name = props.location.search.substr(1);
+    let name = props.location.search.substr(1).split('&')[0];
     let view = App.Views()[name];
     if(view == null)
       throw new Error("View '" + name + "' is undefined");

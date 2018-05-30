@@ -7,6 +7,9 @@ import {
   Button
 } from '@material-ui/core';
 
+const { BrowserWindow } = window.require('electron').remote;
+const path = require('path');
+
 const styles = theme => ({
   container: {
     marginTop: 150
@@ -24,6 +27,8 @@ const styles = theme => ({
 });
 
 class QueryField extends React.Component {
+
+
   state = {
     query: '',
   };
@@ -33,6 +38,11 @@ class QueryField extends React.Component {
       query: event.target.value,
     });
   };
+
+  handleSearch = () => {
+    console.log(this.state.query);
+    BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Query&val=' + this.state.query : `file://${path.join(__dirname, '../build/index.html?Query&val=' + this.state.query)}`);
+  }
 
   render() {
     const { classes } = this.props;
@@ -47,7 +57,7 @@ class QueryField extends React.Component {
           onChange={this.handleChange('query')}
           margin="normal"
         />
-        <Button color="primary" variant="raised" className={classes.button}>
+        <Button color="primary" variant="raised" onClick={this.handleSearch} className={classes.button}>
           Search
         </Button>
       </form>
