@@ -8,6 +8,8 @@ import Home from './views/Home';
 import About from './views/About';
 import Settings from './views/Settings';
 
+import TopAppBar from './components/TopAppBar';
+
 import './App.css';
 
 class App extends Component {
@@ -32,6 +34,7 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <TopAppBar />
           <Route path='/' component={App.View}/>
         </div>
       </Router>
