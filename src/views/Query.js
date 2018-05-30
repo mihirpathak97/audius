@@ -7,6 +7,7 @@ class Query extends Component {
     return (
       <div className="App">
         <TopAppBar title="Search" showMenu={false} />
+        <TopAppBar title="Search" showMenu={false} showBackIcon={true} />
       </div>
     );
   }

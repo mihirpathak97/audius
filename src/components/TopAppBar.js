@@ -32,6 +32,9 @@ function TopAppBar(props) {
           { /* MenuBar Icon */ }
           { props.showMenu ? <TopMenuList /> : null }
 
+          { /* Back Icon for query */ }
+          { props.showBackIcon ? <h6>Go Back</h6> : null }
+
           { /* Title in app bar */ }
           <Typography variant="title" color="inherit" className={classes.flex}>{ props.title }</Typography>
 
