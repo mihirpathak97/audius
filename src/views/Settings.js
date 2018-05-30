@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
+import TopAppBar from '../components/TopAppBar';
+
 class Home extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Settings</h1>
+        <TopAppBar title="Settings" showMenu={false} />
       </div>
     );
   }
