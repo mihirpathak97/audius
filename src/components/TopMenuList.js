@@ -9,9 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 const { BrowserWindow } = window.require('electron').remote;
 const path = require('path');
 
-console.log('hello');
-console.log(__dirname);
-
 class TopMenuList extends React.Component {
   state = {
     anchorEl: null,
@@ -37,14 +34,6 @@ class TopMenuList extends React.Component {
     aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?About' : `file://${path.join(__dirname, '../build/index.html?About')}`);
   };
 
-  handleMinimize = () => {
-    BrowserWindow.getFocusedWindow().minimize();
-  };
-
-  handleQuit = () => {
-    BrowserWindow.getFocusedWindow().close();
-  };
-
   render() {
     const { anchorEl } = this.state;
 
@@ -64,8 +53,6 @@ class TopMenuList extends React.Component {
           onClose={this.handleClose}>
           <MenuItem onClick={this.handleAbout}>About</MenuItem>
           <MenuItem onClick={this.handleSettings}>Settings</MenuItem>
-          <MenuItem onClick={this.handleMinimize}>Minimize</MenuItem>
-          <MenuItem onClick={this.handleQuit}>Quit</MenuItem>
         </Menu>
       </div>
     );
