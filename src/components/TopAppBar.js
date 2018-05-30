@@ -29,10 +29,13 @@ function TopAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Toolbar>
-          <TopMenuList />
-          <Typography variant="title" color="inherit" className={classes.flex}>
-            {props.title}
-          </Typography>
+          { /* MenuBar Icon */ }
+          { props.showMenu ? <TopMenuList /> : null }
+
+          { /* Title in app bar */ }
+          <Typography variant="title" color="inherit" className={classes.flex}>{ props.title }</Typography>
+
+          { /* Window Minimise and Quit */ }
           <WindowHandlers />
         </Toolbar>
       </AppBar>
