@@ -34,7 +34,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <TopAppBar />
+          {
+            // TODO: Set up dynamic title
+          }
+          <TopAppBar title="Audius" showMenu={true} />
           <Route path='/' component={App.View}/>
         </div>
       </Router>

@@ -31,7 +31,7 @@ function TopAppBar(props) {
         <Toolbar>
           <TopMenuList />
           <Typography variant="title" color="inherit" className={classes.flex}>
-            Audius
+            {props.title}
           </Typography>
           <WindowHandlers />
         </Toolbar>
