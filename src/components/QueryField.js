@@ -7,7 +7,7 @@ import {
   Button
 } from '@material-ui/core';
 
-const { BrowserWindow } = window.require('electron').remote;
+const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');
 
 const styles = theme => ({
@@ -41,7 +41,7 @@ class QueryField extends React.Component {
 
   handleSearch = () => {
     console.log(this.state.query);
-    BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Query&val=' + this.state.query : `file://${path.join(__dirname, '../build/index.html?Query&val=' + this.state.query)}`);
+    BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Query&val=' + this.state.query : `file://${path.join(app.getAppPath(), '../build/index.html?Query&val=' + this.state.query)}`);
   }
 
   render() {

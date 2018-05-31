@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
-const { BrowserWindow } = window.require('electron').remote;
+const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');
 
 class TopMenuList extends React.Component {
@@ -25,13 +25,13 @@ class TopMenuList extends React.Component {
   handleSettings = () => {
     const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
     aboutWindow.setResizable(false);
-    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Settings' : `file://${path.join(__dirname, '../build/index.html?Settings')}`);
+    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Settings' : `file://${path.join(app.getAppPath(), 'build/index.html?Settings')}`);
   };
 
   handleAbout = () => {
     const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
     aboutWindow.setResizable(false);
-    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?About' : `file://${path.join(__dirname, '../build/index.html?About')}`);
+    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?About' : `file://${path.join(app.getAppPath(), 'build/index.html?About')}`);
   };
 
   render() {
