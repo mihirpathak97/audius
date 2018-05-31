@@ -10,10 +10,30 @@ class Query extends Component {
     query: ''
   }
 
+  // Empty Array to hold search results as react child elements
+  searchResultsArray = []
+
   componentWillMount() {
     this.setState({
       query: this.props.location.search.split('&')[1].substr(4)
     })
+  }
+
+  componentDidMount() {
+    // Run YouTube search
+    var search = require('youtube-search');
+    var { YouTube } = require('../modules/YouTube');
+
+    search(this.state.query, YouTube.search, function(err, results) {
+      if(err) return console.log(err);
+
+      let container = document.getElementById('container');
+      let childern = '';
+      for (let video of results) {
+        childern += '<p>' + video.title + '</p>';
+      }
+      container.innerHTML = childern;
+    });
   }
 
   render() {
@@ -21,6 +41,10 @@ class Query extends Component {
       <div className="App">
         <TopAppBar title="Search" showMenu={false} showBackIcon={true} />
         <h1>You searched for "{this.state.query}"</h1>
+
+        <div id="container">
+        </div>
+
       </div>
     );
   }
