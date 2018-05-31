@@ -37,6 +37,13 @@ function VideoContainer(props) {
   const { classes } = props;
   const bull = <span className={classes.bullet}>•</span>;
 
+  let playAudio = () => {
+    const { BrowserWindow } = window.require('electron').remote;
+    const aboutWindow = new BrowserWindow({width: 300, height: 60, frame: false});
+    aboutWindow.setResizable(false);
+    aboutWindow.loadURL('http://localhost:6969/' + props.link.split('?v=')[1]);
+  }
+
   return (
     <div>
       <Card className={classes.card}>
@@ -50,6 +57,7 @@ function VideoContainer(props) {
         </CardContent>
         <CardActions className={classes.action}>
         <FontAwesomeIcon
+          onClick={playAudio}
           icon={faPlay}
           style={{cursor: 'pointer', paddingLeft: 10, color: 'hsl(348, 100%, 61%)'}}/>
         <FontAwesomeIcon
