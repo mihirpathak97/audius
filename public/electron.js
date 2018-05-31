@@ -2,7 +2,7 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
-const yas = require('youtube-audio-server')
+const YTCore = require('../src/modules/YTCore.js');
 
 const path = require('path');
 const url = require('url');
@@ -24,7 +24,7 @@ app.on('ready', () => {
   // First create BrowserWindow
   createWindow()
   // Then start audio stream listener
-  yas.listen(6969, () => {
+  YTCore.listen(6969, () => {
     console.log(`Listening on port http://localhost:6969`)
   })
 
