@@ -1,6 +1,13 @@
 {
   "name": "audius",
+  "productName": "Audius",
   "version": "0.1.0",
+  "description": "A cross-platform app for downloading songs from YouTube and Spotify",
+  "author": {
+    "name": "Mihir Pathak",
+    "email": "mihirpathak97@gmail.com",
+    "url": "https://github.com/mihirpathak97"
+  },
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
