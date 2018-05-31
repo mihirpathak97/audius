@@ -25,13 +25,13 @@ class TopMenuList extends React.Component {
   handleSettings = () => {
     const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
     aboutWindow.setResizable(false);
-    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Settings' : `file://${path.join(app.getAppPath(), 'build/index.html?Settings')}`);
+    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Settings' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Settings')}`);
   };
 
   handleAbout = () => {
     const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
     aboutWindow.setResizable(false);
-    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?About' : `file://${path.join(app.getAppPath(), 'build/index.html?About')}`);
+    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?About' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?About')}`);
   };
 
   render() {
