@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import TopAppBar from '../components/TopAppBar';
 import QueryField from '../components/QueryField';
 
 import { withRouter } from 'react-router-dom';
+
+import VideoContainer from '../components/VideoContainer';
 
 class Query extends Component {
 
@@ -27,12 +30,19 @@ class Query extends Component {
     search(this.state.query, YouTube.search, function(err, results) {
       if(err) return console.log(err);
 
-      let container = document.getElementById('container');
-      let childern = '';
-      for (let video of results) {
-        childern += '<p>' + video.title + '</p>';
-      }
-      container.innerHTML = childern;
+      // let container = document.getElementById('container');
+      // let childern = '';
+
+      const queryResults = results.map((item) =>
+        <VideoContainer
+          title={item.title}
+          link={item.link}  />
+      );
+
+      ReactDOM.render(
+        <div>{queryResults}</div>,
+        document.getElementById('container')
+      );
     });
   }
 
