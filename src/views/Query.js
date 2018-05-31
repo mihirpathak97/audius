@@ -50,8 +50,7 @@ class Query extends Component {
     return (
       <div className="App">
         <TopAppBar title="Search" showMenu={false} showBackIcon={true} />
-        <h1>You searched for "{this.state.query}"</h1>
-
+        <h1 style={{paddingTop: 50, paddingBottom: 30}}>You searched for "{decodeURI(this.state.query)}"</h1>
         <div id="container">
         </div>
 
