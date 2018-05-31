@@ -11,7 +11,7 @@ let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({width: 900, height: 680, frame: false});
   mainWindow.setResizable(false);
-  mainWindow.loadURL(isDev ? 'http://localhost:3000?Home' : `file://${path.join(__dirname, '../build/index.html?Home')}`);
+  mainWindow.loadURL(isDev ? 'http://localhost:3000?Home' : `file://${path.join(__dirname, '../react-compiled/index.html?Home')}`);
   mainWindow.on('closed', () => mainWindow = null);
 }
 
