@@ -59,6 +59,7 @@
     "webpack-dev-server": "2.9.4",
     "webpack-manifest-plugin": "1.3.2",
     "whatwg-fetch": "2.0.3",
+    "youtube-audio-server": "2.1.4",
     "youtube-search": "^1.1.1"
   },
   "scripts": {
