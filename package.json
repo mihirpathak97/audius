@@ -73,6 +73,7 @@
   },
   "build": {
     "appId": "in.mihirpathak.audius",
+    "artifactName": "${productName}-${platform}-${arch}-${version}.${ext}",
       "files": [
         "build/**/*",
         "react-compiled/**/*",
