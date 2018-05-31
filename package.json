@@ -74,16 +74,16 @@
   "build": {
     "appId": "in.mihirpathak.audius",
     "artifactName": "${productName}-${platform}-${arch}-${version}.${ext}",
-      "files": [
-        "build/**/*",
-        "react-compiled/**/*",
-        "node_modules/**/*",
-        "public/electron.js",
-        "package.json"
-      ],
-      "directories":{
-        "buildResources": "assets"
-      },
+    "files": [
+      "build/**/*",
+      "react-compiled/**/*",
+      "node_modules/**/*",
+      "public/electron.js",
+      "package.json"
+    ],
+    "directories":{
+      "buildResources": "assets"
+    },
     "dmg": {
       "contents": [
         {

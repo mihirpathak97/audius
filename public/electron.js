@@ -2,9 +2,13 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
+const yas = require('youtube-audio-server')
+
 const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
+
+process.env.FFMPEG_PATH = path.join(__dirname, '../ffmpeg/ffmpeg.exe');
 
 let mainWindow;
 
@@ -15,7 +19,16 @@ function createWindow() {
   mainWindow.on('closed', () => mainWindow = null);
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+
+  // First create BrowserWindow
+  createWindow()
+  // Then start audio stream listener
+  yas.listen(6969, () => {
+    console.log(`Listening on port http://localhost:6969`)
+  })
+
+});
 
 app.on('window-all-closed', () => {
   // Don't quit app on MacOS
