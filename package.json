@@ -75,6 +75,7 @@
     "appId": "in.mihirpathak.audius",
       "files": [
         "build/**/*",
+        "react-compiled/**/*",
         "node_modules/**/*",
         "public/electron.js",
         "package.json"
