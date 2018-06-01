@@ -11,10 +11,12 @@ if (!xhr.open) xhr = require('request')
 module.exports = function search(query, callback) {
 
   var apiParams = {
+    part: 'snippet',
+    maxResults: 25,
     q: query,
     key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE',
-    maxResults: 10,
-    part: 'snippet'
+    type: 'video',
+    topicId: '/m/04rlf'
   }
 
   xhr({
