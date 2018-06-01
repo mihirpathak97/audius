@@ -25,7 +25,7 @@ class Query extends Component {
   componentDidMount() {
     var search = require('../modules/YTSearch');
 
-    search(this.state.query, function (err, results) {
+    search(decodeURI(this.state.query), function (err, results) {
       if (err) {
         return console.log(err);
       }
