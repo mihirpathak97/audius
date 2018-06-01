@@ -23,30 +23,25 @@ class Query extends Component {
   }
 
   componentDidMount() {
+    var search = require('../modules/YTSearch');
 
-    // Run YouTube search
-    // var search = require('youtube-search');
-    // var { YouTube } = require('../modules/YouTube');
-    //
-    // search(this.state.query, YouTube.search, function(err, results) {
-    //   if(err) return console.log(err);
-    //
-    //   // let container = document.getElementById('container');
-    //   // let childern = '';
-    //
-    //   console.log(results);
-    //
-    //   const queryResults = results.map((item) =>
-    //     <VideoContainer
-    //       title={item.title}
-    //       link={item.link}  />
-    //   );
-    //
-    //   ReactDOM.render(
-    //     <div>{queryResults}</div>,
-    //     document.getElementById('container')
-    //   );
-    //  });
+    search(this.state.query, function (err, results) {
+      if (err) {
+        return console.log(err);
+      }
+
+      const queryResults = results.map((item) =>
+        <VideoContainer
+          title={item.title}
+          link={item.link}  />
+      );
+
+      ReactDOM.render(
+        <div>{queryResults}</div>,
+        document.getElementById('container')
+      );
+
+    })
   }
 
   render() {
