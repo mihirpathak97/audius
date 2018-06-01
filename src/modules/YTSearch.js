@@ -26,6 +26,22 @@ module.exports = function search(query, callback) {
     }
     try {
       var result = JSON.parse(body)
+
+      // crunch the results into a meaningfull JSON object
+      result = result.items.map(function (item) {
+        return {
+          id: item.id.videoId,
+          link: 'https://www.youtube.com/watch?v=' + item.id.videoId,
+          kind: item.id.kind,
+          publishedAt: item.snippet.publishedAt,
+          channelId: item.snippet.channelId,
+          channelTitle: item.snippet.channelTitle,
+          title: item.snippet.title,
+          description: item.snippet.description,
+          thumbnails: item.snippet.thumbnails
+        }
+      })
+
       return callback(null, result)
     } catch (error) {
       return callback(error)
