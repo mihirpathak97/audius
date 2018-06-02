@@ -5,7 +5,7 @@ import QueryField from '../components/QueryField';
 
 import { withRouter } from 'react-router-dom';
 
-import VideoContainer from '../components/VideoContainer';
+import TrackContainer from '../components/TrackContainer';
 
 class Query extends Component {
 
@@ -23,24 +23,20 @@ class Query extends Component {
   }
 
   componentDidMount() {
-    var search = require('../modules/YTSearch');
 
-    search(decodeURI(this.state.query), function (err, results) {
+    var Spotify = require('../modules/SpotifyWebApi');
+
+    Spotify.searchTrack(decodeURI(this.state.query), function (err, result) {
       if (err) {
-        return console.log(err);
+        console.log(err);
       }
-
-      const queryResults = results.map((item) =>
-        <VideoContainer
-          title={item.title}
-          link={item.link}  />
-      );
-
       ReactDOM.render(
-        <div>{queryResults}</div>,
-        document.getElementById('container')
-      );
-
+       <TrackContainer
+        title={result.title}
+        artist={result.trackArtist}
+        albumArt={result.albumArt}/>,
+       document.getElementById('container')
+     );
     })
   }
 
@@ -48,10 +44,10 @@ class Query extends Component {
     return (
       <div className="App">
         <TopAppBar title="Search" showMenu={false} showBackIcon={true} />
-        <h1 style={{paddingTop: 50, paddingBottom: 30}}>You searched for "{decodeURI(this.state.query)}"</h1>
+        { /*<h1 style={{paddingTop: 50, paddingBottom: 30}}>You searched for "{decodeURI(this.state.query)}"</h1> */ }
         <div id="container">
-        </div>
 
+        </div>
       </div>
     );
   }
