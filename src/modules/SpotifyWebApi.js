@@ -6,12 +6,14 @@
 var xhr = require('xhr');
 if (!xhr.open) xhr = require('request');
 var base64 = require('base-64');
+var querystring = require('querystring');
 
 // client Id and Secret for 'Audius' from https://developer.spotify.com
 const clientId = '6c67544dbe4a4d15a6b80eec0a5c0063';
 const clientSecret = '710ba1ba3e324dc190b66eae8d7c613e';
 
-var accessToken = '';
+// Spotify API endpoint URL
+const endpointURL = 'https://api.spotify.com/v1/';
 
 let getAccessToken = () => {
   xhr({
@@ -35,6 +37,31 @@ let getAccessToken = () => {
   })
 }
 
+let searchTrack = (query, callback) => {
+
+  const Store = window.require('electron-store');
+  const store = new Store();
+
+  var params = {
+    q: query,
+    type: 'track',
+  }
+
+  xhr({
+    url: endpointURL + 'search?' + querystring.stringify(params),
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + store.get('spotifyAccessToken')
+    }
+  }, function (err, resp, body) {
+    if (err) {
+      return callback(err);
+    }
+    return callback(null, body);
+  })
+}
+
 module.exports = {
-  getAccessToken
+  getAccessToken,
+  searchTrack
 }
