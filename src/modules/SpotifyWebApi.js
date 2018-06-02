@@ -29,18 +29,16 @@ let getAccessToken = () => {
       return console.log(err);
     }
 
-    const Store = require('electron-store');
-    const store = new Store();
+    const settings = require('electron-settings');
 
     // Store access_token in a persintant user data file
-    store.set('spotifyAccessToken', JSON.parse(body).access_token);
+    settings.set('spotifyAccessToken', JSON.parse(body).access_token);
   })
 }
 
 let searchTrack = (query, callback) => {
 
-  const Store = window.require('electron-store');
-  const store = new Store();
+  const settings = window.require('electron-settings');
 
   var params = {
     q: query,
@@ -51,7 +49,7 @@ let searchTrack = (query, callback) => {
     url: endpointURL + 'search?' + querystring.stringify(params),
     method: 'GET',
     headers: {
-      'Authorization': 'Bearer ' + store.get('spotifyAccessToken')
+      'Authorization': 'Bearer ' + settings.get('spotifyAccessToken')
     }
   }, function (err, resp, body) {
     if (err) {
