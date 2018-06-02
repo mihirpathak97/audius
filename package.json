@@ -31,7 +31,7 @@
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "electron-is-dev": "^0.3.0",
-    "electron-store": "^2.0.0",
+    "electron-settings": "^3.2.0",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
