@@ -57,7 +57,23 @@ let searchTrack = (query, callback) => {
     if (err) {
       return callback(err);
     }
-    return callback(null, body);
+    // Take the first result
+    var track = JSON.parse(body).tracks.items[0];
+
+    // Clean it up
+    track = {
+      title: track.name,
+      trackArtist: track.artists[0].name,
+      albumArtist: track.album.artists[0].name,
+      album: track.album.name,
+      albumArt: track.album.images[1].url,
+      spotifyUrl: track.external_urls.spotify,
+      spotifyId: track.id,
+      SpotifyUri: track.uri,
+
+    }
+    // Then return it
+    return callback(null, track);
   })
 }
 
