@@ -9,7 +9,7 @@ const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
 
-process.env.FFMPEG_PATH = path.join(__dirname, '../ffmpeg/ffmpeg.exe');
+process.env.FFMPEG_PATH = isDev ?  path.join(__dirname, '../ffmpeg/ffmpeg.exe') : path.join(__dirname, '../../ffmpeg/ffmpeg.exe');
 
 let mainWindow;
 
