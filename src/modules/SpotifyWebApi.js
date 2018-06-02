@@ -26,8 +26,12 @@ let getAccessToken = () => {
     if (err) {
       return console.log(err);
     }
-    // set accessToken
-    accessToken = JSON.parse(body).access_token;
+
+    const Store = require('electron-store');
+    const store = new Store();
+
+    // Store access_token in a persintant user data file
+    store.set('spotifyAccessToken', JSON.parse(body).access_token);
   })
 }
 
