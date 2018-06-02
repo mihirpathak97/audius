@@ -25,18 +25,30 @@ class Query extends Component {
   componentDidMount() {
 
     var Spotify = require('../modules/SpotifyWebApi');
+    var YTSearch = require('../modules/YTSearch');
 
     Spotify.searchTrack(decodeURI(this.state.query), function (err, result) {
       if (err) {
         console.log(err);
       }
-      ReactDOM.render(
-       <TrackContainer
-        title={result.title}
-        artist={result.trackArtist}
-        albumArt={result.albumArt}/>,
-       document.getElementById('container')
-     );
+
+      // Run YouTube search
+      YTSearch(result.title, function (error, resp) {
+        if (error) {
+          console.log(error);
+        }
+
+        // Render TrackContainer
+        ReactDOM.render(
+         <TrackContainer
+          title={result.title}
+          artist={result.trackArtist}
+          albumArt={result.albumArt}
+          youtubeLink={resp[0].link}/>,
+         document.getElementById('container')
+       );
+
+      })
     })
   }
 
