@@ -89,6 +89,7 @@
       "build/**/*",
       "react-compiled/**/*",
       "node_modules/**/*",
+      "src/**/*",
       "public/electron.js",
       "package.json"
     ],

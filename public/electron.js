@@ -2,8 +2,8 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
-const YTCore = require('../src/modules/YTCore.js');
-const Spotify = require('../src/modules/SpotifyWebApi.js');
+const YTCore = require('../src/modules/YTCore');
+const Spotify = require('../src/modules/SpotifyWebApi');
 
 const path = require('path');
 const url = require('url');
