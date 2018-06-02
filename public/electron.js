@@ -3,6 +3,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 const YTCore = require('../src/modules/YTCore.js');
+const Spotify = require('../src/modules/SpotifyWebApi.js');
 
 const path = require('path');
 const url = require('url');
@@ -27,7 +28,8 @@ app.on('ready', () => {
   YTCore.listen(6969, () => {
     console.log(`Listening on port http://localhost:6969`)
   })
-
+  // Then get Spotify access token
+  Spotify.getAccessToken()
 });
 
 app.on('window-all-closed', () => {

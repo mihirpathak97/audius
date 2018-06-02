@@ -11,6 +11,8 @@ var base64 = require('base-64');
 const clientId = '6c67544dbe4a4d15a6b80eec0a5c0063';
 const clientSecret = '710ba1ba3e324dc190b66eae8d7c613e';
 
+var accessToken = '';
+
 let getAccessToken = () => {
   xhr({
     url: 'https://accounts.spotify.com/api/token',
@@ -24,8 +26,8 @@ let getAccessToken = () => {
     if (err) {
       return console.log(err);
     }
-    // return access_token
-    return JSON.parse(body).access_token;
+    // set accessToken
+    accessToken = JSON.parse(body).access_token;
   })
 }
 
