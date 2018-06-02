@@ -92,6 +92,7 @@
       "public/electron.js",
       "package.json"
     ],
+    "extraResources": "ffmpeg",
     "directories": {
       "buildResources": "assets"
     },
