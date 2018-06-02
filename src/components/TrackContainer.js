@@ -47,9 +47,9 @@ function TrackContainer(props) {
 
   let playAudio = () => {
     const { BrowserWindow } = window.require('electron').remote;
-    const aboutWindow = new BrowserWindow({width: 300, height: 60, frame: false});
+    const aboutWindow = new BrowserWindow({width: 400, height: 200});
     aboutWindow.setResizable(false);
-    aboutWindow.loadURL('http://localhost:6969/' + props.link.split('?v=')[1]);
+    aboutWindow.loadURL('http://localhost:6969/' + props.youtubeLink.split('?v=')[1]);
   }
 
   return (
@@ -63,7 +63,7 @@ function TrackContainer(props) {
           <Typography className={classes.title}>{props.title} by {props.artist}</Typography>
         </CardContent>
         <CardActions className={classes.action}>
-          <Button variant="raised" color="secondary">
+          <Button variant="raised" color="secondary" onClick={playAudio}>
             Play
           </Button>
           <Button variant="raised" color="secondary">
