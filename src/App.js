@@ -7,6 +7,7 @@ import {
 import Home from './views/Home';
 import About from './views/About';
 import Settings from './views/Settings';
+import Terms from './views/Terms';
 import Query from './views/Query';
 
 import './App.css';
@@ -18,6 +19,7 @@ class App extends Component {
       Home: <Home />,
       About: <About />,
       Settings: <Settings />,
+      Terms: <Terms />,
       Query: <Query />
     }
   }

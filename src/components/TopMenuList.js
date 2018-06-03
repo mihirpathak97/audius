@@ -34,6 +34,12 @@ class TopMenuList extends React.Component {
     aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?About' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?About')}`);
   };
 
+  handleTerms = () => {
+    const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
+    aboutWindow.setResizable(false);
+    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Terms' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Terms')}`);
+  }
+
   render() {
     const { anchorEl } = this.state;
 
@@ -53,6 +59,7 @@ class TopMenuList extends React.Component {
           onClose={this.handleClose}>
           <MenuItem onClick={this.handleAbout}>About</MenuItem>
           <MenuItem onClick={this.handleSettings}>Settings</MenuItem>
+          <MenuItem onClick={this.handleTerms}>Terms of Use</MenuItem>
         </Menu>
       </div>
     );
