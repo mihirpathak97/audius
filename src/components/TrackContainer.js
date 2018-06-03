@@ -53,27 +53,23 @@ const styles = {
 function TrackContainer(props) {
   const { classes } = props;
 
-  var state = {
-    snackbarOpen: false
-  }
-
-  let handleSnackbarOpen = () => {
-    state.snackbarOpen = true;
-  };
-
-  let handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    state.snackbarOpen = false;
-  };
-
   let playAudio = () => {
     const { BrowserWindow } = window.require('electron').remote;
     const aboutWindow = new BrowserWindow({width: 400, height: 200});
     aboutWindow.setResizable(false);
     aboutWindow.loadURL('http://localhost:6969/' + props.youtubeLink.split('?v=')[1]);
+  }
+
+  let downloadAudio = () => {
+    var YTCore = require('../modules/YTDownload');
+    YTCore.downloadMp3(props.youtubeLink, 'audio', function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      if (result) {
+        console.log(result);
+      }
+    })
   }
 
   return (
@@ -90,32 +86,11 @@ function TrackContainer(props) {
           <Button variant="raised" color="secondary" onClick={playAudio}>
             Play
           </Button>
-          <Button variant="raised" color="secondary" onClick={handleSnackbarOpen}>
+          <Button variant="raised" color="secondary" onClick={downloadAudio}>
             Download
           </Button>
         </CardActions>
       </Card>
-
-      { /* Snackbar */ }
-      <Snackbar
-        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-        open={state.snackbarOpen}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-        ContentProps={{'aria-describedby': 'message-id',}}
-        message={<span id="message-id">Note archived</span>}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            className={classes.closeButton}
-            onClick={handleSnackbarClose}>
-              <CloseIcon />
-            </IconButton>
-          ]}
-        />
-
     </div>
   );
 }
