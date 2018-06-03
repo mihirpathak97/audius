@@ -32,12 +32,18 @@ function downloadMp3(youtubeUrl, fileName, callback) {
       console.log(httpResponse);
 
       var str = progress({
-        length: parseInt(httpResponse.headers["content-length"])
+        length: parseInt(httpResponse.headers["content-length"]),
+        time: 500
+      });
+
+      // Stream progress listener
+      str.on("progress", function(progress) {
+        console.log(progress.percentage);
       });
 
       // Start encoding
       var proc = new Ffmpeg({
-        source: stream
+        source: stream.pipe(str)
       })
       .audioBitrate(info.formats[0].audioBitrate)
       .withAudioCodec("libmp3lame")
