@@ -8,8 +8,12 @@ const Spotify = require('../src/modules/SpotifyWebApi');
 const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
+const settings = require('electron-settings');
 
-process.env.FFMPEG_PATH = isDev ?  path.join(__dirname, '../ffmpeg/ffmpeg.exe') : path.join(__dirname, '../../ffmpeg/ffmpeg.exe');
+// Set FFMPEG_PATH
+settings.set('FFMPEG_PATH', isDev ? path.join(__dirname, '../ffmpeg/ffmpeg.exe') : path.join(__dirname, '../../ffmpeg/ffmpeg.exe'));
+// Set USERHOME
+settings.set('USERHOME', process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
 
 let mainWindow;
 
