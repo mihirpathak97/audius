@@ -2,11 +2,12 @@ var progress = require("progress-stream");
 const path = require('path');
 const ytdl = require('ytdl-core');
 const Ffmpeg = require('fluent-ffmpeg');
+var sanitize = require("sanitize-filename")
 
 const settings = window.require('electron-settings');
 Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH'));
 
-function download(youtubeUrl, fileName, callback) {
+function download(youtubeUrl, metadata, callback) {
 
   const outputFormat = settings.has('defaultAudioOut') ? settings.get('defaultAudioOut') : 'mp3';
   const outputCodec = outputFormat == 'mp3' ? "libmp3lame" : "aac";
@@ -15,7 +16,7 @@ function download(youtubeUrl, fileName, callback) {
     quality: 'highest'
   }
 
-  fileName = path.join(settings.get('downloadDirectory'), fileName + '.' + outputFormat);
+  const fileName = path.join(settings.get('downloadDirectory'), sanitize(metadata.title) + '.' + outputFormat);
 
   ytdl.getInfo(youtubeUrl, infoOptions, function(err, info) {
 
