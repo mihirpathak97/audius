@@ -45,20 +45,19 @@ const styles = {
   }
 };
 
-function TrackContainer(props) {
-  const { classes } = props;
+class TrackContainer extends React.Component {
 
-  let playAudio = () => {
+  playAudio = () => {
     const { BrowserWindow } = window.require('electron').remote;
     const aboutWindow = new BrowserWindow({width: 400, height: 200});
     aboutWindow.setResizable(false);
-    aboutWindow.loadURL('http://localhost:6969/' + props.youtubeLink.split('?v=')[1]);
+    aboutWindow.loadURL('http://localhost:6969/' + this.props.youtubeLink.split('?v=')[1]);
   }
 
-  let downloadAudio = () => {
+  downloadAudio = () => {
 
     var YTDownload = require('../modules/YTDownload');
-    YTDownload.downloadMp3(props.youtubeLink, 'audio', function (error, response) {
+    YTDownload.downloadMp3(this.props.youtubeLink, 'audio', function (error, response) {
       if (error) {
         console.log(error);
       }
@@ -68,27 +67,30 @@ function TrackContainer(props) {
     })
   }
 
-  return (
-    <div>
-      <Card className={classes.card}>
-        <CardContent style={{display: 'inline'}}>
-          <Avatar
-            alt={props.album}
-            src={props.albumArt}
-            className={classes.albumArt}/>
-          <Typography className={classes.title}>{props.title} by {props.artist}</Typography>
-        </CardContent>
-        <CardActions className={classes.action}>
-          <Button variant="raised" color="secondary" onClick={playAudio}>
-            Play
-          </Button>
-          <Button variant="raised" color="secondary" onClick={downloadAudio}>
-            Download
-          </Button>
-        </CardActions>
-      </Card>
-    </div>
-  );
+  render() {
+    const { classes } = this.props;
+    return(
+      <div>
+        <Card className={classes.card}>
+          <CardContent style={{display: 'inline'}}>
+            <Avatar
+              alt={this.props.album}
+              src={this.props.albumArt}
+              className={classes.albumArt}/>
+            <Typography className={classes.title}>{this.props.title} by {this.props.artist}</Typography>
+          </CardContent>
+          <CardActions className={classes.action}>
+            <Button variant="raised" color="secondary" onClick={this.playAudio}>
+              Play
+            </Button>
+            <Button variant="raised" color="secondary" onClick={this.downloadAudio}>
+              Download
+            </Button>
+          </CardActions>
+        </Card>
+      </div>
+    )
+  }
 }
 
 TrackContainer.propTypes = {
