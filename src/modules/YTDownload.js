@@ -58,5 +58,5 @@ function download(youtubeUrl, fileName, callback) {
 }
 
 module.exports = {
-  downloadMp3
+  download
 }
