@@ -12,17 +12,21 @@ function downloadMp3(youtubeUrl, fileName, callback) {
     quality: 'highest'
   }
 
-  const downloadOptions = {
-    quality: 'highest',
-    requestOptions: { maxRedirects: 5 }
-  }
-
   fileName = path.join(settings.get('USERHOME'), fileName+'.mp3');
 
   ytdl.getInfo(youtubeUrl, infoOptions, function(err, info) {
+
+    var downloadOptions = {
+      quality: 'highest',
+      requestOptions: { maxRedirects: 5 },
+      format: ytdl.filterFormats(info.formats, 'audioonly')[0]
+    }
+
     // Setup stream
     var stream = ytdl.downloadFromInfo(info, downloadOptions);
     stream.on("response", function(httpResponse) {
+
+      // TODO: Add event emitter to share progress with caller
 
       // Build progress var
       var str = progress({
@@ -41,7 +45,6 @@ function downloadMp3(youtubeUrl, fileName, callback) {
       })
       .audioBitrate(info.formats[0].audioBitrate)
       .withAudioCodec("libmp3lame")
-      .toFormat("mp3")
       .on("error", function(err) {
         callback(err.message);
       })
