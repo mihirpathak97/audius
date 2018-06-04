@@ -15,7 +15,7 @@ function download(youtubeUrl, fileName, callback) {
     quality: 'highest'
   }
 
-  fileName = path.join(settings.get('USERHOME'), fileName + '.' + outputFormat);
+  fileName = path.join(settings.get('downloadDirectory'), fileName + '.' + outputFormat);
 
   ytdl.getInfo(youtubeUrl, infoOptions, function(err, info) {
 
