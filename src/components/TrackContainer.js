@@ -8,8 +8,7 @@ import {
   CardContent,
   Button,
   IconButton,
-  Typography,
-  Snackbar
+  Typography
 } from '@material-ui/core';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -43,10 +42,6 @@ const styles = {
     marginTop: 20,
     marginLeft: 70,
     marginBottom: 50
-  },
-  closeButton: {
-    width: 100,
-    height: 40
   }
 };
 
@@ -61,14 +56,15 @@ function TrackContainer(props) {
   }
 
   let downloadAudio = () => {
-    var YTCore = require('../modules/YTDownload');
-    YTCore.downloadMp3(props.youtubeLink, 'audio', function (err, result) {
-      if (err) {
-        console.log(err);
+
+    var YTDownload = require('../modules/YTDownload');
+    YTDownload.downloadMp3(props.youtubeLink, 'audio', function (error, response) {
+      if (error) {
+        console.log(error);
       }
-      if (result) {
-        console.log(result);
-      }
+      if (response == 'done') {
+
+      };
     })
   }
 
