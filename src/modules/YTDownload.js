@@ -6,7 +6,7 @@ const Ffmpeg = require('fluent-ffmpeg');
 const settings = window.require('electron-settings');
 Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH'));
 
-function downloadMp3(youtubeUrl, fileName, callback) {
+function download(youtubeUrl, fileName, callback) {
 
   const infoOptions = {
     quality: 'highest'
