@@ -8,11 +8,14 @@ Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH'));
 
 function download(youtubeUrl, fileName, callback) {
 
+  const outputFormat = settings.has('defaultAudioOut') ? settings.get('defaultAudioOut') : 'mp3';
+  const outputCodec = outputFormat == 'mp3' ? "libmp3lame" : "aac";
+
   const infoOptions = {
     quality: 'highest'
   }
 
-  fileName = path.join(settings.get('USERHOME'), fileName+'.mp3');
+  fileName = path.join(settings.get('USERHOME'), fileName + '.' + outputFormat);
 
   ytdl.getInfo(youtubeUrl, infoOptions, function(err, info) {
 
@@ -44,7 +47,7 @@ function download(youtubeUrl, fileName, callback) {
         source: stream
       })
       .audioBitrate(info.formats[0].audioBitrate)
-      .withAudioCodec("libmp3lame")
+      .withAudioCodec(outputCodec)
       .on("error", function(err) {
         callback(err.message);
       })
