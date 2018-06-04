@@ -1,10 +1,4 @@
-var os = require("os");
-var util = require("util");
-var EventEmitter = require("events").EventEmitter;
-var async = require("async");
 var progress = require("progress-stream");
-var sanitize = require("sanitize-filename");
-
 const path = require('path');
 const ytdl = require('ytdl-core');
 const Ffmpeg = require('fluent-ffmpeg');
