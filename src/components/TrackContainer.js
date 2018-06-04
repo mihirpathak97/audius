@@ -8,7 +8,8 @@ import {
   CardContent,
   Button,
   IconButton,
-  Typography
+  Typography,
+  CircularProgress
 } from '@material-ui/core';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -42,10 +43,30 @@ const styles = {
     marginTop: 20,
     marginLeft: 70,
     marginBottom: 50
+  },
+  wrapper: {
+    position: 'relative',
+  },
+  buttonProgress: {
+    color: 'green',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
   }
 };
 
 class TrackContainer extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.downloadAudio = this.downloadAudio.bind(this);
+  }
+
+  state = {
+    loading: false
+  }
 
   playAudio = () => {
     const { BrowserWindow } = window.require('electron').remote;
@@ -57,12 +78,19 @@ class TrackContainer extends React.Component {
   downloadAudio = () => {
 
     var YTDownload = require('../modules/YTDownload');
-    YTDownload.downloadMp3(this.props.youtubeLink, 'audio', function (error, response) {
+    // Set loading
+    this.setState({
+      loading: true
+    })
+    YTDownload.download(this.props.youtubeLink, 'audio', (error, response) => {
+
       if (error) {
         console.log(error);
       }
       if (response == 'done') {
-
+        this.setState({
+          loading: false
+        })
       };
     })
   }
@@ -83,9 +111,12 @@ class TrackContainer extends React.Component {
             <Button variant="raised" color="secondary" onClick={this.playAudio}>
               Play
             </Button>
-            <Button variant="raised" color="secondary" onClick={this.downloadAudio}>
-              Download
-            </Button>
+            <div className={classes.wrapper}>
+              <Button variant="raised" disabled={this.state.loading} color="secondary" onClick={this.downloadAudio}>
+                Download
+              </Button>
+              {this.state.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+            </div>
           </CardActions>
         </Card>
       </div>
