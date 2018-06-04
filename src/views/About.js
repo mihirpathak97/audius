@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 
 import TopAppBar from '../components/TopAppBar';
 
-class Home extends Component {
+class About extends Component {
   render() {
     return (
       <div className="App">
@@ -22,4 +22,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default About;
