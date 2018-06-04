@@ -82,7 +82,7 @@ class TrackContainer extends React.Component {
     this.setState({
       loading: true
     })
-    YTDownload.download(this.props.youtubeLink, 'audio', (error, response) => {
+    YTDownload.download(this.props.youtubeLink, this.props.spotifyMetadata, (error, response) => {
 
       if (error) {
         this.setState({
