@@ -44,6 +44,7 @@ class Query extends Component {
           title={result.title}
           artist={result.trackArtist}
           albumArt={result.albumArt}
+          spotifyMetadata={result}
           youtubeLink={resp[0].link}/>,
          document.getElementById('container')
        );
