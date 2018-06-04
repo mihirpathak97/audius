@@ -23,21 +23,21 @@ function downloadMp3(youtubeUrl, fileName, callback) {
     // Setup stream
     var stream = ytdl.downloadFromInfo(info, downloadOptions);
     stream.on("response", function(httpResponse) {
-      console.log(httpResponse);
 
+      // Build progress var
       var str = progress({
         length: parseInt(httpResponse.headers["content-length"]),
-        time: 500
+        time: 1000
       });
 
       // Stream progress listener
       str.on("progress", function(progress) {
-        console.log(progress.percentage);
+        console.log(progress);
       });
 
       // Start encoding
       var proc = new Ffmpeg({
-        source: stream.pipe(str)
+        source: stream
       })
       .audioBitrate(info.formats[0].audioBitrate)
       .withAudioCodec("libmp3lame")
