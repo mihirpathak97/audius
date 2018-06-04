@@ -46,7 +46,7 @@ function downloadMp3(youtubeUrl, fileName, callback) {
         callback(err.message);
       })
       .on("end", function() {
-        callback(null, true);
+        callback(null, "done");
       })
       .saveToFile(fileName);
     });
