@@ -21,11 +21,9 @@ jobs:
       os: osx
       osx_image: xcode9.3
     - if: branch = dev
-      if: NOT tag IS present
       os: linux
       dist: trusty
     - if: branch = dev
-      if: NOT tag IS present
       os: osx
       osx_image: xcode9.3
 
