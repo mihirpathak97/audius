@@ -1,7 +1,7 @@
 {
   "name": "audius",
   "productName": "Audius",
-  "version": "1.0.0-alpha2",
+  "version": "1.0.0-alpha3",
   "description": "A cross-platform app for downloading songs from YouTube and Spotify",
   "author": {
     "name": "Mihir Pathak",
