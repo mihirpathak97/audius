@@ -3,7 +3,7 @@ node_js: "8"
 
 addons:
   artifacts:
-    - paths:
+    paths:
       - $(ls dist/*.dmg | tr "\n" ":")
       - $(ls dist/*.exe | tr "\n" ":")
       - $(ls dist/*.deb | tr "\n" ":")
