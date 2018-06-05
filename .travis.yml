@@ -1,16 +1,30 @@
-# Invoke build only if tags are pushed
-if: tag IS present
+# Configuration file Travis CI
+# Author - Mihir Pathak
+#
+# Consists of 4 jobs -
+#   - 2 for master branch invoked only when tags are pushed
+#   - 2 for dev branch and will be invoked for each push
 
 # Build with Node JS 8 [9+ causes fsevetns build to crash in darwin]
 language: node_js
 node_js: "8"
 
-# Include os [trusty and mac with XCode 9.3]
-matrix:
+# Job for building
+jobs:
   include:
-    - os: linux
+    - if: branch = master
+      if: tag IS present
+      os: linux
       dist: trusty
-    - os: osx
+    - if: branch = master
+      if: tag IS present
+      os: osx
+      osx_image: xcode9.3
+    - if: branch = dev
+      os: linux
+      dist: trusty
+    - if: branch = dev
+      os: osx
       osx_image: xcode9.3
 
 # S3 Deploy [builds can be found in audius-releases/automated-builds]
@@ -23,7 +37,12 @@ deploy:
   acl: public_read
   region: ap-south-1
   local_dir: dist
-  upload-dir: automated-builds
+  on:
+    branch: master
+    upload-dir: stable
+  on:
+    branch: dev
+    upload-dir: test-builds
 
 # Clean dist/ before uploading
 before_deploy:
@@ -45,6 +64,20 @@ cache:
 
 # Perform build [win32's exe and darwin's dmg in osx and linux's deb in linux]
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then build --linux; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then build --mac --win; fi
-  - $TRAVIS_TAG > dist/LATEST
+  - echo "Compiling React app for production"
+  - yarn build
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      echo "Packaging Audius for Linux x64 (.deb)";
+      yarn package-linux;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      echo "Packaging Audius for MacOS X (.dmg)";
+      yarn package-mac;
+      echo "Packaging Audius for Windows x64 (.exe)";
+      yarn package-win;
+    fi
+  - echo "Writing current tag name to dist/LATEST"
+  - echo "$TRAVIS_TAG" > dist/LATEST
+
+after_success:
+  - echo "Build completed and artifacts uploaded to S3 bucket"
