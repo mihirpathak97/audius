@@ -47,10 +47,11 @@ before_deploy:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf dist/linux-unpacked/ dist/*.blockmap ; fi
   - export UPLOAD_DIR="stable"
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then
-      # HACK : for now, all builds invoked by tags will be in "stable"
-      # because TRAVIS_BRANCH and TRAVIS_TAG will be the same
       export UPLOAD_DIR="test-builds";
     fi
+
+# HACK : for now, all builds invoked by tags will be in "stable"
+# because TRAVIS_BRANCH and TRAVIS_TAG will be the same
 
 # Global environment variables
 env:
