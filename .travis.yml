@@ -1,6 +1,16 @@
+# Build with Node JS 8 [9+ causes fsevetns build to crash in darwin]
 language: node_js
 node_js: "8"
 
+# Include os [trusty and mac with XCode 9.3]
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+    - os: osx
+      osx_image: xcode9.3
+
+# S3 Deploy [builds can be found in audius-releases/automated-builds]
 deploy:
   provider: s3
   access_key_id: "AKIAJQVWOER2UGVDXHBQ"
@@ -10,31 +20,27 @@ deploy:
   acl: public_read
   region: ap-south-1
   local_dir: dist
-  upload-dir: travis-builds
+  upload-dir: automated-builds
 
+# Clean dist/ before uploading
 before_deploy:
-  - rm -r win-unpacked
-  - rm -r linux-unpacked
-  - rm -r mac
-  - rm *.blockmap
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -rf dist/win-unpacked/ dist/mac/ dist/*.blockmap ; fi 
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf dist/linux-unpacked/ dist/*.blockmap ; fi
 
+# Global environment variables
 env:
   global:
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
 
-os:
-  - osx
-  - linux
-
-osx_image: xcode9.3
-
+# Cache directorries
 cache:
   directories:
   - node_modules
   - $HOME/.cache/electron
   - $HOME/.cache/electron-builder
 
+# Perform build [win32's exe and darwin's dmg in osx and linux's deb in linux]
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then build --linux; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then build --mac --win; fi
