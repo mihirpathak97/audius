@@ -94,7 +94,6 @@
       "public/electron.js",
       "package.json"
     ],
-    "extraResources": "ffmpeg",
     "dmg": {
       "contents": [
         {
@@ -113,6 +112,7 @@
       "target": "deb"
     },
     "win": {
+      "extraResources": "ffmpeg",
       "target": "nsis",
       "icon": "build/icon.ico"
     }
