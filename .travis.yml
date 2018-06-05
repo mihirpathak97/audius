@@ -50,15 +50,21 @@ before_deploy:
   - |
     export PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
     echo "Package version - $PACKAGE_VERSION"
-  - export UPLOAD_DIR="stable"
+  - export UPLOAD_DIR="stable/$PACKAGE_VERSION"
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then
       export UPLOAD_DIR="test-builds";
     fi
-  - export UPLOAD_DIR="$UPLOAD_DIR/$PACKAGE_VERSION"
+
+# SCENARIO [before_deploy]
+# 1) Clean up dist folder
+# 2) Get package version from package.json
+# 3) Set S3 upload directory as "stable/$VERSION" for stable builds [tags]
+# 4) Set S3 upload directory as "test-build" for "dev"
 
 
 # HACK : for now, all builds invoked by tags will be in "stable"
-# because TRAVIS_BRANCH and TRAVIS_TAG will be the same
+# because Travis does not differentiate between brach and tag
+# for tag pushes
 
 # Global environment variables
 env:
