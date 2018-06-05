@@ -23,21 +23,21 @@ class TopMenuList extends React.Component {
   };
 
   handleSettings = () => {
-    const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
-    aboutWindow.setResizable(false);
-    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Settings' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Settings')}`);
+    this.openWindow('Settings');
   };
 
   handleAbout = () => {
-    const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
-    aboutWindow.setResizable(false);
-    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?About' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?About')}`);
+    this.openWindow('About');
   };
 
   handleTerms = () => {
-    const aboutWindow = new BrowserWindow({width: 800, height: 600, frame: false});
-    aboutWindow.setResizable(false);
-    aboutWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Terms' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Terms')}`);
+    this.openWindow('Terms');
+  }
+
+  openWindow = (url) => {
+    const miniWindow = new BrowserWindow({width: 800, height: 600, frame: false});
+    miniWindow.setResizable(false);
+    miniWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?' + url : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?' + url)}`);
   }
 
   render() {
