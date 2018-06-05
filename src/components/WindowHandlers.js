@@ -24,7 +24,6 @@ class WindowHandlers extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
 
     return (
       <div style={{position: 'absolute', right: 30}}>

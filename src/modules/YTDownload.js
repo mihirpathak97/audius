@@ -35,7 +35,7 @@ function download(youtubeUrl, metadata, callback) {
 
       // Build progress var
       var str = progress({
-        length: parseInt(httpResponse.headers["content-length"]),
+        length: parseInt(httpResponse.headers["content-length"], 10),
         time: 1000
       });
 

@@ -31,7 +31,7 @@ function TopAppBar(props) {
   function handleClick() {
     const { BrowserWindow, app } = window.require('electron').remote;
     const path = require('path');
-    BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Home' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Home')}`);
+    BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV === "development" ? 'http://localhost:3000?Home' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Home')}`);
   }
 
   return (
