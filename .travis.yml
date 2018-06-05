@@ -12,12 +12,12 @@ node_js: "8"
 # Job for building
 jobs:
   include:
-    - if: tag IS present
-      if: branch = master
+    - if: branch = master
+      if: tag IS present
       os: linux
       dist: trusty
-    - if: tag IS present
-      if: branch = master
+    - if: branch = master
+      if: tag IS present
       os: osx
       osx_image: xcode9.3
     - if: branch = dev
