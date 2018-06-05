@@ -38,6 +38,8 @@ deploy:
   region: ap-south-1
   local_dir: dist
   upload-dir: $UPLOAD_DIR
+  on:
+    all_branches: true
 
 # Clean dist/ before uploading
 before_deploy:
