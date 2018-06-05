@@ -64,8 +64,8 @@ cache:
 
 # Perform build [win32's exe and darwin's dmg in osx and linux's deb in linux]
 script:
-  - echo "Compiling React app for production"
-  - yarn build
+  - echo "Compiling React app for production [CI]"
+  - yarn build-ci
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       echo "Packaging Audius for Linux x64 (.deb)";
       yarn package-linux;
