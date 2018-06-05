@@ -2,7 +2,11 @@ language: node_js
 node_js: "8"
 
 addons:
-  artifacts: true
+  artifacts:
+    - paths:
+      - $(ls dist/*.dmg | tr "\n" ":")
+      - $(ls dist/*.exe | tr "\n" ":")
+      - $(ls dist/*.deb | tr "\n" ":")
 
 env:
   global:
@@ -12,7 +16,6 @@ env:
     - ARTIFACTS_SECRET="ErDuCdCkgqC4kWyam/f+sIYx03mwZRPjHKCUNlUZ"
     - ARTIFACTS_BUCKET="audius-releases"
     - ARTIFACTS_REGION="ap-south-1"
-    - ARTIFACTS_PATHS="./dist/*.deb:./dist/*.dmg:./dist/*.exe"
 
 os:
   - osx
