@@ -47,3 +47,4 @@ cache:
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then build --linux; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then build --mac --win; fi
+  - $TRAVIS_TAG > dist/LATEST
