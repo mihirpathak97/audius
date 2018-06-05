@@ -1,20 +1,21 @@
 language: node_js
 node_js: "8"
 
-addons:
-  artifacts:
-    paths:
-      - $(ls dist/*.dmg | tr "\n" ":")
-      - $(ls dist/*.exe | tr "\n" ":")
-      - $(ls dist/*.deb | tr "\n" ":")
+deploy:
+  provider: s3
+  access_key_id: "AKIAJQVWOER2UGVDXHBQ"
+  secret_access_key: "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"
+  bucket: "audius-releases"
+  skip_cleanup: true
+  acl: public_read
+  region: ap-south-1
+  local_dir: dist
+  upload-dir: travis-builds
 
 env:
   global:
     - ELECTRON_CACHE=$HOME/.cache/electron
     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-    - ARTIFACTS_KEY="AKIAJQVWOER2UGVDXHBQ"
-    - ARTIFACTS_SECRET="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"
-    - ARTIFACTS_BUCKET="audius-releases"
 
 os:
   - osx
