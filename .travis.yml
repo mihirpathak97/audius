@@ -45,7 +45,9 @@ deploy:
 before_deploy:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -rf dist/win-unpacked/ dist/mac/ dist/*.blockmap ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf dist/linux-unpacked/ dist/*.blockmap ; fi
-  - bash scripts/set_package_version.sh
+  - |
+    export PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+    echo "Package version - $PACKAGE_VERSION"
   - export UPLOAD_DIR="stable"
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then
       export UPLOAD_DIR="test-builds";
