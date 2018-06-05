@@ -15,7 +15,6 @@ env:
     - ARTIFACTS_KEY="AKIAJQVWOER2UGVDXHBQ"
     - ARTIFACTS_SECRET="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"
     - ARTIFACTS_BUCKET="audius-releases"
-    - ARTIFACTS_REGION="ap-south-1"
 
 os:
   - osx
