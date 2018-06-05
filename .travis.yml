@@ -12,6 +12,10 @@ deploy:
   local_dir: dist
   upload-dir: travis-builds
 
+before_deploy:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -rf win-unpacked mac *.blockmap ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf linux-unpacked *.blockmap ; fi
+
 env:
   global:
     - ELECTRON_CACHE=$HOME/.cache/electron
