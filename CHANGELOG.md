@@ -1,6 +1,26 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.0-beta3] - 2018-06-06
+### Added
+- Add custom dialog box to display messages and errors
+- Customize build script
+- **Drop 32-bit support entirely**
+
+### Changed
+- New dialog box layout
+- Make DialogBox as a separate React component
+- YouTube and Spotify links are disabled
+- Removed useless console log calls
+
+### Fixed
+- TrackContainer - dialog opens on render()
+- YTDownload - return on error
+- QueryField - fixed invalid view error
+- QueryField - disable toggleError on change
+- QueryField - set dialog open to false
+- TrackContainer, Query - dialog will not open after first trigger
+
 ## [1.0.0-beta2] - 2018-06-05
 ### Added
 - Custom script to build in CI
