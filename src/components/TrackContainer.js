@@ -106,14 +106,14 @@ class TrackContainer extends React.Component {
      <DialogBox
       dialogTitle={title}
       dialogMessage={message}/>,
-     document.getElementById('container')
+     document.getElementById('wrapper')
    );
   }
 
   render() {
     const { classes } = this.props;
     return(
-      <div>
+      <div id="wrapper">
         <Card className={classes.card}>
           <CardContent style={{display: 'inline'}}>
             <Avatar
