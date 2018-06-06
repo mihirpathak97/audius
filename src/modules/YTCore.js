@@ -9,7 +9,7 @@ const through2 = require('through2');
 const Ffmpeg = require('./ffmpeg-wrapper');
 const settings = require('electron-settings');
 
-Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH'));
+settings.has('FFMPEG_PATH') ? Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH')) : null;
 
 const express = require('express');
 const nofavicon = require('express-no-favicons');
