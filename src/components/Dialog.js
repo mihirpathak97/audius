@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import {
   Button,
   Dialog,
@@ -11,9 +9,6 @@ import {
 } from '@material-ui/core';
 
 class DialogBox extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   state = {
     dialogOpen: true

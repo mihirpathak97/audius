@@ -68,6 +68,9 @@ class TrackContainer extends React.Component {
 
   state = {
     loading: false,
+    dialogOpen: false,
+    dialogTitle: "",
+    dialogMessage: ""
   }
 
   playAudio = () => {
@@ -90,7 +93,7 @@ class TrackContainer extends React.Component {
         this.setState({
           loading: false
         })
-        this.renderDialog("Error!", "An error occured while downloading!" + "[REASON - " + error + "]");
+        this.renderDialog("Error!", "An error occured while downloading!" + " [REASON - " + error + "]");
       }
       if (response === "done") {
         this.setState({
@@ -102,12 +105,11 @@ class TrackContainer extends React.Component {
   }
 
   renderDialog = (title, message) => {
-    ReactDOM.render(
-     <DialogBox
-      dialogTitle={title}
-      dialogMessage={message}/>,
-     document.getElementById('wrapper')
-   );
+    this.setState({
+      dialogOpen: true,
+      dialogTitle: title,
+      dialogMessage: message
+    })
   }
 
   render() {
@@ -134,6 +136,9 @@ class TrackContainer extends React.Component {
             </div>
           </CardActions>
         </Card>
+        {
+          this.state.dialogOpen ? <DialogBox dialogTitle={this.state.dialogTitle} dialogMessage={this.state.dialogMessage} /> : null
+        }
       </div>
     )
   }
