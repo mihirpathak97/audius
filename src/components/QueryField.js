@@ -47,7 +47,7 @@ class QueryField extends React.Component {
     const { classes } = this.props;
 
     return (
-      <form className={classes.container} noValidate autoComplete="off">
+      <form className={classes.container} onSubmit={this.handleSearch} noValidate autoComplete="off">
         <TextField
           id="query"
           label="Enter Song Name, Spotify or YouTube Link"
