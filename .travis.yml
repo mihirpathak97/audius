@@ -89,9 +89,7 @@ script:
       echo "Packaging Audius for MacOS X (.dmg)";
       yarn package-mac;
       echo "Packaging Audius for Windows x64 (.exe)";
-      yarn package-win-64;
-      echo "Packaging Audius for Windows x86 (.exe)";
-      yarn package-win-32;
+      yarn package-win;
     fi
   - echo "Writing current tag name to dist/LATEST"
   - echo "$TRAVIS_TAG" > dist/LATEST

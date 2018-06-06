@@ -80,8 +80,7 @@
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "package-all": "build -mwl",
     "package-linux": "build --linux --x64",
-    "package-win-64": "build --win --x64",
-    "package-win-32": "build --win --ia32",
+    "package-win": "build --win --x64",
     "package-mac": "build --mac --x64"
   },
   "build": {
@@ -135,7 +134,7 @@
       "extraResources": "ffmpeg",
       "target": "nsis",
       "icon": "build/icon.ico",
-      "artifactName": "${productName}Setup-${arch}.${ext}"
+      "artifactName": "${productName}Setup-x64.${ext}"
     },
     "nsis": {
       "oneClick": "false",
