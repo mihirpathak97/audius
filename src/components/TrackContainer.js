@@ -65,7 +65,7 @@ class TrackContainer extends React.Component {
 
   state = {
     loading: false,
-    dialogOpen: true,
+    dialogOpen: false,
     dialogMessage: "",
     dialogTitle: ""
   }
