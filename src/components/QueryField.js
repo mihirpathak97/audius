@@ -52,7 +52,6 @@ class QueryField extends React.Component {
 
   handleSearch = (e) => {
     e.preventDefault()
-    console.log(this.state.query);
     if (this.state.query.indexOf('spotify.com') != -1 || this.state.query.indexOf('youtube.com') != -1) {
       this.setState({
         toggleError: true,
