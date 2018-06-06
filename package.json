@@ -115,9 +115,9 @@
       ]
     },
     "linux": {
-      "category": "Multimedia",
+      "category": "Audio",
       "synopsis": "A cross-platform app for downloading songs from YouTube and Spotify",
-      "target": ["AppImage", "deb"],
+      "target": "deb",
       "artifactName": "${name}-${arch}.${ext}",
       "extraResources": "ffmpeg/linux"
     },
