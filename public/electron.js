@@ -2,6 +2,9 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
+const YTCore = require('../src/modules/YTCore');
+const Spotify = require('../src/modules/SpotifyWebApi');
+
 const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
@@ -31,10 +34,6 @@ app.on('ready', () => {
   settings.has('downloadDirectory') ? null : settings.set('downloadDirectory', process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
   // Default download format
   settings.has('defaultAudioOut') ? null : settings.set('defaultAudioOut', 'mp3');
-
-  // Require inside 'ready' to avoid fs issues in MacOS
-  const YTCore = require('../src/modules/YTCore');
-  const Spotify = require('../src/modules/SpotifyWebApi');
 
   // First create BrowserWindow
   createWindow()
