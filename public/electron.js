@@ -43,7 +43,6 @@ app.on('ready', () => {
   })
   // Then get Spotify access token
   Spotify.getAccessToken()
-  mainWindow.webContents.toggleDevTools();
 });
 
 app.on('window-all-closed', () => {
