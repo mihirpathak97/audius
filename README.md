@@ -1,4 +1,5 @@
-<img src="assets/audius_big.png" width="300" style="display: block; margin: auto">
+<img src="assets/audius_big.png" width="300">
+
 ****
 
 Audius is a cross-platform application which can be used to download songs from YouTube and Spotify
