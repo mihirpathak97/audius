@@ -37,17 +37,32 @@ deploy:
   acl: public_read
   region: ap-south-1
   local_dir: dist
+  upload-dir: $UPLOAD_DIR
   on:
-    branch: master
-    upload-dir: stable
-  on:
-    branch: dev
-    upload-dir: test-builds
+    all_branches: true
 
 # Clean dist/ before uploading
 before_deploy:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -rf dist/win-unpacked/ dist/mac/ dist/*.blockmap ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf dist/linux-unpacked/ dist/*.blockmap ; fi
+  - |
+    export PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+    echo "Package version - $PACKAGE_VERSION"
+  - export UPLOAD_DIR="stable/$PACKAGE_VERSION"
+  - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then
+      export UPLOAD_DIR="test-builds";
+    fi
+
+# SCENARIO [before_deploy]
+# 1) Clean up dist folder
+# 2) Get package version from package.json
+# 3) Set S3 upload directory as "stable/$VERSION" for stable builds [tags]
+# 4) Set S3 upload directory as "test-build" for "dev"
+
+
+# HACK : for now, all builds invoked by tags will be in "stable"
+# because Travis does not differentiate between brach and tag
+# for tag pushes
 
 # Global environment variables
 env:
@@ -64,8 +79,8 @@ cache:
 
 # Perform build [win32's exe and darwin's dmg in osx and linux's deb in linux]
 script:
-  - echo "Compiling React app for production"
-  - yarn build
+  - echo "Compiling React app for production [CI]"
+  - yarn build-ci
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       echo "Packaging Audius for Linux x64 (.deb)";
       yarn package-linux;

@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import {
   MenuItem,
   FormControl,
-  FormHelperText,
   Select,
   Typography
 } from '@material-ui/core';

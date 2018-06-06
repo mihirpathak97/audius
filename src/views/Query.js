@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import TopAppBar from '../components/TopAppBar';
-import QueryField from '../components/QueryField';
 
 import { withRouter } from 'react-router-dom';
 

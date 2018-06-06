@@ -1,7 +1,37 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.0-alpha1] - 2018-06-04
+## [1.0.0-beta2] - 2018-06-05
+### Added
+- Custom script to build in CI
+
+### Changed
+- Travis - use a more complex build config
+
+### Fixed
+- FFMPEG_PATH in non-windows platforms
+  - **NOTE** - Linux and OSX users need to manually install FFmpeg and set to PATH
+
+## [1.0.0-beta1] - 2018-06-05
+### Changed
+- Remove unused packages [reduces build size]
+
+### Fixed
+- Build failure because of condition require in fluent-ffmpeg
+
+## [1.0.0-alpha3] - 2018-06-05
+### Added
+- Custom README
+- Travis CI configuration [Supports multi-platform build!]
+- Added image assets
+
+### Changed
+- Final build files will not have ${platform}
+
+### Fixed
+- Menu stays open when miniWindow is triggered
+
+## [1.0.0-alpha2] - 2018-06-04
 ### Added
 - Module YTDownload for downloading in MP3
 - YTDownload - add progress listener

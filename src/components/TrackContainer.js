@@ -7,15 +7,9 @@ import {
   CardActions,
   CardContent,
   Button,
-  IconButton,
   Typography,
   CircularProgress
 } from '@material-ui/core';
-
-import CloseIcon from '@material-ui/icons/Close';
-
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faPlay, faArrowCircleDown } from '@fortawesome/fontawesome-free-solid';
 
 const styles = {
   card: {
@@ -90,7 +84,7 @@ class TrackContainer extends React.Component {
         })
         console.log(error);
       }
-      if (response == 'done') {
+      if (response === "done") {
         this.setState({
           loading: false
         })

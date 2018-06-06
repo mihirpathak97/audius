@@ -1,7 +1,7 @@
 var progress = require("progress-stream");
 const path = require('path');
 const ytdl = require('ytdl-core');
-const Ffmpeg = require('fluent-ffmpeg');
+const Ffmpeg = require('./ffmpeg-wrapper');
 var sanitize = require("sanitize-filename")
 
 const settings = window.require('electron-settings');
@@ -35,7 +35,7 @@ function download(youtubeUrl, metadata, callback) {
 
       // Build progress var
       var str = progress({
-        length: parseInt(httpResponse.headers["content-length"]),
+        length: parseInt(httpResponse.headers["content-length"], 10),
         time: 1000
       });
 
