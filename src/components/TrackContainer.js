@@ -8,7 +8,12 @@ import {
   CardContent,
   Button,
   Typography,
-  CircularProgress
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
 } from '@material-ui/core';
 
 const styles = {
@@ -59,7 +64,10 @@ class TrackContainer extends React.Component {
   }
 
   state = {
-    loading: false
+    loading: false,
+    dialogOpen: true,
+    dialogMessage: "",
+    dialogTitle: ""
   }
 
   playAudio = () => {
@@ -82,13 +90,28 @@ class TrackContainer extends React.Component {
         this.setState({
           loading: false
         })
-        console.log(error);
+        this.dialogOpen("Error!", "An error occured while downloading!");
       }
       if (response === "done") {
         this.setState({
           loading: false
         })
+        this.dialogOpen("Download Success!", "Your download was successfull. You can find your song in the download location");
       };
+    })
+  }
+
+  handleDialogClose = () => {
+    this.setState({
+      dialogOpen: false
+    })
+  }
+
+  dialogOpen = (title, message) => {
+    this.setState({
+      dialogTitle: title,
+      dialogMessage: message,
+      dialogOpen: true
     })
   }
 
@@ -116,6 +139,25 @@ class TrackContainer extends React.Component {
             </div>
           </CardActions>
         </Card>
+
+        <Dialog
+          open={this.state.dialogOpen}
+          onClose={this.handleDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description">
+          <DialogTitle id="alert-dialog-title">{this.state.dialogTitle}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {this.state.dialogMessage}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleDialogClose} color="primary" autoFocus>
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
+
       </div>
     )
   }
