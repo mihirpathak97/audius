@@ -97,7 +97,8 @@
     ],
     "mac": {
       "target": "dmg",
-      "artifactName": "${name}-setup.${ext}"
+      "artifactName": "${name}-setup.${ext}",
+      "extraResources": "ffmpeg/darwin"
     },
     "dmg": {
       "contents": [
@@ -117,7 +118,8 @@
       "category": "Multimedia",
       "synopsis": "A cross-platform app for downloading songs from YouTube and Spotify",
       "target": ["AppImage", "deb"],
-      "artifactName": "${name}-${arch}.${ext}"
+      "artifactName": "${name}-${arch}.${ext}",
+      "extraResources": "ffmpeg/linux"
     },
     "deb": {
       "depends": [
@@ -126,12 +128,11 @@
         "libnotify4",
         "libappindicator1",
         "libxtst6",
-        "libnss3",
-        "ffmpeg"
+        "libnss3"
       ]
     },
     "win": {
-      "extraResources": "ffmpeg",
+      "extraResources": "ffmpeg/win32",
       "target": "nsis",
       "icon": "build/icon.ico",
       "artifactName": "${productName}Setup-x64.${ext}"
