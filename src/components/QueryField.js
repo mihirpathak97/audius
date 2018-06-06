@@ -41,6 +41,12 @@ class QueryField extends React.Component {
     this.setState({
       query: event.target.value,
     });
+    // Disable error mode on change
+    if (this.state.toggleError) {
+      this.setState({
+        toggleError: false
+      })
+    }
   };
 
   handleSearch = (e) => {
