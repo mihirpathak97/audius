@@ -138,7 +138,7 @@
       "artifactName": "${productName}Setup-${arch}.${ext}"
     },
     "nsis": {
-      "oncClick": "false",
+      "oneClick": "false",
       "perMachine": "true",
       "allowElevation": "true",
       "allowToChangeInstallationDirectory": "true"
