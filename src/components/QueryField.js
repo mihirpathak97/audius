@@ -27,9 +27,14 @@ const styles = theme => ({
 
 class QueryField extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
 
   state = {
     query: '',
+    toggleError: false
   };
 
   handleChange = name => event => {
@@ -38,9 +43,18 @@ class QueryField extends React.Component {
     });
   };
 
-  handleSearch = () => {
+  handleSearch = (e) => {
+    e.preventDefault()
     console.log(this.state.query);
-    BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Query&val=' + this.state.query : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Query&val=' + this.state.query)}`);
+    if (this.state.query.indexOf('spotify.com') != -1 || this.state.query.indexOf('youtube.com') != -1) {
+      this.setState({
+        toggleError: true
+      })
+      return
+    }
+    else {
+      BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Query&val=' + this.state.query : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Query&val=' + this.state.query)}`);
+    }
   }
 
   render() {
@@ -49,6 +63,8 @@ class QueryField extends React.Component {
     return (
       <form className={classes.container} onSubmit={this.handleSearch} noValidate autoComplete="off">
         <TextField
+          onSubmit={this.handleSearch}
+          error={this.state.toggleError}
           id="query"
           label="Enter Song Name, Spotify or YouTube Link"
           className={classes.textField}
