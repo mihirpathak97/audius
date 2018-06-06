@@ -43,10 +43,6 @@ class Settings extends Component {
     downloadDirectory: settings.get('downloadDirectory')
   };
 
-  componentDidMount() {
-    console.log(settings.get('defaultAudioOut'));
-  }
-
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
     settings.set(event.target.name, event.target.value);

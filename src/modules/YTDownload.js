@@ -20,6 +20,10 @@ function download(youtubeUrl, metadata, callback) {
 
   ytdl.getInfo(youtubeUrl, infoOptions, function(err, info) {
 
+    if (err) {
+      return callback(err.message);
+    }
+
     var downloadOptions = {
       quality: 'highest',
       requestOptions: { maxRedirects: 5 },
@@ -51,10 +55,10 @@ function download(youtubeUrl, metadata, callback) {
       .audioBitrate(info.formats[0].audioBitrate)
       .withAudioCodec(outputCodec)
       .on("error", function(err) {
-        callback(err.message);
+        return callback(err.message);
       })
       .on("end", function() {
-        callback(null, "done");
+        return callback(null, "done");
       })
       .saveToFile(fileName);
     });

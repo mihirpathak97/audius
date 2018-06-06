@@ -26,11 +26,10 @@ let getAccessToken = () => {
     body: "grant_type=client_credentials"
   }, function (err, resp, body) {
     if (err) {
-      return console.log(err);
+      return;
     }
 
     const settings = require('electron-settings');
-
     // Store access_token in a persintant user data file
     settings.set('spotifyAccessToken', JSON.parse(body).access_token);
   })

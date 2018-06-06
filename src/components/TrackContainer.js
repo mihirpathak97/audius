@@ -11,6 +11,8 @@ import {
   CircularProgress
 } from '@material-ui/core';
 
+import DialogBox from './Dialog';
+
 const styles = {
   card: {
     maxWidth: '67%',
@@ -59,7 +61,10 @@ class TrackContainer extends React.Component {
   }
 
   state = {
-    loading: false
+    loading: false,
+    dialogOpen: false,
+    dialogTitle: "",
+    dialogMessage: ""
   }
 
   playAudio = () => {
@@ -72,9 +77,10 @@ class TrackContainer extends React.Component {
   downloadAudio = () => {
 
     var YTDownload = require('../modules/YTDownload');
-    // Set loading
+    // Set loading and dialogOpen
     this.setState({
-      loading: true
+      loading: true,
+      dialogOpen: false
     })
     YTDownload.download(this.props.youtubeLink, this.props.spotifyMetadata, (error, response) => {
 
@@ -82,20 +88,29 @@ class TrackContainer extends React.Component {
         this.setState({
           loading: false
         })
-        console.log(error);
+        this.renderDialog("Error!", "An error occured while downloading!" + " [REASON - " + error + "]");
       }
       if (response === "done") {
         this.setState({
           loading: false
         })
+        this.renderDialog("Download Success!", "Your download was successfull. You can find your song in the download location");
       };
+    })
+  }
+
+  renderDialog = (title, message) => {
+    this.setState({
+      dialogOpen: true,
+      dialogTitle: title,
+      dialogMessage: message
     })
   }
 
   render() {
     const { classes } = this.props;
     return(
-      <div>
+      <div id="wrapper">
         <Card className={classes.card}>
           <CardContent style={{display: 'inline'}}>
             <Avatar
@@ -116,6 +131,9 @@ class TrackContainer extends React.Component {
             </div>
           </CardActions>
         </Card>
+        {
+          this.state.dialogOpen ? <DialogBox dialogTitle={this.state.dialogTitle} dialogMessage={this.state.dialogMessage} /> : null
+        }
       </div>
     )
   }
