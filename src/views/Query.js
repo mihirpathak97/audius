@@ -5,6 +5,7 @@ import TopAppBar from '../components/TopAppBar';
 import { withRouter } from 'react-router-dom';
 
 import TrackContainer from '../components/TrackContainer';
+import DialogBox from '../components/Dialog';
 
 class Query extends Component {
 
@@ -26,15 +27,14 @@ class Query extends Component {
     var Spotify = require('../modules/SpotifyWebApi');
     var YTSearch = require('../modules/YTSearch');
 
-    Spotify.searchTrack(decodeURI(this.state.query), function (err, result) {
+    Spotify.searchTrack(decodeURI(this.state.query), (err, result) => {
       if (err) {
-        console.log(err);
+        return this.renderDialog("An Error Occured!", "MESSAGE: " + err);
       }
 
-      // Run YouTube search
-      YTSearch(result.title, function (error, resp) {
+      YTSearch(result.title, (error, resp) => {
         if (error) {
-          console.log(error);
+          return this.renderDialog("An Error Occured!", "MESSAGE: " + error);
         }
 
         // Render TrackContainer
@@ -50,6 +50,15 @@ class Query extends Component {
 
       })
     })
+  }
+
+  renderDialog = (title, message) => {
+    ReactDOM.render(
+     <DialogBox
+      dialogTitle={title}
+      dialogMessage={message}/>,
+     document.getElementById('container')
+   );
   }
 
   render() {

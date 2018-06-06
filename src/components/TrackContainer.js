@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -15,6 +16,8 @@ import {
   DialogContentText,
   DialogTitle
 } from '@material-ui/core';
+
+import DialogBox from './Dialog';
 
 const styles = {
   card: {
@@ -65,9 +68,6 @@ class TrackContainer extends React.Component {
 
   state = {
     loading: false,
-    dialogOpen: false,
-    dialogMessage: "",
-    dialogTitle: ""
   }
 
   playAudio = () => {
@@ -90,29 +90,24 @@ class TrackContainer extends React.Component {
         this.setState({
           loading: false
         })
-        this.dialogOpen("Error!", "An error occured while downloading!" + "[REASON - " + error + "]");
+        this.renderDialog("Error!", "An error occured while downloading!" + "[REASON - " + error + "]");
       }
       if (response === "done") {
         this.setState({
           loading: false
         })
-        this.dialogOpen("Download Success!", "Your download was successfull. You can find your song in the download location");
+        this.renderDialog("Download Success!", "Your download was successfull. You can find your song in the download location");
       };
     })
   }
 
-  handleDialogClose = () => {
-    this.setState({
-      dialogOpen: false
-    })
-  }
-
-  dialogOpen = (title, message) => {
-    this.setState({
-      dialogTitle: title,
-      dialogMessage: message,
-      dialogOpen: true
-    })
+  renderDialog = (title, message) => {
+    ReactDOM.render(
+     <DialogBox
+      dialogTitle={title}
+      dialogMessage={message}/>,
+     document.getElementById('container')
+   );
   }
 
   render() {
@@ -139,25 +134,6 @@ class TrackContainer extends React.Component {
             </div>
           </CardActions>
         </Card>
-
-        <Dialog
-          open={this.state.dialogOpen}
-          onClose={this.handleDialogClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description">
-          <DialogTitle id="alert-dialog-title">{this.state.dialogTitle}</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {this.state.dialogMessage}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleDialogClose} color="primary" autoFocus>
-                Close
-              </Button>
-            </DialogActions>
-          </Dialog>
-
       </div>
     )
   }
