@@ -6,6 +6,8 @@ import {
   Button
 } from '@material-ui/core';
 
+import DialogBox from './Dialog';
+
 const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');
 
@@ -34,19 +36,18 @@ class QueryField extends React.Component {
 
   state = {
     query: '',
-    toggleError: false
+    toggleError: false,
+    dialogOpen: false,
+    dialogTitle: "Info",
+    dialogMessage: "Spotify and YouTube links are disabled for the time being"
   };
 
   handleChange = name => event => {
     this.setState({
       query: event.target.value,
+      dialogOpen: false,
+      toggleError: false
     });
-    // Disable error mode on change
-    if (this.state.toggleError) {
-      this.setState({
-        toggleError: false
-      })
-    }
   };
 
   handleSearch = (e) => {
@@ -54,7 +55,8 @@ class QueryField extends React.Component {
     console.log(this.state.query);
     if (this.state.query.indexOf('spotify.com') != -1 || this.state.query.indexOf('youtube.com') != -1) {
       this.setState({
-        toggleError: true
+        toggleError: true,
+        dialogOpen: true
       })
       return
     }
@@ -81,6 +83,9 @@ class QueryField extends React.Component {
         <Button color="primary" variant="raised" onClick={this.handleSearch} className={classes.button}>
           Search
         </Button>
+        {
+          this.state.dialogOpen ? <DialogBox dialogTitle={this.state.dialogTitle} dialogMessage={this.state.dialogMessage} /> : null
+        }
       </form>
     );
   }
