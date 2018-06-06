@@ -24,8 +24,12 @@ app.on('ready', () => {
   /*
     Write some conf to persisent storage on init
   */
-  // FFmpeg [Only for windows]
-  settings.set('FFMPEG_PATH', isDev ? path.join(__dirname, '../ffmpeg/ffmpeg.exe') : path.join(__dirname, '../../ffmpeg/ffmpeg.exe'));
+  // FFmpeg [platform dependant]
+  ffmpegPath = isDev ? path.join(__dirname, '../ffmpeg', process.platform, 'ffmpeg') : path.join(process.resourcesPath, 'ffmpeg', process.platform, 'ffmpeg');
+  if (process.platform == 'win32') {
+    ffmpegPath += '.exe';
+  }
+  settings.set('FFMPEG_PATH', ffmpegPath);
   // Default download directory
   settings.has('downloadDirectory') ? null : settings.set('downloadDirectory', process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
   // Default download format
