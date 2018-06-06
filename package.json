@@ -79,12 +79,14 @@
     "test": "node scripts/test.js --env=jsdom",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "package-all": "build -mwl",
-    "package-linux": "build --linux",
-    "package-win": "build --win",
-    "package-mac": "build --mac"
+    "package-linux": "build --linux --x64",
+    "package-win-64": "build --win --x64",
+    "package-win-32": "build --win --ia32",
+    "package-mac": "build --mac --x64"
   },
   "build": {
     "appId": "in.mihirpathak.audius",
+    "copyright": "Copyright © 2018 Mihir Pathak",
     "artifactName": "${productName}Setup.${ext}",
     "files": [
       "build/**/*",
@@ -94,6 +96,10 @@
       "public/electron.js",
       "package.json"
     ],
+    "mac": {
+      "target": "dmg",
+      "artifactName": "${name}-setup.${ext}"
+    },
     "dmg": {
       "contents": [
         {
@@ -109,12 +115,33 @@
       ]
     },
     "linux": {
-      "target": "deb"
+      "category": "Multimedia",
+      "synopsis": "A cross-platform app for downloading songs from YouTube and Spotify",
+      "target": ["AppImage", "deb"],
+      "artifactName": "${name}-${arch}.${ext}"
+    },
+    "deb": {
+      "depends": [
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3",
+        "ffmpeg"
+      ]
     },
     "win": {
       "extraResources": "ffmpeg",
       "target": "nsis",
-      "icon": "build/icon.ico"
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}Setup-${arch}.${ext}"
+    },
+    "nsis": {
+      "oncClick": "false",
+      "perMachine": "true",
+      "allowElevation": "true",
+      "allowToChangeInstallationDirectory": "true"
     }
   },
   "jest": {
