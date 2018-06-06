@@ -50,8 +50,7 @@ class QueryField extends React.Component {
     });
   };
 
-  handleSearch = (e) => {
-    e.preventDefault()
+  handleSearch = () => {
     if (this.state.query.indexOf('spotify.com') != -1 || this.state.query.indexOf('youtube.com') != -1) {
       this.setState({
         toggleError: true,
@@ -68,9 +67,8 @@ class QueryField extends React.Component {
     const { classes } = this.props;
 
     return (
-      <form className={classes.container} onSubmit={this.handleSearch} noValidate autoComplete="off">
+      <form className={classes.container} onSubmit={(e) => {e.preventDefault(); this.handleSearch()}} noValidate autoComplete="off">
         <TextField
-          onSubmit={this.handleSearch}
           error={this.state.toggleError}
           id="query"
           label="Enter Song Name, Spotify or YouTube Link"
