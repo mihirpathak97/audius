@@ -90,7 +90,7 @@ class TrackContainer extends React.Component {
         this.setState({
           loading: false
         })
-        this.dialogOpen("Error!", "An error occured while downloading!");
+        this.dialogOpen("Error!", "An error occured while downloading!" + "[REASON - " + error + "]");
       }
       if (response === "done") {
         this.setState({
