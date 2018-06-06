@@ -29,12 +29,12 @@ class Query extends Component {
 
     Spotify.searchTrack(decodeURI(this.state.query), (err, result) => {
       if (err) {
-        return this.renderDialog("An Error Occured!", "MESSAGE: " + err);
+        return this.renderDialog("An Error Occured!", err);
       }
 
       YTSearch(result.title, (error, resp) => {
         if (error) {
-          return this.renderDialog("An Error Occured!", "MESSAGE: " + error);
+          return this.renderDialog("An Error Occured!", error);
         }
 
         // Render TrackContainer
