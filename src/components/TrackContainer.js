@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -9,12 +8,7 @@ import {
   CardContent,
   Button,
   Typography,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
+  CircularProgress
 } from '@material-ui/core';
 
 import DialogBox from './Dialog';
