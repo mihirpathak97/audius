@@ -31,7 +31,7 @@ app.on('ready', () => {
   }
   settings.set('FFMPEG_PATH', ffmpegPath);
   // Default download directory
-  settings.has('downloadDirectory') ? null : settings.set('downloadDirectory', process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
+  settings.has('downloadDirectory') ? null : settings.set('downloadDirectory', path.join(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'], 'Music'));
   // Default download format
   settings.has('defaultAudioOut') ? null : settings.set('defaultAudioOut', 'mp3');
 
