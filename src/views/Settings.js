@@ -21,7 +21,8 @@ const styles = theme => ({
   table: {
     width: '80%',
     border: 'none',
-    marginTop: 50
+    marginTop: 50,
+    marginLeft: 30
   },
   tablerow: {
     border: 'none'
@@ -55,8 +56,10 @@ class Settings extends Component {
     dialog.showOpenDialog(BrowserWindow.getFocusedWindow(), {
       properties: ['openDirectory']
     }, (path) => {
-      this.setState({ downloadDirectory: path[0] });
-      settings.set('downloadDirectory', path[0]);
+      if (path) {
+        this.setState({ downloadDirectory: path[0] });
+        settings.set('downloadDirectory', path[0]);
+      }
     })
   }
 
