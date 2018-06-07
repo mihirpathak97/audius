@@ -34,6 +34,12 @@ const styles = theme => ({
 
 class Settings extends Component {
 
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.selectDirectory = this.selectDirectory.bind(this)
+  }
+
   state = {
     defaultAudioOut: settings.get('defaultAudioOut'),
     downloadDirectory: settings.get('downloadDirectory')
@@ -43,6 +49,16 @@ class Settings extends Component {
     this.setState({ [event.target.name]: event.target.value });
     settings.set(event.target.name, event.target.value);
   };
+
+  selectDirectory = () => {
+    const { BrowserWindow, dialog } = window.require('electron').remote;
+    dialog.showOpenDialog(BrowserWindow.getFocusedWindow(), {
+      properties: ['openDirectory']
+    }, (path) => {
+      this.setState({ downloadDirectory: path[0] });
+      settings.set('downloadDirectory', path[0]);
+    })
+  }
 
   render() {
     const { classes } = this.props;
@@ -67,6 +83,7 @@ class Settings extends Component {
             <TableRow>
               <TableCell className={classes.tablerow}><Typography className={classes.text}>Download Location</Typography></TableCell>
               <TableCell className={classes.tablerow}><Typography>{this.state.downloadDirectory}</Typography></TableCell>
+              <TableCell className={classes.tablerow}><Button variant="raised" onClick={this.selectDirectory} size="small" color="primary">Change</Button></TableCell>
             </TableRow>
           </TableBody>
         </Table>
