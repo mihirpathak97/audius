@@ -5,7 +5,8 @@ const Ffmpeg = require('./ffmpeg-wrapper');
 var sanitize = require("sanitize-filename")
 
 const settings = window.require('electron-settings');
-settings.has('FFMPEG_PATH') ? Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH')) : null;
+
+Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH'));
 
 function download(youtubeUrl, metadata, callback) {
 
