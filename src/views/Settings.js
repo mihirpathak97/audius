@@ -5,7 +5,12 @@ import {
   MenuItem,
   FormControl,
   Select,
-  Typography
+  Typography,
+  Table,
+  TableCell,
+  TableBody,
+  TableRow,
+  Button
 } from '@material-ui/core';
 
 import TopAppBar from '../components/TopAppBar';
@@ -13,24 +18,15 @@ import TopAppBar from '../components/TopAppBar';
 const settings = window.require('electron-settings');
 
 const styles = theme => ({
-  wrapper: {
-    display: 'block',
-    width: 'auto',
-    position: 'absolute',
-    left: 56
+  table: {
+    width: '80%',
+    border: 'none',
+    marginTop: 50
   },
-  formControl: {
-    display: 'inline',
-    margin: theme.spacing.unit,
-    minWidth: 120,
-    marginLeft: 20
-  },
-  selectEmpty: {
-    marginTop: theme.spacing.unit * 2,
+  tablerow: {
+    border: 'none'
   },
   text: {
-    display: 'inline',
-    marginRight: 20,
     fontSize: 16,
     fontWeight: 500
   }
@@ -53,23 +49,27 @@ class Settings extends Component {
     return (
       <div className="App">
         <TopAppBar title="Settings" showMenu={false} />
-        <div className={classes.wrapper} style={{marginTop: 50}}>
-          <Typography className={classes.text}>Download format</Typography>
-          <FormControl className={classes.formControl}>
-            <Select
-              value={this.state.defaultAudioOut}
-              onChange={this.handleChange}
-              name="defaultAudioOut"
-              className={classes.selectEmpty}>
-              <MenuItem value={'mp3'}>MP3</MenuItem>
-              <MenuItem value={'m4a'}>M4A</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <div className={classes.wrapper} style={{marginTop: 130}}>
-          <Typography className={classes.text}>Download location</Typography>
-          <Typography style={{marginLeft: 20, display: 'inline'}}>{settings.get('downloadDirectory')}</Typography>
-        </div>
+        <Table className={classes.table}>
+          <TableBody>
+            <TableRow>
+              <TableCell className={classes.tablerow}><Typography className={classes.text}>Download Format</Typography></TableCell>
+              <TableCell className={classes.tablerow}>
+                <Select
+                  value={this.state.defaultAudioOut}
+                  onChange={this.handleChange}
+                  name="defaultAudioOut">
+                  <MenuItem value={'mp3'}>MP3</MenuItem>
+                  <MenuItem value={'m4a'}>M4A</MenuItem>
+                </Select>
+              </TableCell>
+              <TableCell className={classes.tablerow}></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className={classes.tablerow}><Typography className={classes.text}>Download Location</Typography></TableCell>
+              <TableCell className={classes.tablerow}><Typography>{this.state.downloadDirectory}</Typography></TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </div>
     );
   }
