@@ -38,7 +38,7 @@ class TopMenuList extends React.Component {
     this.setState({ anchorEl: null });
     const miniWindow = new BrowserWindow({width: 800, height: 600, frame: false});
     miniWindow.setResizable(false);
-    miniWindow.loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?' + url : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?' + url)}`);
+    miniWindow.loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000?' + url : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?' + url)}`);
   }
 
   render() {

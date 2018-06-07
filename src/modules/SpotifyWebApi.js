@@ -41,7 +41,7 @@ let searchTrack = (query, callback) => {
 
   var params = {
     q: query,
-    type: 'track',
+    type: 'track'
   }
 
   xhr({
@@ -76,8 +76,7 @@ let searchTrack = (query, callback) => {
       albumArt: track.album.images[1].url,
       spotifyUrl: track.external_urls.spotify,
       spotifyId: track.id,
-      SpotifyUri: track.uri,
-
+      SpotifyUri: track.uri
     }
     // Then return it
     return callback(null, track);

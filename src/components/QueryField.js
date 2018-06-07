@@ -51,7 +51,7 @@ class QueryField extends React.Component {
   };
 
   handleSearch = () => {
-    if (this.state.query.indexOf('spotify.com') != -1 || this.state.query.indexOf('youtube.com') != -1) {
+    if (this.state.query.indexOf('spotify.com') !== -1 || this.state.query.indexOf('youtube.com') !== -1) {
       this.setState({
         toggleError: true,
         dialogOpen: true
@@ -59,7 +59,7 @@ class QueryField extends React.Component {
       return
     }
     else {
-      BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV == 'development' ? 'http://localhost:3000?Query&val=' + this.state.query : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Query&val=' + this.state.query)}`);
+      BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000?Query&val=' + this.state.query : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Query&val=' + this.state.query)}`);
     }
   }
 
