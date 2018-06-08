@@ -45,7 +45,7 @@
     "package-all": "build -mwl --publish onTag",
     "package-linux": "build --linux --x64 --publish onTag",
     "package-win": "build --win --x64 --publish onTag",
-    "package-mac": "build --mac --x64 --publish onTag",
+    "package-mac": "build --mac --x64 --publish onTag"
   },
   "build": {
     "appId": "in.mihirpathak.audius",
