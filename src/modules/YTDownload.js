@@ -5,12 +5,13 @@ const Ffmpeg = require('./ffmpeg-wrapper');
 var sanitize = require("sanitize-filename")
 
 const settings = window.require('electron-settings');
+
 Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH'));
 
 function download(youtubeUrl, metadata, callback) {
 
   const outputFormat = settings.has('defaultAudioOut') ? settings.get('defaultAudioOut') : 'mp3';
-  const outputCodec = outputFormat == 'mp3' ? "libmp3lame" : "aac";
+  const outputCodec = outputFormat === 'mp3' ? "libmp3lame" : "aac";
 
   const infoOptions = {
     quality: 'highest'

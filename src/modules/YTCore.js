@@ -9,8 +9,6 @@ const through2 = require('through2');
 const Ffmpeg = require('./ffmpeg-wrapper');
 const settings = require('electron-settings');
 
-process.platform == 'win32' ? Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH')) : null;
-
 const express = require('express');
 const nofavicon = require('express-no-favicons');
 const app = express();
@@ -32,6 +30,9 @@ function listen (port, callback = () => {}) {
 
   // No favicon
   app.use(nofavicon())
+
+  // Set FFmpeg path
+  Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH'));
 
   // display test page
   app.get('/', (req, res) => {

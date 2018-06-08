@@ -2,13 +2,16 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
-const YTCore = require('../src/modules/YTCore');
-const Spotify = require('../src/modules/SpotifyWebApi');
+// Auto Updater
+const appUpdater = require("./updater");
 
 const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
 const settings = require('electron-settings');
+
+const YTCore = require('../src/modules/YTCore');
+const Spotify = require('../src/modules/SpotifyWebApi');
 
 let mainWindow;
 
@@ -24,10 +27,14 @@ app.on('ready', () => {
   /*
     Write some conf to persisent storage on init
   */
-  // FFmpeg [Only for windows]
-  settings.set('FFMPEG_PATH', isDev ? path.join(__dirname, '../ffmpeg/ffmpeg.exe') : path.join(__dirname, '../../ffmpeg/ffmpeg.exe'));
+  // FFmpeg [platform dependant]
+  ffmpegPath = isDev ? path.join(__dirname, '../ffmpeg', process.platform, 'ffmpeg') : path.join(process.resourcesPath, 'ffmpeg', process.platform, 'ffmpeg');
+  if (process.platform == 'win32') {
+    ffmpegPath += '.exe';
+  }
+  settings.set('FFMPEG_PATH', ffmpegPath);
   // Default download directory
-  settings.has('downloadDirectory') ? null : settings.set('downloadDirectory', process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
+  settings.has('downloadDirectory') ? null : settings.set('downloadDirectory', path.join(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'], 'Music'));
   // Default download format
   settings.has('defaultAudioOut') ? null : settings.set('defaultAudioOut', 'mp3');
 

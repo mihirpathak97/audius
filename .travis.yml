@@ -83,10 +83,12 @@ script:
   - yarn build-ci
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       echo "Packaging Audius for Linux x64 (.deb)";
+      chmod a+x ffmpeg/linux/ffmpeg;
       yarn package-linux;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       echo "Packaging Audius for MacOS X (.dmg)";
+      chmod a+x ffmpeg/darwin/ffmpeg;
       yarn package-mac;
       echo "Packaging Audius for Windows x64 (.exe)";
       yarn package-win;

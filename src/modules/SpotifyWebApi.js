@@ -41,7 +41,7 @@ let searchTrack = (query, callback) => {
 
   var params = {
     q: query,
-    type: 'track',
+    type: 'track'
   }
 
   xhr({
@@ -54,8 +54,18 @@ let searchTrack = (query, callback) => {
     if (err) {
       return callback(err);
     }
+
+    // Parse JSON response
+    body = JSON.parse(body);
+
+    // Return if Spotify token expires
+    // TODO: refresh token on demand
+    if (body.error) {
+      return callback(body.error.message);
+    }
+
     // Take the first result
-    var track = JSON.parse(body).tracks.items[0];
+    var track = body.tracks.items[0];
 
     // Clean it up
     track = {
@@ -66,8 +76,7 @@ let searchTrack = (query, callback) => {
       albumArt: track.album.images[1].url,
       spotifyUrl: track.external_urls.spotify,
       spotifyId: track.id,
-      SpotifyUri: track.uri,
-
+      SpotifyUri: track.uri
     }
     // Then return it
     return callback(null, track);
