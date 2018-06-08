@@ -42,21 +42,28 @@
     "build-ci": "cross-env CI=false node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "package-all": "build -mwl",
-    "package-linux": "build --linux --x64",
-    "package-win": "build --win --x64",
-    "package-mac": "build --mac --x64"
+    "package-all": "build -mwl --publish onTag",
+    "package-linux": "build --linux --x64 --publish onTag",
+    "package-win": "build --win --x64 --publish onTag",
+    "package-mac": "build --mac --x64 --publish onTag",
   },
   "build": {
     "appId": "in.mihirpathak.audius",
     "copyright": "Copyright © 2018 Mihir Pathak",
     "artifactName": "${productName}Setup.${ext}",
+    "publish": {
+      "provider": "s3",
+      "bucket": "audius-releases",
+      "region": "ap-south-1",
+      "path": "stable"
+    },
     "files": [
       "build/**/*",
       "react-compiled/**/*",
       "node_modules/**/*",
       "src/**/*",
       "public/electron.js",
+      "public/updater.js",
       "package.json"
     ],
     "mac": {
@@ -107,12 +114,6 @@
       "allowElevation": "true",
       "allowToChangeInstallationDirectory": "true"
     }
-  },
-  "publish": {
-    "provider": "s3",
-    "bucket": "audius-releases",
-    "region": "ap-south-1",
-    "path": "stable"
   },
   "jest": {
     "collectCoverageFrom": [

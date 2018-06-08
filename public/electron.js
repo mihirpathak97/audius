@@ -2,13 +2,16 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
-const YTCore = require('../src/modules/YTCore');
-const Spotify = require('../src/modules/SpotifyWebApi');
+// Auto Updater
+const appUpdater = require("./updater");
 
 const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
 const settings = require('electron-settings');
+
+const YTCore = require('../src/modules/YTCore');
+const Spotify = require('../src/modules/SpotifyWebApi');
 
 let mainWindow;
 
