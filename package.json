@@ -1,7 +1,7 @@
 {
   "name": "audius",
   "productName": "Audius",
-  "version": "1.0.0-beta3",
+  "version": "1.0.0",
   "description": "A cross-platform app for downloading songs from YouTube and Spotify",
   "author": {
     "name": "Mihir Pathak",
@@ -20,6 +20,7 @@
     "async": "^2.6.1",
     "base-64": "^0.1.0",
     "electron-is-dev": "^0.3.0",
+    "electron-log": "^2.2.14",
     "electron-settings": "^3.2.0",
     "electron-updater": "^2.21.10",
     "express": "^4.16.3",
@@ -45,7 +46,7 @@
     "package-all": "build -mwl --publish onTag",
     "package-linux": "build --linux --x64 --publish onTag",
     "package-win": "build --win --x64 --publish onTag",
-    "package-mac": "build --mac --x64 --publish onTag",
+    "package-mac": "build --mac --x64 --publish onTag"
   },
   "build": {
     "appId": "in.mihirpathak.audius",
