@@ -54,7 +54,7 @@ class Terms extends Component {
 
           { /* FFmpeg */ }
           <Typography style={{fontWeight: 500, fontSize: 16, marginTop: 35, marginBottom: 20}}>
-            This software uses a pre-compiled version of <span onClick={() => openExternal("http://ffmpeg.org")} style={styles.link}>FFmpeg</span> for the Windows Operating System
+            This software uses a pre-compiled version of <span onClick={() => openExternal("http://ffmpeg.org")} style={styles.link}>FFmpeg</span>
           </Typography>
 
           <Typography style={{fontSize: 16, marginTop: 35, marginBottom: 20}}>
