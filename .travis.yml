@@ -2,7 +2,7 @@
 # Author - Mihir Pathak
 #
 # Consists of 4 jobs -
-#   - 2 for master branch invoked only when tags are pushed
+#   - 2 for when tags are pushed
 #   - 2 for dev branch and will be invoked for each push
 
 # Build with Node JS 8 [9+ causes fsevetns build to crash in darwin]
@@ -12,12 +12,10 @@ node_js: "8"
 # Job for building
 jobs:
   include:
-    - if: branch = master
-      if: tag IS present
+    - if: tag IS present
       os: linux
       dist: trusty
-    - if: branch = master
-      if: tag IS present
+    - if: tag IS present
       os: osx
       osx_image: xcode9.3
     - if: branch = dev
@@ -26,6 +24,28 @@ jobs:
     - if: branch = dev
       os: osx
       osx_image: xcode9.3
+
+# S3 Deploy [for builds in 'dev' branch. Tagged builds will be pushed to stable/version by electron-builder]
+deploy:
+  provider: s3
+  access_key_id: "AKIAJQVWOER2UGVDXHBQ"
+  secret_access_key: "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"
+  bucket: "audius-releases"
+  skip_cleanup: true
+  acl: public_read
+  region: ap-south-1
+  local_dir: dist
+  upload-dir: test-builds
+  on:
+    branch: dev
+ 
+# Clean dist/ before uploading
+before_deploy:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rm -rf dist/win-unpacked/ dist/mac/ dist/*.blockmap ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then rm -rf dist/linux-unpacked/ dist/*.blockmap ; fi
+
+after_deploy:
+  - echo "Finished uploading artifacts"
 
 # Global environment variables
 env:
@@ -58,4 +78,4 @@ script:
     fi
 
 after_success:
-  - echo "Build completed and artifacts uploaded to S3 bucket"
+  - echo "Build completed, uploading artifacts (if any)"

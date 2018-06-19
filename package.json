@@ -56,7 +56,7 @@
       "provider": "s3",
       "bucket": "audius-releases",
       "region": "ap-south-1",
-      "path": "stable"
+      "path": "stable/${version}"
     },
     "files": [
       "build/**/*",
