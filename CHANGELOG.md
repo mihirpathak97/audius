@@ -1,6 +1,37 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2018-06-19
+### Changed
+- Use proper JSX syntax
+- Query - remove useless code
+- Modified build scripts
+
+## [1.0.1] - 2018-06-15
+### Added
+- electron-log for logging
+
+### Changed
+- Cleanup unnecessary build code
+- Temporarily drop auto-updater support
+- Clean up Terms and About
+
+## [1.0.0] - 2018-06-08
+### Added
+- FFmpeg binary for all platforms
+- Added ability to modify settings
+
+### Changed
+- Debian package specific config
+- Settings - use table layout
+- Default download location is `$HOME/Misic`
+- electron-builder publish config
+
+### Fixed
+- Fix FFMPEG_PATH related issues for all platforms
+- Fix Query onSubmit
+- Fix FFmpeg binary permission issues in OsX and Linux
+
 ## [1.0.0-beta3] - 2018-06-06
 ### Added
 - Add custom dialog box to display messages and errors
@@ -115,10 +146,3 @@ All notable changes to this project will be documented in this file.
 - App - set correct FFMPEG_PATH
 - webpack - fix production level transpiling issues (UglifyJS cannot properly transpile ES6)
 - App - fix module not found error in main
-
-## [PRE 1.0.0-pre-alpha]
-### Pre-release commits includes the following
-- Ejected from CRA
-- Add react-router for routing
-- Add material-ui for GUI
-- Add basic components [About, Home, Settings and Query]
