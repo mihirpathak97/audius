@@ -9,12 +9,9 @@ import DialogBox from '../components/Dialog';
 
 class Query extends Component {
 
-  state: {
+  state = {
     query: ''
   }
-
-  // Empty Array to hold search results as react child elements
-  searchResultsArray = []
 
   componentWillMount() {
     this.setState({
@@ -23,7 +20,6 @@ class Query extends Component {
   }
 
   componentDidMount() {
-
     var Spotify = require('../modules/SpotifyWebApi');
     var YTSearch = require('../modules/YTSearch');
 
@@ -63,12 +59,9 @@ class Query extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <TopAppBar title="Search" showMenu={false} showBackIcon={true} />
-        { /*<h1 style={{paddingTop: 50, paddingBottom: 30}}>You searched for "{decodeURI(this.state.query)}"</h1> */ }
-        <div id="container">
-
-        </div>
+        <div id="container"></div>
       </div>
     );
   }
