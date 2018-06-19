@@ -26,6 +26,8 @@ let getAccessToken = () => {
     body: "grant_type=client_credentials"
   }, function (err, resp, body) {
     if (err) {
+      const { dialog } = require('electron');
+      dialog.showErrorBox('Error!', 'There was an error generating the Spotify Access Token. Please check your internet connection.');
       return;
     }
 
@@ -61,6 +63,7 @@ let searchTrack = (query, callback) => {
     // Return if Spotify token expires
     // TODO: refresh token on demand
     if (body.error) {
+      console.log(body)
       return callback(body.error.message);
     }
 
