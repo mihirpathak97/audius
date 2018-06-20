@@ -8,6 +8,10 @@
     "email": "mihirpathak97@gmail.com",
     "url": "https://github.com/mihirpathak97"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mihirpathak97/audius.git"
+  },
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
@@ -53,10 +57,7 @@
     "copyright": "Copyright © 2018 Mihir Pathak",
     "artifactName": "${productName}Setup.${ext}",
     "publish": {
-      "provider": "s3",
-      "bucket": "audius-releases",
-      "region": "ap-south-1",
-      "path": "stable/${version}"
+      "provider": "github",
     },
     "files": [
       "build/**/*",
