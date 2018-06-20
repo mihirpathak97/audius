@@ -47,10 +47,10 @@
     "build-ci": "cross-env CI=false node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "package-all": "build -mwl --publish onTag",
-    "package-linux": "build --linux --x64 --publish onTag",
-    "package-win": "build --win --x64 --publish onTag",
-    "package-mac": "build --mac --x64 --publish onTag"
+    "package-all": "build -mwl --publish onTagOrDraft",
+    "package-linux": "build --linux --x64 --publish onTagOrDraft",
+    "package-win": "build --win --x64 --publish onTagOrDraft",
+    "package-mac": "build --mac --x64 --publish onTagOrDraft"
   },
   "build": {
     "appId": "in.mihirpathak.audius",
