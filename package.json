@@ -57,7 +57,7 @@
     "copyright": "Copyright © 2018 Mihir Pathak",
     "artifactName": "${productName}Setup.${ext}",
     "publish": {
-      "provider": "github",
+      "provider": "github"
     },
     "files": [
       "build/**/*",
