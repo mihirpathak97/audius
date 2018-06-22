@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2018-06-22
+### Changed
+- Remove unused dependencies [lesser app size]
+- NSIS installer will not ask for elevated permissions
+
 ## [1.2.0] - 2018-06-22
 ### Changed
 - include files for electron-builder
