@@ -104,10 +104,8 @@
       "artifactName": "${productName}Setup-x64.${ext}"
     },
     "nsis": {
-      "oneClick": "false",
-      "perMachine": "true",
-      "allowElevation": "true",
-      "allowToChangeInstallationDirectory": "true"
+      "oneClick": "true",
+      "perMachine": "true"
     }
   },
   "jest": {
