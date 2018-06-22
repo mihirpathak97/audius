@@ -65,6 +65,9 @@
       "src/**/*",
       "package.json"
     ],
+    "directories": {
+      "buildResources": "assets"
+    },
     "mac": {
       "target": "dmg",
       "artifactName": "${name}-setup.${ext}",
