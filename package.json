@@ -60,12 +60,9 @@
       "provider": "github"
     },
     "files": [
-      "build/**/*",
       "react-compiled/**/*",
       "node_modules/**/*",
       "src/**/*",
-      "public/electron.js",
-      "public/updater.js",
       "package.json"
     ],
     "mac": {
