@@ -38,6 +38,35 @@ class App extends Component {
     }
   }
 
+  state = {
+    title: '',
+    showMenu: false,
+    showBack: false
+  }
+
+  componentWillMount() {
+    let view = window.location.href.split('?')[1].split('&')[0];
+    switch (view) {
+      case 'Home':
+        this.setState({
+          title: 'Audius',
+          showMenu: true
+        })
+        break;
+      case 'Query':
+        this.setState({
+          title: 'Search',
+          showMenu: false,
+          showBack: true
+        })
+        break;
+      default:
+        this.setState({
+          title: view
+        })
+    }
+  }
+
   static View(props) {
     let name = props.location.search.substr(1).split('&')[0];
     let view = App.Views()[name];
@@ -49,7 +78,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TopAppBar title="Audius" showMenu={true} />
+        <TopAppBar title={this.state.title} showMenu={this.state.showMenu} showBack={this.state.showBack} />
         <Router>
           <div>
             <Route path='/' component={App.View}/>
