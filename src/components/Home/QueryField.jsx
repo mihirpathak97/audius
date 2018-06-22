@@ -13,7 +13,7 @@ const path = require('path');
 
 const styles = theme => ({
   container: {
-    marginTop: 150
+    marginTop: 50
   },
   textField: {
     marginLeft: theme.spacing.unit,
