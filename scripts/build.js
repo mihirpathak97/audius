@@ -143,8 +143,13 @@ function build(previousFileSizes) {
 }
 
 function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuild, {
-    dereference: true,
-    filter: file => file !== paths.appHtml,
-  });
+  
+  /**
+   * Do not copy public folder 'src'
+   */
+
+  // fs.copySync(paths.appPublic, paths.appBuild, {
+  //   dereference: true,
+  //   filter: file => file !== paths.appHtml,
+  // });
 }
