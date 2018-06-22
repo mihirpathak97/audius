@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import TopAppBar from '../TopAppBar';
 
 import { withRouter } from 'react-router-dom';
 
-import TrackContainer from '../TrackContainer';
+import TrackContainer from './TrackContainer';
 import DialogBox from '../Dialog';
 
 class Query extends Component {

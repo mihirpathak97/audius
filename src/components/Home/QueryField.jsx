@@ -6,7 +6,7 @@ import {
   Button
 } from '@material-ui/core';
 
-import DialogBox from './Dialog';
+import DialogBox from '../Dialog';
 
 const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');

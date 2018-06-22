@@ -11,7 +11,7 @@ import {
   CircularProgress
 } from '@material-ui/core';
 
-import DialogBox from './Dialog';
+import DialogBox from '../Dialog';
 
 const styles = {
   card: {
@@ -76,7 +76,7 @@ class TrackContainer extends React.Component {
 
   downloadAudio = () => {
 
-    var YTDownload = require('../modules/YTDownload');
+    var YTDownload = require('../../modules/YTDownload');
     // Set loading and dialogOpen
     this.setState({
       loading: true,
