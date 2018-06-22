@@ -39,7 +39,6 @@ class App extends Component {
   }
 
   state = {
-    title: '',
     showMenu: false,
     showBack: false
   }
@@ -49,13 +48,11 @@ class App extends Component {
     switch (view) {
       case 'Home':
         this.setState({
-          title: 'Audius',
           showMenu: true
         })
         break;
       case 'Query':
         this.setState({
-          title: 'Search',
           showMenu: false,
           showBack: true
         })
@@ -78,7 +75,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TopAppBar title={this.state.title} showMenu={this.state.showMenu} showBack={this.state.showBack} />
+        <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
         <Router>
           <div>
             <Route path='/' component={App.View}/>

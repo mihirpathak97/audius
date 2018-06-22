@@ -37,16 +37,13 @@ function TopAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar style={{boxShadow: 'none', backgroundColor: 'inherit'}}>
         <Toolbar>
           { /* MenuBar Icon */ }
           { props.showMenu ? <TopMenuList /> : null }
 
           { /* Back Icon for query */ }
           { props.showBack ? <IconButton onClick={handleClick}><ArrowBackIcon /></IconButton> : null }
-
-          { /* Title in app bar */ }
-          <Typography variant="title" color="inherit" className={classes.flex}>{ props.title }</Typography>
 
           { /* Window Minimise and Quit */ }
           <WindowHandlers />

@@ -10,7 +10,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <img src={logo} style={{marginTop: 100, width: 340}} alt="Audius" />
+        <img src={logo} style={{marginTop: 70, width: 340}} alt="Audius" />
         <QueryField />
       </div>
     );
