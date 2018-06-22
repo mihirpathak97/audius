@@ -60,7 +60,6 @@ class Query extends Component {
   render() {
     return (
       <div>
-        <TopAppBar title="Search" showMenu={false} showBackIcon={true} />
         <div id="container"></div>
       </div>
     );

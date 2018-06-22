@@ -22,6 +22,9 @@ import Settings from './components/Settings/View';
 import Terms from './components/Terms/View';
 import Query from './components/Query/View';
 
+// Components
+import TopAppBar from './components/TopAppBar';
+
 class App extends Component {
 
   // Define routes here
@@ -45,11 +48,14 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <div>
-          <Route path='/' component={App.View}/>
-        </div>
-      </Router>
+      <div className="App">
+        <TopAppBar title="Audius" showMenu={true} />
+        <Router>
+          <div>
+            <Route path='/' component={App.View}/>
+          </div>
+        </Router>
+      </div>
     );
   }
 }

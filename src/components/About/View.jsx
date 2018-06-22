@@ -11,8 +11,7 @@ function openExternal(url) {
 class About extends Component {
   render() {
     return (
-      <div className="App">
-        <TopAppBar title="About" showMenu={false} />
+      <div>
         <div style={{disply: 'block', width: '87%', margin: 'auto', marginTop: 50, textAlign: 'left'}}>
           <Typography variant="display1" style={{color: 'hsl(348, 100%, 61%)', fontSize: '18', marginBottom: 10}}>
             About

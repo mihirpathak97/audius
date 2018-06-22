@@ -65,8 +65,7 @@ class Settings extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className="App">
-        <TopAppBar title="Settings" showMenu={false} />
+      <div>
         <Table className={classes.table}>
           <TableBody>
             <TableRow>
