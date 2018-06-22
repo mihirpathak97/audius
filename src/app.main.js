@@ -1,17 +1,22 @@
+/**
+ * App's main process
+ * Calls electron's API
+ */
+
 const electron = require('electron');
-const app = electron.app;
+const app = require('electron').app;
 const BrowserWindow = electron.BrowserWindow;
 
 // Auto Updater
-const appUpdater = require("./updater");
+// const appUpdater = require("./updater");
 
 const path = require('path');
 const url = require('url');
 const isDev = require('electron-is-dev');
 const settings = require('electron-settings');
 
-const YTCore = require('../src/modules/YTCore');
-const Spotify = require('../src/modules/SpotifyWebApi');
+const YTCore = require('./modules/YTCore');
+const Spotify = require('./modules/SpotifyWebApi');
 
 let mainWindow;
 
@@ -49,13 +54,16 @@ app.on('ready', () => {
 });
 
 app.on('window-all-closed', () => {
-  // Don't quit app on MacOS
+  // [OS X] it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
 app.on('activate', () => {
+  // [OS X] Re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createWindow();
   }

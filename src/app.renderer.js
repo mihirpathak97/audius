@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
 
+// import global CSS file
+import './app.global.css';
+
+// Views
 import Home from './views/Home';
 import About from './views/About';
 import Settings from './views/Settings';
 import Terms from './views/Terms';
 import Query from './views/Query';
 
-import './App.css';
-
 class App extends Component {
 
+  // Define routes here
   static Views() {
     return {
       Home: <Home />,
@@ -43,4 +47,5 @@ class App extends Component {
   }
 }
 
-export default App;
+// Render App to DOM
+ReactDOM.render(<App />, document.getElementById('root'));

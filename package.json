@@ -13,7 +13,7 @@
     "url": "https://github.com/mihirpathak97/audius.git"
   },
   "private": true,
-  "main": "public/electron.js",
+  "main": "src/app.main.js",
   "homepage": "./",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
