@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TopAppBar from '../components/TopAppBar';
-import QueryField from '../components/QueryField';
+import TopAppBar from '../TopAppBar';
+import QueryField from '../QueryField';
 
 class Home extends Component {
   render() {

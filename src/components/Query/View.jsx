@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import TopAppBar from '../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
 import { withRouter } from 'react-router-dom';
 
-import TrackContainer from '../components/TrackContainer';
-import DialogBox from '../components/Dialog';
+import TrackContainer from '../TrackContainer';
+import DialogBox from '../Dialog';
 
 class Query extends Component {
 
@@ -20,8 +20,8 @@ class Query extends Component {
   }
 
   componentDidMount() {
-    var Spotify = require('../modules/SpotifyWebApi');
-    var YTSearch = require('../modules/YTSearch');
+    var Spotify = require('../../modules/SpotifyWebApi');
+    var YTSearch = require('../../modules/YTSearch');
 
     Spotify.searchTrack(decodeURI(this.state.query), (err, result) => {
       if (err) {

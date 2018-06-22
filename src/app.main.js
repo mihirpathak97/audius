@@ -1,6 +1,6 @@
 /**
  * App's main process
- * Calls electron's API to create window
+ * Calls electron's API to create window and initialize the app
  */
 
 const electron = require('electron');

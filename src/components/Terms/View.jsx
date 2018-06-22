@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import TopAppBar from '../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
 const styles = {
   list: {

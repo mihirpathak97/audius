@@ -4,6 +4,7 @@
  * 
  * Initialises React App
  */
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
@@ -15,11 +16,11 @@ import {
 import './app.global.css';
 
 // Views
-import Home from './views/Home';
-import About from './views/About';
-import Settings from './views/Settings';
-import Terms from './views/Terms';
-import Query from './views/Query';
+import Home from './components/Home/View';
+import About from './components/About/View';
+import Settings from './components/Settings/View';
+import Terms from './components/Terms/View';
+import Query from './components/Query/View';
 
 class App extends Component {
 

@@ -12,7 +12,7 @@ import {
   Button
 } from '@material-ui/core';
 
-import TopAppBar from '../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
 const settings = window.require('electron-settings');
 
