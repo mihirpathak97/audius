@@ -37,7 +37,7 @@ function TopAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar style={{boxShadow: 'none', backgroundColor: 'inherit'}}>
+      <AppBar position="static" style={{boxShadow: 'none', backgroundColor: 'inherit'}}>
         <Toolbar>
           { /* MenuBar Icon */ }
           { props.showMenu ? <TopMenuList /> : null }

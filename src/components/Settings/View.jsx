@@ -21,7 +21,7 @@ const styles = theme => ({
     width: '80%',
     border: 'none',
     marginTop: 50,
-    marginLeft: 30
+    marginLeft: -20
   },
   tablerow: {
     border: 'none'
@@ -65,7 +65,10 @@ class Settings extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div style={{disply: 'block', width: '87%', margin: 'auto', marginTop: 10, textAlign: 'left'}}>
+        <Typography variant="display1" style={{color: 'hsl(348, 100%, 61%)', fontSize: '18', marginBottom: 10}}>
+          Settings
+        </Typography>
         <Table className={classes.table}>
           <TableBody>
             <TableRow>
