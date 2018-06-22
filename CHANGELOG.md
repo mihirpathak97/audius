@@ -1,6 +1,23 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2018-06-22
+### Changed
+- include files for electron-builder
+
+## [1.2.0-beta1] - 2018-06-22
+### Changed
+- New Layout!
+- Cleaner, Leaner code
+- Re-organize entire app structure for efficiency
+
+### Fixed
+- FFmpeg path issues in production
+
+## [1.1.0] - 2018-06-20
+### Added
+- Auto Update is now fully functional
+
 ## [1.0.2] - 2018-06-19
 ### Changed
 - Use proper JSX syntax
