@@ -62,7 +62,8 @@
     "files": [
       "react-compiled/**/*",
       "node_modules/**/*",
-      "src/**/*",
+      "src/app.main.js",
+      "src/modules/**/*",
       "package.json"
     ],
     "directories": {
