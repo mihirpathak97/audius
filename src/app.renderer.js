@@ -1,3 +1,9 @@
+/**
+ * App's renderer process
+ * Called by the browser when it loads itself
+ * 
+ * Initialises React App
+ */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
