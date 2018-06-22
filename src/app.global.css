@@ -12,6 +12,8 @@ body {
 /* APP */
 .App {
   text-align: center;
+  user-select: none;
+  cursor: default;
 }
 
 /* Scrollbar */
