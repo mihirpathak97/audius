@@ -1,8 +1,6 @@
-# Audius
+# Audius [Stale]
 
-Download songs from YouTube
+**NOTE** : This branch is state and will not be updated.
 
-## Disclaimer
-
-Downloading audio or video from YouTube is illegal in some countries.
-The developer cannot be held responsible for any improper use of this software to download copyrighted content.
+Audius v0.3x written with electronjs. Just a simple app that acts as a wrapper
+around the `audius-cli`.
