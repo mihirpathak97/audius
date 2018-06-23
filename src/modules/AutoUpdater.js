@@ -5,7 +5,8 @@
  * and will be automatically downloaded and will be installed
  */ 
  
-const {autoUpdater} = require("electron-updater"); 
+const {autoUpdater} = require("electron-updater");
+autoUpdater.channel = 'alpha';
 autoUpdater.checkForUpdatesAndNotify();
 
 // Done in two lines :)
