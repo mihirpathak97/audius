@@ -9,14 +9,15 @@ import {
   TableCell,
   TableBody,
   TableRow,
-  Button
+  Button,
+  Switch
 } from '@material-ui/core';
 
 const settings = window.require('electron-settings');
 
 const styles = theme => ({
   table: {
-    width: '80%',
+    width: '95%',
     border: 'none',
     marginTop: 50,
     marginLeft: -20
@@ -40,7 +41,8 @@ class Settings extends Component {
 
   state = {
     defaultAudioOut: settings.get('defaultAudioOut'),
-    downloadDirectory: settings.get('downloadDirectory')
+    downloadDirectory: settings.get('downloadDirectory'),
+    embedMetadata: settings.get('embedMetadata')
   };
 
   handleChange = event => {
@@ -58,6 +60,11 @@ class Settings extends Component {
         settings.set('downloadDirectory', path[0]);
       }
     })
+  }
+
+  handleSwitchChange = event => {
+    this.setState({ embedMetadata: event.target.checked });
+    settings.set('embedMetadata', event.target.checked);
   }
 
   render() {
@@ -86,6 +93,10 @@ class Settings extends Component {
               <TableCell className={classes.tablerow}><Typography className={classes.text}>Download Location</Typography></TableCell>
               <TableCell className={classes.tablerow}><Typography>{this.state.downloadDirectory}</Typography></TableCell>
               <TableCell className={classes.tablerow}><Button variant="raised" onClick={this.selectDirectory} size="small" color="primary">Change</Button></TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className={classes.tablerow}><Typography className={classes.text}>Embed ID3 metadata for songs <span style={{color: 'red'}}>[EXPERIMENTAL]</span></Typography></TableCell>
+              <Switch checked={this.state.embedMetadata} onChange={this.handleSwitchChange}/>
             </TableRow>
           </TableBody>
         </Table>

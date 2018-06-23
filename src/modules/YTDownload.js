@@ -60,8 +60,10 @@ function download(youtubeUrl, metadata, callback) {
       })
       .on("end", function() {
         // Embed metadata
-        const rainbow = require('./rainbowWrapper');
-        rainbow.embedMetadata(fileName, metadata.spotifyId)
+        if(settings.get('embedMetadata')) {
+          const rainbow = require('./rainbowWrapper');
+          rainbow.embedMetadata(fileName, metadata.spotifyId);
+        }
         return callback(null, "done");
       })
       .saveToFile(fileName);
