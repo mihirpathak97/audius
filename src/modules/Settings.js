@@ -10,11 +10,16 @@ const path = require('path');
 const settings = require('electron-settings');
 
 // FFmpeg [platform dependant]
-ffmpegPath = isDev ? path.join(__dirname, '../../ffmpeg', process.platform, 'ffmpeg') : path.join(process.resourcesPath, 'ffmpeg', process.platform, 'ffmpeg');
-if (process.platform == 'win32') {
+let ffmpegPath = isDev ? path.join(__dirname, '../../ffmpeg', process.platform, 'ffmpeg') : path.join(process.resourcesPath, 'ffmpeg', process.platform, 'ffmpeg');
+if (process.platform === 'win32') {
   ffmpegPath += '.exe';
 }
 settings.set('FFMPEG_PATH', ffmpegPath);
+let rainbowPath = isDev ? path.join(__dirname, '../../rainbow', process.platform, 'rainbow') : path.join(process.resourcesPath, 'rainbow', process.platform, 'rainbow');
+if (process.platform === 'win32') {
+  rainbowPath += '.exe';
+}
+settings.set('RAINBOW_PATH', rainbowPath);
 // Default download directory
 settings.has('downloadDirectory') ? null : settings.set('downloadDirectory', path.join(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'], 'Music'));
 // Default download format
