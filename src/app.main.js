@@ -8,10 +8,9 @@ const app = require('electron').app;
 const BrowserWindow = electron.BrowserWindow;
 
 // Auto Updater
-const appUpdater = require("./modules/AutoUpdater");
+require("./modules/AutoUpdater");
 
 const path = require('path');
-const url = require('url');
 const isDev = require('electron-is-dev');
 
 const YTCore = require('./modules/YTCore');
@@ -20,7 +19,11 @@ const Spotify = require('./modules/SpotifyWebApi');
 let mainWindow;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({width: 900, height: 680, frame: false});
+  mainWindow = new BrowserWindow({
+    width: 900,
+    height: 680,
+    frame: false
+  });
   mainWindow.setResizable(false);
   mainWindow.loadURL(isDev ? 'http://localhost:3000?Home' : `file://${path.join(__dirname, '../react-compiled/index.html?Home')}`);
   mainWindow.on('closed', () => mainWindow = null);

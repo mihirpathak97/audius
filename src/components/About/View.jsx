@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import TopAppBar from '../TopAppBar';
-
 function openExternal(url) {
   var shell = window.require('electron').shell;
   shell.openExternal(url);

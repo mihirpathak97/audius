@@ -3,9 +3,6 @@ import QueryField from './QueryField';
 
 import logo from './audius_big.png';
 
-const { app } = window.require('electron').remote;
-const path = require('path');
-
 class Home extends Component {
   render() {
     return (

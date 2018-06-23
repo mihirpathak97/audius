@@ -50,7 +50,7 @@ function download(youtubeUrl, metadata, callback) {
       });
 
       // Start encoding
-      var proc = new Ffmpeg({
+      new Ffmpeg({
         source: stream
       })
       .audioBitrate(info.formats[0].audioBitrate)
@@ -58,7 +58,7 @@ function download(youtubeUrl, metadata, callback) {
       .on("error", function(err) {
         return callback(err.message);
       })
-      .on("end", function() {
+      .on("end", function() { 
         return callback(null, "done");
       })
       .saveToFile(fileName);

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-import TopAppBar from '../TopAppBar';
-
 const styles = {
   list: {
     marginTop: 5,

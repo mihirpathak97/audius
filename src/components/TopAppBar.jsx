@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Toolbar,
-  Typography,
   IconButton
 } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
