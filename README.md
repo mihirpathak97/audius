@@ -5,7 +5,7 @@
 Audius is a cross-platform application which can be used to download songs from YouTube and Spotify
 
 [![Build Status for "master"](https://travis-ci.com/mihirpathak97/audius.svg?token=ebex5hGA4p6XqQ9m8EVi&branch=master)](https://travis-ci.com/mihirpathak97/audius)
-https://david-dm.org/mihirpathak97/audius.svg
+[![Node JS dependencies](https://david-dm.org/mihirpathak97/audius.svg)](https://travis-ci.com/mihirpathak97/audius)
 
 **Written with [electronjs](https://electronjs.org/)**
 
