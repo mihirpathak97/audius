@@ -1,6 +1,24 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.3.0-alpha2] - 2018-06-24
+### Added
+- [Experimental] Added rainbow for all platforms
+- Added toggle switch in Settigns to embed metadata
+
+### Changed
+- Changed the way the app compiles external binaries
+
+### Removed
+- All built in binaries inside the repository
+
+## [1.3.0-alpha1] - 2018-06-23
+### Added
+- [Experimental] Added rainbow for embedding ID3 in win32
+
+### Changed
+- Lint ES6 code
+
 ## [1.2.1] - 2018-06-22
 ### Changed
 - Remove unused dependencies [lesser app size]
