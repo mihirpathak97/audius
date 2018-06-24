@@ -15,7 +15,7 @@ var urlFFmpeg = "https://s3.ap-south-1.amazonaws.com/mihirpathak/audius/binaries
 var urlRainbow = "https://s3.ap-south-1.amazonaws.com/mihirpathak/audius/binaries/rainbow/" + fileNameRainbow;
  
 download(urlFFmpeg, {
-    directory: "../bin/ffmpeg/",
+    directory: "bin/ffmpeg/" + process.platform,
     filename: fileNameFFmpeg
 }, function(err){
     if (err) {
@@ -25,7 +25,7 @@ download(urlFFmpeg, {
 });
 
 download(urlRainbow, {
-    directory: "../bin/rainbow/",
+    directory: "bin/rainbow/",
     filename: fileNameRainbow
 }, function(err){
     if (err) {

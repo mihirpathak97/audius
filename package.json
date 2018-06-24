@@ -34,7 +34,7 @@
     "ytdl-core": "^0.20.4"
   },
   "scripts": {
-    "init" : "node scripts/bootstrap.js",
+    "init-app" : "node scripts/bootstrap.js",
     "start": "node scripts/start.js", 
     "build": "node scripts/build.js",
     "build-ci": "cross-env CI=false node scripts/build.js",
