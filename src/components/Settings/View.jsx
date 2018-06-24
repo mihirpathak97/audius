@@ -94,10 +94,14 @@ class Settings extends Component {
               <TableCell className={classes.tablerow}><Typography>{this.state.downloadDirectory}</Typography></TableCell>
               <TableCell className={classes.tablerow}><Button variant="raised" onClick={this.selectDirectory} size="small" color="primary">Change</Button></TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell className={classes.tablerow}><Typography className={classes.text}>Embed ID3 metadata for songs <span style={{color: 'red'}}>[EXPERIMENTAL]</span></Typography></TableCell>
-              <Switch checked={this.state.embedMetadata} onChange={this.handleSwitchChange}/>
-            </TableRow>
+            {
+              this.state.defaultAudioOut === 'mp3' ? (
+                <TableRow>
+                  <TableCell className={classes.tablerow}><Typography className={classes.text}>Embed ID3 metadata for songs <span style={{color: 'red'}}>[EXPERIMENTAL]</span></Typography></TableCell>
+                  <Switch checked={this.state.embedMetadata} onChange={this.handleSwitchChange}/>
+                </TableRow>
+              ) : null
+            }
           </TableBody>
         </Table>
       </div>
