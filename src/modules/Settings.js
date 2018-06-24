@@ -10,12 +10,12 @@ const path = require('path');
 const settings = require('electron-settings');
 
 // FFmpeg [platform dependant]
-let ffmpegPath = isDev ? path.join(__dirname, '../../ffmpeg', process.platform, 'ffmpeg') : path.join(process.resourcesPath, 'ffmpeg', process.platform, 'ffmpeg');
+let ffmpegPath = isDev ? path.join(__dirname, '../../bin/ffmpeg', process.platform, 'ffmpeg') : path.join(process.resourcesPath, 'ffmpeg', process.platform, 'ffmpeg');
 if (process.platform === 'win32') {
   ffmpegPath += '.exe';
 }
 settings.set('FFMPEG_PATH', ffmpegPath);
-let rainbowPath = isDev ? path.join(__dirname, '../../rainbow', process.platform, 'rainbow') : path.join(process.resourcesPath, 'rainbow', process.platform, 'rainbow');
+let rainbowPath = isDev ? path.join(__dirname, '../../bin/rainbow', process.platform, 'rainbow') : path.join(process.resourcesPath, 'rainbow', process.platform, 'rainbow');
 if (process.platform === 'win32') {
   rainbowPath += '.exe';
 }
