@@ -66,7 +66,10 @@
     "mac": {
       "target": "dmg",
       "artifactName": "${name}-setup.${ext}",
-      "extraResources": "ffmpeg/darwin"
+      "extraResources": [
+        "bin/ffmpeg/darwin",
+        "bin/rainbow/darwin"
+      ]
     },
     "dmg": {
       "contents": [
@@ -87,7 +90,10 @@
       "synopsis": "A cross-platform app for downloading songs from YouTube and Spotify",
       "target": "deb",
       "artifactName": "${name}-${arch}.${ext}",
-      "extraResources": "ffmpeg/linux"
+      "extraResources": [
+        "bin/ffmpeg/linux",
+        "bin/rainbow/linux"
+      ]
     },
     "deb": {
       "depends": [
@@ -100,7 +106,10 @@
       ]
     },
     "win": {
-      "extraResources": "ffmpeg/win32",
+      "extraResources": [
+        "bin/ffmpeg/win32",
+        "bin/rainbow/win32"
+      ],
       "target": "nsis",
       "icon": "build/icon.ico",
       "artifactName": "${productName}Setup-x64.${ext}"
