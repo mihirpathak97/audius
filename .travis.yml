@@ -34,16 +34,20 @@ cache:
 
 # Perform build [win32's exe and darwin's dmg in osx and linux's deb in linux]
 script:
+  - echo "Initializing app files..."
+  - yarn init-app
   - echo "Compiling React app for production [CI]"
   - yarn build-ci
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       echo "Packaging Audius for Linux x64 (.deb)";
-      chmod a+x ffmpeg/linux/ffmpeg;
+      chmod a+x bin/ffmpeg/linux/ffmpeg;
+      chmod a+x bin/rainbow/linux/rainbow;
       yarn package-linux;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       echo "Packaging Audius for MacOS X (.dmg)";
-      chmod a+x ffmpeg/darwin/ffmpeg;
+      chmod a+x bin/ffmpeg/darwin/ffmpeg;
+      chmod a+x bin/rainbow/darwin/rainbow;
       yarn package-mac;
       echo "Packaging Audius for Windows x64 (.exe)";
       yarn package-win;
