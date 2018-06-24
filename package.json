@@ -34,8 +34,8 @@
     "ytdl-core": "^0.20.4"
   },
   "scripts": {
-    "init-app" : "node scripts/bootstrap.js",
-    "start": "node scripts/start.js", 
+    "init-app": "node scripts/bootstrap.js",
+    "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "build-ci": "cross-env CI=false node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
@@ -182,7 +182,7 @@
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
-    "download-file": "^0.1.5",
+    "download": "^7.0.0",
     "electron": "^2.0.2",
     "electron-builder": "^20.15.1",
     "electron-publisher-s3": "^20.15.0",

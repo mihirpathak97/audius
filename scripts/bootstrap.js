@@ -3,7 +3,7 @@
  * 
  * Sets up the development environment
  */
-var download = require('download-file');
+var download = require('download');
 var admZip = require('adm-zip');
 var path = require('path');
 
@@ -15,23 +15,11 @@ function downloadBinaries(platform) {
     var urlFFmpeg = "https://s3.ap-south-1.amazonaws.com/mihirpathak/audius/binaries/ffmpeg/" + platform + "/" + fileNameFFmpeg;
     var urlRainbow = "https://s3.ap-south-1.amazonaws.com/mihirpathak/audius/binaries/rainbow/" + fileNameRainbow;
 
-    download(urlFFmpeg, {
-        directory: "bin/ffmpeg/" + platform,
-        filename: fileNameFFmpeg
-    }, function(err){
-        if (err) {
-          console.log(err);
-        }
+    download(urlFFmpeg, "bin/ffmpeg/" + platform).then(() => {
         console.log("Finished downloading FFmpeg for " + platform)
     });
     
-    download(urlRainbow, {
-        directory: "bin/rainbow/",
-        filename: fileNameRainbow
-    }, function(err){
-        if (err) {
-          console.log(err);
-        }
+    download(urlRainbow, "bin/rainbow/").then(() => {
         console.log("Finished downloading Rainbow for " + platform)
         var zip = new admZip(path.join('bin/rainbow/', fileNameRainbow));
         console.log("Extracting files...");
