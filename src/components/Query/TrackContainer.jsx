@@ -18,7 +18,7 @@ const styles = {
     maxWidth: '67%',
     display: 'block',
     margin: 'auto',
-    marginTop: 150,
+    marginTop: 120,
     borderRadius: 5
   },
   title: {
