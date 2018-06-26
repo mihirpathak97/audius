@@ -37,7 +37,6 @@
     "init-app": "node scripts/bootstrap.js",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "build-ci": "cross-env CI=false node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "package-all": "build -mwl",
