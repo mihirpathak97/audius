@@ -1,6 +1,7 @@
 /**
  * Settings.js: Initializes persistant storage and writes some configs when main process
- * is invokes
+ * is invoked. It is necessary to do it here as both __dirname and electron will not 
+ * be available inside a react component
  * 
  * Refer https://github.com/nathanbuchar/electron-settings
  */
