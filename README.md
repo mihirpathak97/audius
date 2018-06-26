@@ -28,7 +28,7 @@ Download the latest Audius release [here](https://github.com/mihirpathak97/audiu
 **NOTE**: [OSX] This app is not code-signed so you will have to allow it to be opened everytime in 
 Privacy and security settings.
 
-**NOTE**: Auto updates are not supported in Linux :sad:
+**NOTE**: Auto updates are not supported in Linux :broken_heart:
 
 ## Disclaimer
 
