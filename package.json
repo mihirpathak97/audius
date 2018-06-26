@@ -39,12 +39,85 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "package-all": "build -mwl",
-    "package-linux": "build --linux --x64",
-    "package-win": "build --win --x64",
-    "package-mac": "build --mac --x64"
+    "package-all": "build -mwl --publish onTagOrDraft",
+    "package-linux": "build --linux --x64 --publish onTagOrDraft",
+    "package-win": "build --win --x64 --publish onTagOrDraft",
+    "package-mac": "build --mac --x64 --publish onTagOrDraft"
   },
-
+  "build": {
+    "appId": "in.mihirpathak.audius",
+    "copyright": "Copyright © 2018 Mihir Pathak",
+    "artifactName": "${productName}Setup.${ext}",
+    "publish": {
+      "provider": "github"
+    },
+    "generateUpdatesFilesForAllChannels": true,
+    "files": [
+      "react-compiled/**/*",
+      "node_modules/**/*",
+      "src/app.main.js",
+      "src/modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "mac": {
+      "target": "dmg",
+      "artifactName": "${name}-setup.${ext}",
+      "extraResources": [
+        "bin/ffmpeg/darwin",
+        "bin/rainbow/darwin"
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "category": "Audio",
+      "synopsis": "A cross-platform app for downloading songs from YouTube and Spotify",
+      "target": "deb",
+      "artifactName": "${name}-${arch}.${ext}",
+      "extraResources": [
+        "bin/ffmpeg/linux",
+        "bin/rainbow/linux"
+      ]
+    },
+    "deb": {
+      "depends": [
+        "gconf2",
+        "gconf-service",
+        "libnotify4",
+        "libappindicator1",
+        "libxtst6",
+        "libnss3"
+      ]
+    },
+    "win": {
+      "extraResources": [
+        "bin/ffmpeg/win32",
+        "bin/rainbow/win32"
+      ],
+      "target": "nsis",
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}Setup-x64.${ext}"
+    },
+    "nsis": {
+      "oneClick": "true",
+      "perMachine": "true"
+    }
+  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
