@@ -60,7 +60,7 @@ function download(youtubeUrl, metadata, callback) {
       })
       .on("end", function() {
         // Embed metadata
-        if(settings.get('embedMetadata') && settings.get('defaultAudioOut') !== "m4a") {
+        if(settings.get('embedMetadata')) {
           const rainbow = require('./rainbowWrapper');
           rainbow.embedMetadata(fileName, metadata.spotifyId);
         }
