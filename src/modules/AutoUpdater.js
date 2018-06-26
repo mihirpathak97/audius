@@ -6,7 +6,7 @@
  */ 
  
 const {autoUpdater} = require("electron-updater");
-autoUpdater.channel = 'alpha';
+autoUpdater.channel = 'beta';
 autoUpdater.checkForUpdatesAndNotify();
 
 // Done in two lines :)
