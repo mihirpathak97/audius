@@ -36,7 +36,6 @@ function download(youtubeUrl, metadata, callback) {
     stream.on("response", function(httpResponse) {
 
       // TODO: Add event emitter to share progress with caller
-      // TODO: [FFmpeg] Embed ID3 metadata along with audio while encoding
 
       // Build progress var
       var str = progress({

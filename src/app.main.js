@@ -34,7 +34,10 @@ app.on('ready', () => {
   require('./modules/Settings');
   // First create BrowserWindow
   createWindow();
-  // Then start audio stream listener
+  // Start the audio stream listener
+  // default port set to 6969 [because why not?]
+  // If the port is in use, express will throw an
+  // error. Seriously, who else would use 6969?
   YTCore.listen(6969, () => {
     // console.log(`Listening on port http://localhost:6969`)
   });

@@ -48,7 +48,9 @@ measureFileSizesBeforeBuild(paths.appBuild)
     // if you're in it, you don't end up in Trash
     fs.emptyDirSync(paths.appBuild);
     // Merge with the public folder
-    copyPublicFolder();
+    // [NOTE]: I have commented it out because I don't want it to 
+    // copy the entire dir with the source
+    // copyPublicFolder();
     // Start the webpack build
     return build(previousFileSizes);
   })
@@ -119,6 +121,10 @@ function build(previousFileSizes) {
         }
         return reject(new Error(messages.errors.join('\n\n')));
       }
+      /**
+       * This chunk of code treats warnings as errors in CI env
+       * WHAT?
+       */
       // if (
       //   process.env.CI &&
       //   (typeof process.env.CI !== 'string' ||
@@ -143,13 +149,8 @@ function build(previousFileSizes) {
 }
 
 function copyPublicFolder() {
-  
-  /**
-   * Do not copy public folder 'src'
-   */
-
-  // fs.copySync(paths.appPublic, paths.appBuild, {
-  //   dereference: true,
-  //   filter: file => file !== paths.appHtml,
-  // });
+  fs.copySync(paths.appPublic, paths.appBuild, {
+    dereference: true,
+    filter: file => file !== paths.appHtml,
+  });
 }

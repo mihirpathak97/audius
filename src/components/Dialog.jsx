@@ -1,3 +1,9 @@
+/**
+ * Tiny component to display in-app dialogs
+ * Props: 
+ *  - dialogTitle
+ *  - dialogMessage
+ */
 import React from 'react';
 import {
   Button,
