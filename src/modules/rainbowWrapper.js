@@ -7,7 +7,7 @@ const exec = require('child_process').execFileSync;
 const settings = window.require('electron-settings');
 
 function embedMetadata(filePath, spotifyID) {
-  exec(settings.get('RAINBOW_PATH'), ['-f', filePath, '-id', spotifyID], {}, (error, stdout, stderr) => {
+  exec(settings.get('RAINBOW_PATH'), [filePath, spotifyID], {}, (error, stdout, stderr) => {
     if(error) {
       return;
     }
