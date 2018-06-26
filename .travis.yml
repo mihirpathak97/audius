@@ -36,8 +36,8 @@ cache:
 script:
   - echo "Initializing app files..."
   - yarn init-app
-  - echo "Compiling React app for production [CI]"
-  - yarn build-ci
+  - echo "Compiling React app for production"
+  - yarn build
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       echo "Packaging Audius for Linux x64 (.deb)";
       chmod a+x bin/ffmpeg/linux/ffmpeg;
