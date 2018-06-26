@@ -11,25 +11,24 @@ Audius is a cross-platform application which can be used to download songs from 
 
 **Image assets courtesy of [@turnerboy](https://github.com/turnerboy)**
 
+## Supported Platforms
+
+Audius is currently supported for the following platforms:
+- Windows 7+ (64-bit)
+- Mac OS X 10.9+ (64-bit)
+- Ubuntu 12.04+/Debian 8+ (64-bit)
+
+But, this app can be built for any other platform that is officially supported 
+by [electronjs](https://github.com/electron/electron/blob/v2.0.2/docs/tutorial/support.md#supported-platforms). Head over to the docs for build instructions 
+
 ## Installing
 
-### macOS
+Download the latest Audius release [here](https://github.com/mihirpathak97/audius/releases/latest) 
 
-Download the latest Audius [release](https://github.com/mihirpathak97/audius/releases/latest) (audius-setup.dmg).
+**NOTE**: [OSX] This app is not code-signed so you will have to allow it to be opened everytime in 
+Privacy and security settings.
 
-Audius will automatically update when a new release is available.
-
-### Windows
-
-Download the latest latest Audius [release](https://github.com/mihirpathak97/audius/releases/latest) (AudiusSetup-x64.exe).
-
-Audius will automatically update when a new release is available.
-
-### Linux (Debian)
-
-Download the latest latest Audius [release](https://github.com/mihirpathak97/audius/releases/latest) (audius-amd64.deb).
-
-Auto updates are not supported in Linux :sad:
+**NOTE**: Auto updates are not supported in Linux :sad:
 
 ## Disclaimer
 
