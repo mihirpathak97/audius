@@ -19,7 +19,7 @@ Audius is currently supported for the following platforms:
 - Ubuntu 12.04+/Debian 8+ (64-bit)
 
 But, this app can be built for any other platform that is officially supported 
-by [electronjs](https://github.com/electron/electron/blob/v2.0.2/docs/tutorial/support.md#supported-platforms). Head over to the docs for build instructions 
+by [electronjs](https://github.com/electron/electron/blob/v2.0.2/docs/tutorial/support.md#supported-platforms). Head over to the docs for build instructions
 
 ## Installing
 

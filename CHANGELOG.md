@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.3.0-beta1] - 2018-06-26
+### Changed
+- rainbow is no longer experimental!
+- Default download format for OSX is m4a
+- rainbow is enabled by default
+
+## [1.3.0-beta1] - 2018-06-26
+### Added
+- [Experimental] Rainbow can now embed tags in M4A files too!
+
+### Changed
+- rainbow now uses positional arguments
+
 ## [1.3.0-alpha2] - 2018-06-24
 ### Added
 - [Experimental] Added rainbow for all platforms
