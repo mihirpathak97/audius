@@ -8,12 +8,39 @@ var xhr = require('xhr')
 
 if (!xhr.open) xhr = require('request')
 
-module.exports = function search(query, callback) {
+let convertYTDuration = (duration) => {
+  var a = duration.match(/\d+/g);
+  if (duration.indexOf('M') >= 0 && duration.indexOf('H') == -1 && duration.indexOf('S') == -1) {
+      a = [0, a[0], 0];
+  }
+  if (duration.indexOf('H') >= 0 && duration.indexOf('M') == -1) {
+      a = [a[0], 0, a[1]];
+  }
+  if (duration.indexOf('H') >= 0 && duration.indexOf('M') == -1 && duration.indexOf('S') == -1) {
+      a = [a[0], 0, 0];
+  }
+  duration = 0;
+  if (a.length == 3) {
+      duration = duration + parseInt(a[0]) * 3600;
+      duration = duration + parseInt(a[1]) * 60;
+      duration = duration + parseInt(a[2]);
+  }
+  if (a.length == 2) {
+      duration = duration + parseInt(a[0]) * 60;
+      duration = duration + parseInt(a[1]);
+  }
+  if (a.length == 1) {
+      duration = duration + parseInt(a[0]);
+  }
+  return duration*1000;
+}
+
+module.exports = function search(metadata, callback) {
 
   var apiParams = {
     part: 'snippet',
     maxResults: 25,
-    q: query,
+    q: metadata.title,
     key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE',
     type: 'video',
     topicId: '/m/04rlf'
@@ -27,7 +54,7 @@ module.exports = function search(query, callback) {
       return callback(err)
     }
     try {
-      var result = JSON.parse(body)
+      var result = JSON.parse(body);
 
       // crunch the results into a meaningfull JSON object
       result = result.items.map(function (item) {
@@ -40,9 +67,28 @@ module.exports = function search(query, callback) {
           channelTitle: item.snippet.channelTitle,
           title: item.snippet.title,
           description: item.snippet.description,
-          thumbnails: item.snippet.thumbnails
         }
       })
+
+      // Asyncronously get video duration and write to result
+      result.forEach(element => {
+        xhr({
+          url: 'https://www.googleapis.com/youtube/v3/videos?' + querystring.stringify({
+            id: element.id,
+            part: 'snippet, contentDetails',
+            key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE'
+          }),
+          method: 'GET',
+        }, function (err, res, body) {
+            if(err) {
+              console.log(err);
+              return '0';
+            }
+            element.duration = convertYTDuration(JSON.parse(body).items[0].contentDetails.duration);
+        });
+      });
+
+      // [TODO]: Implement sorting results by Spotify audio duration
 
       return callback(null, result)
     } catch (error) {

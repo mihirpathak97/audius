@@ -70,8 +70,6 @@ let searchTrack = (query, callback) => {
     // Take the first result
     var track = body.tracks.items[0];
 
-    console.log(track);
-
     // Clean it up
     track = {
       title: track.name,
