@@ -12,7 +12,7 @@ const settings = require('electron-settings');
 
 let ffmpegPath = isDev ? path.join(__dirname, '../../bin/ffmpeg', process.platform, 'ffmpeg') : path.join(process.resourcesPath, 'bin', 'ffmpeg', process.platform, 'ffmpeg');
 let rainbowPath = isDev ? path.join(__dirname, '../../bin/rainbow', process.platform, 'rainbow') : path.join(process.resourcesPath, 'bin', 'rainbow', process.platform, 'rainbow');
-let downloadDirectory = path.join(process.env['HOME'], 'Music');
+let downloadDirectory = path.join(process.env[process.platform === "win32" ? 'USERPROFILE' : 'HOME'], 'Music');
 let defaultAudioOut = "mp3";
 let embedMetadata = true;
 
@@ -20,8 +20,6 @@ if(process.platform === "win32") {
   // Add exe for binaries in win32
   ffmpegPath += ".exe";
   rainbowPath += ".exe";
-  // Use USERPROFILE instead of HOME
-  downloadDirectory = path.join(process.env['USERPROFILE'], 'Music');
 }
 
 if(process.platform === "darwin") {
