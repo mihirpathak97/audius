@@ -70,6 +70,8 @@ let searchTrack = (query, callback) => {
     // Take the first result
     var track = body.tracks.items[0];
 
+    console.log(track);
+
     // Clean it up
     track = {
       title: track.name,
@@ -79,7 +81,9 @@ let searchTrack = (query, callback) => {
       albumArt: track.album.images[1].url,
       spotifyUrl: track.external_urls.spotify,
       spotifyId: track.id,
-      SpotifyUri: track.uri
+      SpotifyUri: track.uri,
+      isrc: track.external_ids.isrc,
+      duration_ms: track.duration_ms
     }
     // Then return it
     return callback(null, track);
