@@ -95,7 +95,7 @@ class Settings extends Component {
               <TableCell className={classes.tablerow}><Button variant="raised" onClick={this.selectDirectory} size="small" color="primary">Change</Button></TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className={classes.tablerow}><Typography className={classes.text}>Embed ID3 metadata for songs <span style={{color: 'red'}}>[EXPERIMENTAL]</span></Typography></TableCell>
+              <TableCell className={classes.tablerow}><Typography className={classes.text}>Embed ID3 metadata for songs</Typography></TableCell>
               <TableCell className={classes.tablerow}><Switch checked={this.state.embedMetadata} onChange={this.handleSwitchChange}/></TableCell>
             </TableRow>
           </TableBody>
