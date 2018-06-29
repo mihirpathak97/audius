@@ -14,31 +14,27 @@ import {
 import DialogBox from '../Dialog';
 
 const styles = {
-  card: {
-    maxWidth: '67%',
-    display: 'block',
-    margin: 'auto',
-    marginTop: 120,
-    borderRadius: 5
+  titleWrapper: {
+    float: 'right',
+    width: '50%',
+    marginRight: 70,
+    marginLeft: 20,
+    marginTop: 100
   },
   title: {
     fontSize: 20,
-    position: 'relative',
-    marginTop: '10%',
   },
-  action: {
-    width: '36%',
-    margin: 'auto',
-    clear: 'both',
-    marginBottom: 30
+  artWrapper: {
+    float: 'left',
+    width: '25%',
+    marginTop: 50,
+    marginLeft: 70,
+    marginBottom: 50
   },
   albumArt: {
     width: 150,
     height: 150,
-    float: 'left',
-    marginTop: 20,
-    marginLeft: 70,
-    marginBottom: 50
+    margin: 'auto'
   },
   wrapper: {
     position: 'relative',
@@ -53,7 +49,7 @@ const styles = {
   }
 };
 
-class TrackContainer extends React.Component {
+class AudioInfo extends React.Component {
 
   constructor(props){
     super(props);
@@ -111,16 +107,19 @@ class TrackContainer extends React.Component {
     const { classes } = this.props;
     return(
       <div id="wrapper">
-        <Card className={classes.card}>
-          <CardContent style={{display: 'inline'}}>
+        <div style={{display: "inline"}}>
+          <div className={classes.artWrapper}>
             <Avatar
               alt={this.props.album}
               src={this.props.albumArt}
               className={classes.albumArt}/>
+          </div>
+          <div className={classes.titleWrapper}>
             <Typography className={classes.title}>{this.props.title} by {this.props.artist}</Typography>
-          </CardContent>
-          <CardActions className={classes.action}>
-            <Button variant="raised" color="secondary" onClick={this.playAudio}>
+          </div>
+          
+        </div>
+            {/* <Button variant="raised" color="secondary" onClick={this.playAudio}>
               Play
             </Button>
             <div className={classes.wrapper}>
@@ -128,9 +127,7 @@ class TrackContainer extends React.Component {
                 Download
               </Button>
               {this.state.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
-            </div>
-          </CardActions>
-        </Card>
+            </div> */}
         {
           this.state.dialogOpen ? <DialogBox dialogTitle={this.state.dialogTitle} dialogMessage={this.state.dialogMessage} /> : null
         }
@@ -139,8 +136,8 @@ class TrackContainer extends React.Component {
   }
 }
 
-TrackContainer.propTypes = {
-  classes: PropTypes.object.isRequired,
+AudioInfo.propTypes = {
+  classes: PropTypes.object,
 };
 
-export default withStyles(styles)(TrackContainer);
+export default withStyles(styles)(AudioInfo);

@@ -1,50 +1,68 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 
-import TrackContainer from './TrackContainer';
+import {
+  CircularProgress,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow
+} from '@material-ui/core';
+
+import AudioInfo from './AudioInfo';
 import DialogBox from '../Dialog';
+import PlayAudio from './PlayAudio';
+import DownloadAudio from './DownloadAudio';
+
+const styles = {
+  videosContainer: {
+    width: '95%',
+    margin: 'auto',
+    marginTop: 20,
+    marginBottom: 50
+  }
+}
 
 class Query extends Component {
 
   state = {
-    query: ''
-  }
-
-  componentWillMount() {
-    this.setState({
-      query: this.props.location.search.split('&')[1].substr(4)
-    })
+    query: '',
+    spotifyResult: '',
+    youtubeResult: '',
+    showInfo: false
   }
 
   componentDidMount() {
+    let query = decodeURI(this.props.location.search.split('&')[1].substr(4));
+    this.setState({
+      query: query
+    });
     var Spotify = require('../../modules/SpotifyWebApi');
     var YTSearch = require('../../modules/YTSearch');
-
-    Spotify.searchTrack(decodeURI(this.state.query), (err, result) => {
+    
+    // Search for track in Spotify
+    Spotify.searchTrack(query, (err, result) => {
       if (err) {
         return this.renderDialog("An Error Occured!", err);
       }
 
-      YTSearch(result.title, (error, resp) => {
+      // Use that data to run YouTube search
+      YTSearch(result, (error, resp) => {
         if (error) {
           return this.renderDialog("An Error Occured!", error);
         }
+        this.setState({
+          spotifyResult: result,
+          youtubeResult: resp,
+          showInfo: true,
+        });
+      });
 
-        // Render TrackContainer
-        ReactDOM.render(
-         <TrackContainer
-          title={result.title}
-          artist={result.trackArtist}
-          albumArt={result.albumArt}
-          spotifyMetadata={result}
-          youtubeLink={resp[0].link}/>,
-         document.getElementById('container')
-       );
-
-      })
-    })
+    });
   }
 
   renderDialog = (title, message) => {
@@ -57,12 +75,54 @@ class Query extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+    let result = this.state.spotifyResult;
+    let videoContainer;
+    if(this.state.youtubeResult !== '') {
+      videoContainer = this.state.youtubeResult.map((item) =>
+        <TableRow>
+          <TableCell>
+            {item.title}
+          </TableCell>
+          <TableCell>
+            <PlayAudio id={item.id} />
+          </TableCell>
+          <TableCell>
+            <DownloadAudio youtubeLink={item.link} spotifyMetadata={this.state.spotifyResult}/>
+          </TableCell>
+        </TableRow>
+      )
+    }
     return (
       <div>
-        <div id="container"></div>
+        <div id="container">
+          {
+            this.state.showInfo ? (
+              <div style={{overflow: 'auto'}}>
+                <AudioInfo
+                  title={result.title}
+                  artist={result.trackArtist}
+                  albumArt={result.albumArt}/>
+                <Typography variant="title" style={{textAlign: 'left', marginLeft: 50, marginTop: 270, marginBottom: 30}}>Search Results</Typography>
+                <Table className={classes.videosContainer}>
+                  <TableBody>
+                    {videoContainer}
+                  </TableBody>
+                </Table>
+              </div>
+            ) : (<CircularProgress style={{ marginTop: 250 }} thickness={5} />)
+          }
+        </div>
+        {
+          this.state.dialogOpen ? <DialogBox dialogTitle={this.state.dialogTitle} dialogMessage={this.state.dialogMessage} /> : null
+        }
       </div>
     );
   }
 }
 
-export default withRouter(Query);
+AudioInfo.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withRouter(withStyles(styles)(Query));
