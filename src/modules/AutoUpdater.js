@@ -6,7 +6,12 @@
  */ 
  
 const {autoUpdater} = require("electron-updater");
-autoUpdater.channel = 'beta';
+/**
+ * Update Channel
+ * supported channels are 'alpha', 'beta' and 'latest'
+ * Refer electron-builder docs
+ */
+// autoUpdater.channel = 'beta';
 autoUpdater.checkForUpdatesAndNotify();
 
 // Done in two lines :)
