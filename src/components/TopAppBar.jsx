@@ -11,7 +11,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import TopMenuList from './TopMenuList';
 import WindowHandlers from './WindowHandlers';
 
-import createHistory from "history/createBrowserHistory"
+const { BrowserWindow, app } = window.require('electron').remote;
+const path = require('path');
 
 const styles = {
   root: {
@@ -30,8 +31,7 @@ function TopAppBar(props) {
   const { classes } = props;
 
   function handleClick() {
-    const history = createHistory();
-    history.goBack();
+    BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000?Home' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Home')}`);
   }
 
   return (
