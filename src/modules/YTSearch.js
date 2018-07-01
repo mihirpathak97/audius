@@ -39,7 +39,7 @@ module.exports = function search(metadata, callback) {
 
   var apiParams = {
     part: 'snippet',
-    maxResults: 25,
+    maxResults: 10,
     q: metadata.title,
     key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE',
     type: 'video',
