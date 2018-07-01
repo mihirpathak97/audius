@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.0] - 2018-07-01
+### Changed
+- Display upto 10 search results
+
+### Fixed
+- "Go back" re-renders current view
+
 ## [1.3.0-beta1] - 2018-06-26
 ### Changed
 - rainbow is no longer experimental!
