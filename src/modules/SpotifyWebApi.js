@@ -67,6 +67,11 @@ let searchTrack = (query, callback) => {
       return callback(body.error.message);
     }
 
+    // Check if result is obtained
+    if(body.tracks.items.length === 0) {
+      return callback(null, null);
+    }
+
     // Take the first result
     var track = body.tracks.items[0];
 

@@ -50,6 +50,15 @@ class Query extends Component {
         return this.renderDialog("An Error Occured!", err);
       }
 
+      console.log(result);
+      // Check if Spotify search found anything
+      if(result === null) {
+        this.setState({
+          showInfo: true
+        })
+        return;
+      }
+
       // Use that data to run YouTube search
       YTSearch(result, (error, resp) => {
         if (error) {
@@ -98,18 +107,22 @@ class Query extends Component {
         <div id="container">
           {
             this.state.showInfo ? (
-              <div style={{overflow: 'auto'}}>
-                <AudioInfo
-                  title={result.title}
-                  artist={result.trackArtist}
-                  albumArt={result.albumArt}/>
-                <Typography variant="title" style={{textAlign: 'left', marginLeft: 50, marginTop: 270, marginBottom: 30}}>Search Results</Typography>
-                <Table className={classes.videosContainer}>
-                  <TableBody>
-                    {videoContainer}
-                  </TableBody>
-                </Table>
-              </div>
+              this.state.spotifyResult === '' ? (
+                <Typography variant="title" style={{marginTop: 250}}>Your search did not match any results</Typography>
+              ) : (
+                <div style={{overflow: 'auto'}}>
+                  <AudioInfo
+                    title={result.title}
+                    artist={result.trackArtist}
+                    albumArt={result.albumArt}/>
+                  <Typography variant="title" style={{textAlign: 'left', marginLeft: 50, marginTop: 270, marginBottom: 30}}>Search Results</Typography>
+                  <Table className={classes.videosContainer}>
+                    <TableBody>
+                      {videoContainer}
+                    </TableBody>
+                  </Table>
+                </div>
+              )
             ) : (<CircularProgress style={{ marginTop: 250 }} thickness={5} />)
           }
         </div>
