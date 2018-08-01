@@ -31,7 +31,7 @@ let getAccessToken = () => {
       return;
     }
 
-    const settings = require('electron-settings');
+    const settings = window ? window.require('electron-settings') : require('electron-settings');
     // Store access_token in a persintant user data file
     settings.set('spotifyAccessToken', JSON.parse(body).access_token);
   })

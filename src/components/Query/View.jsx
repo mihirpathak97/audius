@@ -47,10 +47,13 @@ class Query extends Component {
     // Search for track in Spotify
     Spotify.searchTrack(query, (err, result) => {
       if (err) {
+        // Refresh Access Token
+        if(err === "The access token expired") {
+          Spotify.getAccessToken();
+        }
         return this.renderDialog("An Error Occured!", err);
       }
 
-      console.log(result);
       // Check if Spotify search found anything
       if(result === null) {
         this.setState({
