@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.1] - 2018-08-01
+### Fixed
+- Refresh Spotify token on-demand
+
 ## [1.4.0] - 2018-07-01
 ### Changed
 - Display upto 10 search results
