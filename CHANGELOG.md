@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.4.2] - 2018-08-18
+### Fixed
+- Uncaught error while fetching access token in main process
+
 ## [1.4.1] - 2018-08-01
 ### Fixed
 - Refresh Spotify token on-demand
