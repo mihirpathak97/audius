@@ -1,6 +1,6 @@
 /**
  * Bootstrap
- * 
+ *
  * Sets up the development environment
  */
 var download = require('download');
@@ -18,7 +18,7 @@ function downloadBinaries(platform) {
     download(urlFFmpeg, "bin/ffmpeg/" + platform).then(() => {
         console.log("Finished downloading FFmpeg for " + platform)
     });
-    
+
     download(urlRainbow, "bin/rainbow/").then(() => {
         console.log("Finished downloading Rainbow for " + platform)
         var zip = new admZip(path.join('bin/rainbow/', fileNameRainbow));
@@ -29,10 +29,9 @@ function downloadBinaries(platform) {
 
 
 // Download for all platforms [since CI will be doing cross-platform build]
-// You can commnet out the rest of them.
-// 
+// You can comment out the rest of them.
+//
 // Downloads approximately 150mb worth files.
 downloadBinaries("win32");
 downloadBinaries("linux");
 downloadBinaries("darwin");
-
