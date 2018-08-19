@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.5.0-beta1] - 2018-08-19
+### Added
+- Logging! Now it's easier to debug the application
+  - Log files location is platform dependent
+
+### Changed
+- Updated node packages
+  - electron - 2.0.2 -> 2.0.7
+  - electron-updater - 2.21.10 -> 3.1.1
+  - And more!
+
 ## [1.4.2] - 2018-08-18
 ### Fixed
 - Uncaught error while fetching access token in main process
