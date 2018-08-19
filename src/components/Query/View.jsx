@@ -39,7 +39,7 @@ class Query extends Component {
   }
 
   componentDidMount() {
-    var log = window.require('electron-log');
+    var log = require('log');
     let query = decodeURI(this.props.location.search.split('&')[1].substr(4));
     this.setState({
       query: query
@@ -55,8 +55,8 @@ class Query extends Component {
           Spotify.getAccessToken();
           return;
         }
-        log.error('[Query] ' + err.reason);
-        return this.renderDialog("An Error Occured!", err.reason);
+        log.error('Query', JSON.stringify(err));
+        return this.renderDialog("An Error Occured!", JSON.stringify(err));
       }
 
       // Check if Spotify search found anything
@@ -70,7 +70,7 @@ class Query extends Component {
       // Use that data to run YouTube search
       YTSearch(result, (error, resp) => {
         if (error) {
-          console.log(error);
+          log.error('Query', JSON.stringify(error));
           return this.renderDialog("An Error Occured!", error);
         }
         this.setState({

@@ -8,6 +8,7 @@ const ytdl = require('ytdl-core');
 const through2 = require('through2');
 const Ffmpeg = require('./ffmpeg-wrapper');
 const settings = require('electron-settings');
+var log = require('electron-log');
 
 const express = require('express');
 const nofavicon = require('express-no-favicons');
@@ -22,6 +23,7 @@ function stream(id, res) {
     ffmpeg.format('mp3').pipe(stream)
     return stream
   } catch (e) {
+    log.error('YTCore', JSON.stringify(e))
     throw e
   }
 }
