@@ -13,7 +13,8 @@ import {
 } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import store from './store/configureStore';
+import { store, persistor } from './store/configureStore';
+import { PersistGate } from 'redux-persist/integration/react'
 
 // import global CSS file
 import './app.global.css';
@@ -83,14 +84,16 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
-          <Router>
-            <div>
-              <Route path='/' component={App.View}/>
-            </div>
-          </Router>
-        </div>
+        <PersistGate loading={null} persistor={persistor}>
+          <div className="App">
+            <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
+            <Router>
+              <div>
+                <Route path='/' component={App.View}/>
+              </div>
+            </Router>
+          </div>
+        </PersistGate>
       </Provider>
     );
   }

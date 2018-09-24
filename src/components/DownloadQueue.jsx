@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 import {
   IconButton,
@@ -21,6 +22,10 @@ class DownloadQueue extends React.Component {
   state = {
     anchorEl: null,
   };
+
+  componentDidMount() {
+    console.log(this.props.queue);
+  }
 
   handleOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -55,4 +60,8 @@ DownloadQueue.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DownloadQueue);
+const mapStateToProps = state => ({
+  queue: state.queue
+})
+
+export default connect(mapStateToProps, {})(withStyles(styles)(DownloadQueue));
