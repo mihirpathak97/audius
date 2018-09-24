@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
@@ -33,25 +32,31 @@ class Query extends Component {
     query: '',
     spotifyResult: '',
     youtubeResult: '',
-    showInfo: false
+    showInfo: false,
+    dialogOpen: false,
+    dialogTitle: "",
+    dialogMessage: ""
   }
 
   componentDidMount() {
+    var log = require('log');
     let query = decodeURI(this.props.location.search.split('&')[1].substr(4));
     this.setState({
       query: query
     });
     var Spotify = require('../../modules/SpotifyWebApi');
     var YTSearch = require('../../modules/YTSearch');
-    
+
     // Search for track in Spotify
     Spotify.searchTrack(query, (err, result) => {
       if (err) {
         // Refresh Access Token
         if(err === "The access token expired") {
           Spotify.getAccessToken();
+          return;
         }
-        return this.renderDialog("An Error Occured!", err);
+        log.error('Query', JSON.stringify(err));
+        return this.renderDialog("An Error Occured!", JSON.stringify(err));
       }
 
       // Check if Spotify search found anything
@@ -65,6 +70,7 @@ class Query extends Component {
       // Use that data to run YouTube search
       YTSearch(result, (error, resp) => {
         if (error) {
+          log.error('Query', JSON.stringify(error));
           return this.renderDialog("An Error Occured!", error);
         }
         this.setState({
@@ -78,12 +84,11 @@ class Query extends Component {
   }
 
   renderDialog = (title, message) => {
-    ReactDOM.render(
-     <DialogBox
-      dialogTitle={title}
-      dialogMessage={message}/>,
-     document.getElementById('container')
-   );
+    this.setState({
+      dialogOpen: true,
+      dialogTitle: title,
+      dialogMessage: message
+    })
   }
 
   render() {
@@ -92,7 +97,7 @@ class Query extends Component {
     let videoContainer;
     if(this.state.youtubeResult !== '') {
       videoContainer = this.state.youtubeResult.map((item) =>
-        <TableRow>
+        <TableRow key={item.id}>
           <TableCell>
             {item.title}
           </TableCell>
@@ -115,6 +120,7 @@ class Query extends Component {
               ) : (
                 <div style={{overflow: 'auto'}}>
                   <AudioInfo
+                    classes={new Object()}
                     title={result.title}
                     artist={result.trackArtist}
                     albumArt={result.albumArt}/>

@@ -37,6 +37,9 @@ let convertYTDuration = (duration) => {
 
 module.exports = function search(metadata, callback) {
 
+  var log = require('log');
+  log.info('YTSearch', 'Recieved search parameters - ' + JSON.stringify(metadata));
+
   var apiParams = {
     part: 'snippet',
     maxResults: 10,
@@ -51,6 +54,7 @@ module.exports = function search(metadata, callback) {
     method: 'GET'
   }, function (err, res, body) {
     if (err) {
+      log.error('YTSearch', JSON.stringify(err))
       return callback(err)
     }
     try {
@@ -81,7 +85,7 @@ module.exports = function search(metadata, callback) {
           method: 'GET',
         }, function (err, res, body) {
             if(err) {
-              console.log(err);
+              log.error('YTSearch', err);
               return '0';
             }
             element.duration = convertYTDuration(JSON.parse(body).items[0].contentDetails.duration);
@@ -89,9 +93,10 @@ module.exports = function search(metadata, callback) {
       });
 
       // [TODO]: Implement sorting results by Spotify audio duration
-
+      log.info('YTSearch', 'Finished querying YouTube');
       return callback(null, result)
     } catch (error) {
+      log.error('YTSearch', JSON.stringify(error));
       return callback(error)
     }
   })

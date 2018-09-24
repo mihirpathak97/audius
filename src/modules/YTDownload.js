@@ -3,6 +3,7 @@ const path = require('path');
 const ytdl = require('ytdl-core');
 const Ffmpeg = require('./ffmpeg-wrapper');
 var sanitize = require("sanitize-filename");
+var log = require('log');
 
 const settings = window.require('electron-settings');
 
@@ -22,6 +23,7 @@ function download(youtubeUrl, metadata, callback) {
   ytdl.getInfo(youtubeUrl, infoOptions, function(err, info) {
 
     if (err) {
+      log.error('YTDownload', JSON.stringify(err));
       return callback(err.message);
     }
 
@@ -55,6 +57,7 @@ function download(youtubeUrl, metadata, callback) {
       .audioBitrate(info.formats[0].audioBitrate)
       .withAudioCodec(outputCodec)
       .on("error", function(err) {
+        log.error('YTDownload', JSON.stringify(err));
         return callback(err.message);
       })
       .on("end", function() {
@@ -63,6 +66,7 @@ function download(youtubeUrl, metadata, callback) {
           const rainbow = require('./rainbowWrapper');
           rainbow.embedMetadata(fileName, metadata.spotifyId);
         }
+        log.info('YTDownload', 'Download complete for ' + youtubeUrl);
         return callback(null, "done");
       })
       .saveToFile(fileName);

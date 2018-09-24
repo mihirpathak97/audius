@@ -1,7 +1,7 @@
 /**
  * App's renderer process
  * Called by the browser when it loads itself
- * 
+ *
  * Initialises React App
  */
 
@@ -45,6 +45,8 @@ class App extends Component {
 
   componentWillMount() {
     let view = window.location.href.split('?')[1].split('&')[0];
+    var log = require('log');
+    log.info('app.renderer.js', 'Loading view - ' + view);
     switch (view) {
       case 'Home':
         this.setState({
@@ -67,8 +69,11 @@ class App extends Component {
   static View(props) {
     let name = props.location.search.substr(1).split('&')[0];
     let view = App.Views()[name];
-    if(view == null)
+    if(view == null) {
+      var log = require('log');
+      log.error('app.renderer.js', "View '" + name + "' is undefined");
       throw new Error("View '" + name + "' is undefined");
+    }
     return view;
   }
 
