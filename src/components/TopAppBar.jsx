@@ -13,6 +13,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 import TopMenuList from './TopMenuList';
 import WindowHandlers from './WindowHandlers';
+import DownloadQueue from './DownloadQueue';
 
 const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');
@@ -48,6 +49,9 @@ function TopAppBar(props) {
           { props.showBack ? <IconButton onClick={handleClick}>
             <FontAwesomeIcon style={{ fontSize: '20' }} icon={faArrowLeft} />
           </IconButton> : null }
+
+          { /* DownloadQueue Icon */ }
+          { props.showMenu ? <DownloadQueue /> : null }
 
           { /* Window Minimise and Quit */ }
           <WindowHandlers />
