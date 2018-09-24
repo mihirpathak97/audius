@@ -77,7 +77,7 @@ class QueryField extends React.Component {
           onChange={this.handleChange('query')}
           margin="normal"
         />
-        <Button color="primary" variant="raised" onClick={this.handleSearch} className={classes.button}>
+      <Button color="primary" variant="outlined" onClick={this.handleSearch} className={classes.button}>
           Search
         </Button>
         {

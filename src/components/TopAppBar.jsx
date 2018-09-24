@@ -45,7 +45,9 @@ function TopAppBar(props) {
           { props.showMenu ? <TopMenuList /> : null }
 
           { /* Back Icon for query */ }
-          { props.showBack ? <FontAwesomeIcon icon={faArrowLeft} onClick={handleClick}/> : null }
+          { props.showBack ? <IconButton onClick={handleClick}>
+            <FontAwesomeIcon style={{ fontSize: '20' }} icon={faArrowLeft} />
+          </IconButton> : null }
 
           { /* Window Minimise and Quit */ }
           <WindowHandlers />

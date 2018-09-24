@@ -51,9 +51,8 @@ class TopMenuList extends React.Component {
         <IconButton
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
-          onClick={this.handleClick}
-        >
-          <FontAwesomeIcon icon={faBars} />
+          onClick={this.handleClick}>
+          <FontAwesomeIcon style={{ fontSize: '20' }} icon={faBars} />
         </IconButton>
         <Menu
           id="top-menu"
