@@ -7,7 +7,10 @@ import {
   Toolbar,
   IconButton
 } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 import TopMenuList from './TopMenuList';
 import WindowHandlers from './WindowHandlers';
 
@@ -42,7 +45,7 @@ function TopAppBar(props) {
           { props.showMenu ? <TopMenuList /> : null }
 
           { /* Back Icon for query */ }
-          { props.showBack ? <IconButton onClick={handleClick}><ArrowBackIcon /></IconButton> : null }
+          { props.showBack ? <FontAwesomeIcon icon={faArrowLeft} onClick={handleClick}/> : null }
 
           { /* Window Minimise and Quit */ }
           <WindowHandlers />

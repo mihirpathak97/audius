@@ -5,7 +5,9 @@ import {
   MenuItem
 } from '@material-ui/core';
 
-import MenuIcon from '@material-ui/icons/Menu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');
 
@@ -51,7 +53,7 @@ class TopMenuList extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <MenuIcon />
+          <FontAwesomeIcon icon={faBars} />
         </IconButton>
         <Menu
           id="top-menu"
