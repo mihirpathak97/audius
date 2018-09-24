@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faMinusCircle } from '@fortawesome/fontawesome-free-solid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const { BrowserWindow } = window.require('electron').remote;
 
