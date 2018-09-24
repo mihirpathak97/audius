@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { addToQueue } from '../../actions/downloadQueue';
 import {
   Button,
   CircularProgress
@@ -38,27 +40,32 @@ class Track extends React.Component {
 
   downloadAudio = () => {
 
-    var YTDownload = require('../../modules/YTDownload');
-    // Set loading and dialogOpen
-    this.setState({
-      loading: true,
-      dialogOpen: false
-    })
-    YTDownload.download(this.props.youtubeLink, this.props.spotifyMetadata, (error, response) => {
+    this.props.addToQueue({
+      youtubeLink: this.props.youtubeLink,
+      spotifyMetadata: this.props.spotifyMetadata
+    });
 
-      if (error) {
-        this.setState({
-          loading: false
-        })
-        this.renderDialog("Error!", "An error occured while downloading! [REASON - " + error + "]");
-      }
-      if (response === "done") {
-        this.setState({
-          loading: false
-        })
-        this.renderDialog("Download Success!", "Your download was successfull. You can find your song in the download location");
-      };
-    })
+    // var YTDownload = require('../../modules/YTDownload');
+    // // Set loading and dialogOpen
+    // this.setState({
+    //   loading: true,
+    //   dialogOpen: false
+    // })
+    // YTDownload.download(this.props.youtubeLink, this.props.spotifyMetadata, (error, response) => {
+    //
+    //   if (error) {
+    //     this.setState({
+    //       loading: false
+    //     })
+    //     this.renderDialog("Error!", "An error occured while downloading! [REASON - " + error + "]");
+    //   }
+    //   if (response === "done") {
+    //     this.setState({
+    //       loading: false
+    //     })
+    //     this.renderDialog("Download Success!", "Your download was successfull. You can find your song in the download location");
+    //   };
+    // })
   }
 
   renderDialog = (title, message) => {
@@ -91,4 +98,4 @@ Track.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(Track);
+export default connect(null, { addToQueue })(withStyles(styles)(Track));

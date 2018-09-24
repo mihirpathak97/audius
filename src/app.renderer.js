@@ -12,6 +12,9 @@ import {
   Route
 } from 'react-router-dom';
 
+import { Provider } from 'react-redux';
+import store from './store/configureStore';
+
 // import global CSS file
 import './app.global.css';
 
@@ -79,14 +82,16 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
-        <Router>
-          <div>
-            <Route path='/' component={App.View}/>
-          </div>
-        </Router>
-      </div>
+      <Provider store={store}>
+        <div className="App">
+          <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
+          <Router>
+            <div>
+              <Route path='/' component={App.View}/>
+            </div>
+          </Router>
+        </div>
+      </Provider>
     );
   }
 }
