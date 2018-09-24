@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [1.5.0] - 2018-08-19
-** NOTE - ** This is the final release for 1.x.x. I will shortly begin work on 2.x :grin:
+**NOTE -** This is the final release for 1.x.x. I will shortly begin work on 2.x :grin:
 
 This branch may or may not recieve bug fixes. Feel free to fork the repo and make changes
 
