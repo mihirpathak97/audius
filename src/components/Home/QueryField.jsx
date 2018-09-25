@@ -42,7 +42,7 @@ class QueryField extends React.Component {
           value={this.props.query}
           onChange={this.handleChange}
           margin="normal"/>
-        <Link to="/Query" style={{ textDecoration: 'none' }}>
+        <Link to="/Query" style={{ textDecoration: 'none', display: 'block', width: '50px', margin: 'auto' }}>
           <Button color="primary" variant="outlined" className={classes.button}>Search</Button>
         </Link>
       </div>

@@ -43,7 +43,7 @@ class DownloadQueue extends React.Component {
   render() {
     const { open } = this.state;
     let downloadQueue;
-    if (this.props.queue.lenght > 0) {
+    if (this.props.queue.length > 0) {
       downloadQueue = this.props.queue.map(queueItem => (
         <MenuItem>
           {queueItem.spotifyMetadata.title}
@@ -97,4 +97,4 @@ const mapStateToProps = state => ({
   queue: state.downloadQueue.queue
 })
 
-export default connect(mapStateToProps, {})(withStyles(styles)(DownloadQueue));
+export default connect(mapStateToProps)(withStyles(styles)(DownloadQueue));
