@@ -142,7 +142,7 @@ AudioInfo.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  queue: state.downloadQueue.queue
+  query: state.searchQuery.query
 })
 
 export default connect(mapStateToProps, {})(withStyles(styles)(Query));

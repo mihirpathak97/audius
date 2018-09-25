@@ -11,9 +11,10 @@ import {
   HashRouter,
   Route
 } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router'
 
 import { Provider } from 'react-redux';
-import { store } from './store/configureStore';
+import { store, history } from './store/configureStore';
 
 // import global CSS file
 import './app.global.css';
@@ -29,44 +30,13 @@ import Query from './components/Query/View';
 import TopAppBar from './components/TopAppBar';
 
 class App extends Component {
-
-  state = {
-    showMenu: false,
-    showBack: false
-  }
-
-  componentWillMount() {
-    let view = window.location.href.split('/#/')[1];
-    console.log(window.location.href);
-    console.log(view);
-    var log = require('log');
-    log.info('app.renderer.js', 'Loading view - ' + view);
-    switch (view) {
-      case 'Home':
-        this.setState({
-          showMenu: true
-        })
-        break;
-      case 'Query':
-        this.setState({
-          showMenu: false,
-          showBack: true
-        })
-        break;
-      default:
-        this.setState({
-          title: view
-        })
-    }
-  }
-
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
+        <ConnectedRouter history={history}>
           <HashRouter>
-            <div>
+            <div className="App">
+              <TopAppBar />
               <Route path='/Home' exact component={Home}/>
               <Route path='/Query' component={Query} />
               <Route path='/About' component={About} />
@@ -74,7 +44,7 @@ class App extends Component {
               <Route path='/Settings' component={Settings} />
             </div>
           </HashRouter>
-        </div>
+        </ConnectedRouter>
       </Provider>
     );
   }
