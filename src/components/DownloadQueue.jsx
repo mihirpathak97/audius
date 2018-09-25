@@ -5,7 +5,12 @@ import { connect } from 'react-redux';
 
 import {
   IconButton,
-  Menu,
+  ClickAwayListener,
+  Grow,
+  Paper,
+  Popper,
+  Button,
+  MenuList,
   MenuItem
 } from '@material-ui/core';
 
@@ -20,37 +25,54 @@ const styles = theme => ({
 
 class DownloadQueue extends React.Component {
   state = {
-    anchorEl: null,
+    open: false
   };
 
-  componentDidMount() {
-    console.log(this.props.queue);
-  }
-
-  handleOpen = event => {
-    this.setState({ anchorEl: event.currentTarget });
+  handleToggle = () => {
+    this.setState(state => ({ open: !state.open }));
   };
-  handleClose = () => {
-    this.setState({ anchorEl: null });
+
+  handleClose = event => {
+    if (this.anchorEl.contains(event.target)) {
+      return;
+    }
+    this.setState({ open: false });
   };
 
   render() {
-    const { anchorEl } = this.state;
+    const { open } = this.state;
+    const downloadQueue = this.props.queue.map(queueItem => (
+      <MenuItem>
+        {queueItem.spotifyMetadata.title}
+      </MenuItem>
+    ));
     return (
       <div style={{position: 'absolute', right: 120}}>
-        <FontAwesomeIcon
-          aria-owns={anchorEl ? 'download-menu' : null}
-          aria-haspopup="true"
-          onClick={this.handleOpen}
-          style={{ color: '#2196f3', fontSize: '24', cursor: 'pointer' }}
-          icon={faCloudDownloadAlt}>
-        </FontAwesomeIcon>
-        <Menu
-          id="download-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}>
-        </Menu>
+        <Button
+        buttonRef={node => {
+          this.anchorEl = node;
+        }}
+        aria-owns={open ? 'menu-list-grow' : null}
+        aria-haspopup="true"
+        onClick={this.handleToggle}>
+        Download Queue <FontAwesomeIcon icon={faCloudDownloadAlt} style={{ color: '#2196f3', marginLeft: '5', fontSize: '18' }} />
+      </Button>
+      <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            id="menu-list-grow"
+            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
+            <Paper>
+              <ClickAwayListener onClickAway={this.handleClose}>
+                <MenuList style={{ width: '400px' }}>
+                  { downloadQueue }
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
       </div>
     );
   }
