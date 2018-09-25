@@ -1,4 +1,4 @@
-import { QUERY } from '../actions/searchQuery';
+import { SET_QUERY } from '../actions/searchQuery';
 
 const initialState = {
   query: ''
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function searchQuery(state = initialState, action) {
   switch (action.type) {
-    case QUERY:
+    case SET_QUERY:
       return {
         query: action.query
       }

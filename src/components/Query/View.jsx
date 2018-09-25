@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import {
   CircularProgress,
   Typography,
@@ -29,7 +28,6 @@ const styles = {
 class Query extends Component {
 
   state = {
-    query: '',
     spotifyResult: '',
     youtubeResult: '',
     showInfo: false,
@@ -40,15 +38,11 @@ class Query extends Component {
 
   componentDidMount() {
     var log = require('log');
-    let query = decodeURI(this.props.location.search.split('&')[1].substr(4));
-    this.setState({
-      query: query
-    });
     var Spotify = require('../../modules/SpotifyWebApi');
     var YTSearch = require('../../modules/YTSearch');
 
     // Search for track in Spotify
-    Spotify.searchTrack(query, (err, result) => {
+    Spotify.searchTrack(this.props.query, (err, result) => {
       if (err) {
         // Refresh Access Token
         if(err === "The access token expired") {
@@ -147,4 +141,8 @@ AudioInfo.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(Query));
+const mapStateToProps = state => ({
+  queue: state.downloadQueue.queue
+})
+
+export default connect(mapStateToProps, {})(withStyles(styles)(Query));

@@ -2,14 +2,14 @@
 /**
  * Action Types
  */
-export const QUERY = 'QUERY';
+export const SET_QUERY = 'SET_QUERY';
 
 /**
  * Action Creators
  */
-export function searchQuery(query) {
+export function setSearchQuery(query) {
   return {
-    type: QUERY,
+    type: SET_QUERY,
     query
   }
 };

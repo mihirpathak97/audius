@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { setSearchQuery } from '../../actions/searchQuery';
 import {
   TextField,
   Button
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
-import DialogBox from '../Dialog';
-
-const { BrowserWindow, app } = window.require('electron').remote;
-const path = require('path');
 
 const styles = theme => ({
   container: {
@@ -29,14 +26,9 @@ const styles = theme => ({
 });
 
 class QueryField extends React.Component {
-  state = {
-    query: ''
-  };
 
-  handleChange = name => event => {
-    this.setState({
-      query: event.target.value,
-    });
+  handleChange = event => {
+    this.props.setSearchQuery(event.target.value)
   };
 
   render() {
@@ -45,12 +37,10 @@ class QueryField extends React.Component {
     return (
       <div className={classes.container}>
         <TextField
-          error={this.state.toggleError}
-          id="query"
           label="Enter Song Name, Spotify or YouTube Link"
           className={classes.textField}
-          value={this.state.query}
-          onChange={this.handleChange('query')}
+          value={this.props.query}
+          onChange={this.handleChange}
           margin="normal"/>
         <Link to="\Query" style={{ textDecoration: 'none' }}>
           <Button color="primary" variant="outlined" className={classes.button}>Search</Button>
@@ -64,4 +54,8 @@ QueryField.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(QueryField);
+const mapStateToProps = state => ({
+  query: state.searchQuery.query
+})
+
+export default connect(mapStateToProps, {setSearchQuery})(withStyles(styles)(QueryField));
