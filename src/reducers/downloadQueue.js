@@ -1,6 +1,10 @@
 import { ADD_TO_QUEUE, REMOVE_FROM_QUEUE } from '../actions/downloadQueue';
 
-export default function downloadQueueReducer(state, action) {
+const initialState = {
+  queue: []
+}
+
+export default function downloadQueue(state = initialState, action) {
   switch (action.type) {
     case ADD_TO_QUEUE:
       return {

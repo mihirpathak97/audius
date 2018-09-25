@@ -10,6 +10,7 @@ import {
   Paper,
   Popper,
   Button,
+  Typography,
   MenuList,
   MenuItem
 } from '@material-ui/core';
@@ -41,11 +42,21 @@ class DownloadQueue extends React.Component {
 
   render() {
     const { open } = this.state;
-    const downloadQueue = this.props.queue.map(queueItem => (
-      <MenuItem>
-        {queueItem.spotifyMetadata.title}
-      </MenuItem>
-    ));
+    let downloadQueue;
+    if (this.props.queue.lenght > 0) {
+      downloadQueue = this.props.queue.map(queueItem => (
+        <MenuItem>
+          {queueItem.spotifyMetadata.title}
+        </MenuItem>
+      ));
+    }
+    else {
+      downloadQueue = (
+        <MenuItem>
+          You do not have any downloads
+        </MenuItem>
+      );
+    }
     return (
       <div style={{position: 'absolute', right: 120}}>
         <Button
@@ -65,7 +76,7 @@ class DownloadQueue extends React.Component {
             style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
             <Paper>
               <ClickAwayListener onClickAway={this.handleClose}>
-                <MenuList style={{ width: '400px' }}>
+                <MenuList style={{ width: '321px' }}>
                   { downloadQueue }
                 </MenuList>
               </ClickAwayListener>
@@ -83,7 +94,7 @@ DownloadQueue.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  queue: state.queue
+  queue: state.downloadQueue.queue
 })
 
 export default connect(mapStateToProps, {})(withStyles(styles)(DownloadQueue));
