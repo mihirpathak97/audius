@@ -8,13 +8,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router,
+  HashRouter,
   Route
 } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { store, persistor } from './store/configureStore';
-import { PersistGate } from 'redux-persist/integration/react'
+import { store } from './store/configureStore';
 
 // import global CSS file
 import './app.global.css';
@@ -31,24 +30,15 @@ import TopAppBar from './components/TopAppBar';
 
 class App extends Component {
 
-  // Define routes here
-  static Views() {
-    return {
-      Home: <Home />,
-      About: <About />,
-      Settings: <Settings />,
-      Terms: <Terms />,
-      Query: <Query />
-    }
-  }
-
   state = {
     showMenu: false,
     showBack: false
   }
 
   componentWillMount() {
-    let view = window.location.href.split('?')[1].split('&')[0];
+    let view = window.location.href.split('/#/')[1];
+    console.log(window.location.href);
+    console.log(view);
     var log = require('log');
     log.info('app.renderer.js', 'Loading view - ' + view);
     switch (view) {
@@ -70,30 +60,21 @@ class App extends Component {
     }
   }
 
-  static View(props) {
-    let name = props.location.search.substr(1).split('&')[0];
-    let view = App.Views()[name];
-    if(view == null) {
-      var log = require('log');
-      log.error('app.renderer.js', "View '" + name + "' is undefined");
-      throw new Error("View '" + name + "' is undefined");
-    }
-    return view;
-  }
-
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <div className="App">
-            <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
-            <Router>
-              <div>
-                <Route path='/' component={App.View}/>
-              </div>
-            </Router>
-          </div>
-        </PersistGate>
+        <div className="App">
+          <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
+          <HashRouter>
+            <div>
+              <Route path='/Home' exact component={Home}/>
+              <Route path='/Query' component={Query} />
+              <Route path='/About' component={About} />
+              <Route path='/Terms' component={Terms} />
+              <Route path='/Settings' component={Settings} />
+            </div>
+          </HashRouter>
+        </div>
       </Provider>
     );
   }
