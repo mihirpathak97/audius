@@ -45,12 +45,15 @@ class Query extends Component {
     Spotify.searchTrack(this.props.query, (err, result) => {
       if (err) {
         // Refresh Access Token
-        if(err === "The access token expired") {
+        if(err == "The access token expired") {
           Spotify.getAccessToken();
           return;
         }
         log.error('Query', JSON.stringify(err));
-        return this.renderDialog("An Error Occured!", JSON.stringify(err));
+        this.setState({
+          showInfo: true
+        })
+        return this.renderDialog("An Error Occured!", typeof (err) === 'string' ? err : JSON.stringify(err));
       }
 
       // Check if Spotify search found anything
@@ -137,7 +140,7 @@ class Query extends Component {
   }
 }
 
-AudioInfo.propTypes = {
+Query.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
