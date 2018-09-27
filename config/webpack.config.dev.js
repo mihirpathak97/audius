@@ -246,9 +246,8 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
-  // [04-06-2018] - Edited by Mihir Pathak
-  // Set target to 'node' as some functionalities of node do not work in browser mode
-  target: 'node',
+  // [27-09-2018] - Edited by Mihir Pathak
+  target: 'electron-renderer',
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
   node: {

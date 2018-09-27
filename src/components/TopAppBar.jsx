@@ -51,8 +51,10 @@ class TopAppBar extends React.Component {
       case 'Query':
         renderChildren = (
           <Toolbar>
-            <Link to="/Home">
-              <FontAwesomeIcon style={{ fontSize: '20' }} icon={faArrowLeft} />
+            <Link to="/Home" style={{  }}>
+              <IconButton>
+                <FontAwesomeIcon style={{ fontSize: '20' }} icon={faArrowLeft} />
+              </IconButton>
             </Link>
             <DownloadQueue />
             <WindowHandlers />
