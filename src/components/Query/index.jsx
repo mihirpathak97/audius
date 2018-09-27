@@ -25,7 +25,7 @@ const styles = {
   }
 }
 
-class Query extends Component {
+class View extends Component {
 
   state = {
     spotifyResult: '',
@@ -140,7 +140,7 @@ class Query extends Component {
   }
 }
 
-Query.propTypes = {
+View.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -148,4 +148,4 @@ const mapStateToProps = state => ({
   query: state.searchQuery.query
 })
 
-export default connect(mapStateToProps, {})(withStyles(styles)(Query));
+export default connect(mapStateToProps, {})(withStyles(styles)(View));

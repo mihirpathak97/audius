@@ -6,7 +6,7 @@ function openExternal(url) {
   shell.openExternal(url);
 }
 
-class About extends Component {
+class View extends Component {
   render() {
     return (
       <div>
@@ -30,4 +30,4 @@ class About extends Component {
   }
 }
 
-export default About;
+export default View;

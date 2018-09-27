@@ -19,7 +19,7 @@ function openExternal(url) {
   shell.openExternal(url);
 }
 
-class Terms extends Component {
+class View extends Component {
 
   render() {
     return (
@@ -63,4 +63,4 @@ class Terms extends Component {
   }
 }
 
-export default Terms;
+export default View;

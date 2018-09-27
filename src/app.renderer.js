@@ -21,11 +21,11 @@ import { store, history } from './store/configureStore';
 import './app.global.css';
 
 // Views
-import Home from './components/Home/View';
-import About from './components/About/View';
-import Settings from './components/Settings/View';
-import Terms from './components/Terms/View';
-import Query from './components/Query/View';
+import Home from './components/Home';
+import About from './components/About';
+import Settings from './components/Settings';
+import Terms from './components/Terms';
+import Query from './components/Query';
 
 // Components
 import TopAppBar from './components/TopAppBar';
