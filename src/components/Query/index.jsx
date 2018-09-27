@@ -45,7 +45,7 @@ class View extends Component {
     Spotify.searchTrack(this.props.query, (err, result) => {
       if (err) {
         // Refresh Access Token
-        if(err == "The access token expired") {
+        if(JSON.stringify(err).message === "The access token expired") {
           Spotify.getAccessToken();
           return;
         }
@@ -117,7 +117,7 @@ class View extends Component {
               ) : (
                 <div style={{overflow: 'auto'}}>
                   <AudioInfo
-                    classes={new Object()}
+                    classes={{}}
                     title={result.title}
                     artist={result.trackArtist}
                     albumArt={result.albumArt}/>

@@ -4,13 +4,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import {
-  IconButton,
   ClickAwayListener,
   Grow,
   Paper,
   Popper,
   Button,
-  Typography,
   MenuList,
   MenuItem
 } from '@material-ui/core';
