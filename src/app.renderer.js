@@ -11,6 +11,7 @@ import {
   HashRouter,
   Route
 } from 'react-router-dom';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { ConnectedRouter } from 'connected-react-router'
 
 import { Provider } from 'react-redux';
@@ -29,20 +30,25 @@ import Query from './components/Query/View';
 // Components
 import TopAppBar from './components/TopAppBar';
 
+// Theme
+import AudiusTheme from './theme/AudiusTheme';
+
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <HashRouter>
-            <div className="App">
-              <TopAppBar />
-              <Route path='/Home' exact component={Home}/>
-              <Route path='/Query' component={Query} />
-              <Route path='/About' component={About} />
-              <Route path='/Terms' component={Terms} />
-              <Route path='/Settings' component={Settings} />
-            </div>
+            <MuiThemeProvider theme={AudiusTheme}>
+              <div className="App">
+                <TopAppBar />
+                <Route path='/Home' exact component={Home}/>
+                <Route path='/Query' component={Query} />
+                <Route path='/About' component={About} />
+                <Route path='/Terms' component={Terms} />
+                <Route path='/Settings' component={Settings} />
+              </div>
+            </MuiThemeProvider>
           </HashRouter>
         </ConnectedRouter>
       </Provider>
