@@ -1,8 +1,5 @@
-import axios from 'axios'
-const log = require('electron-log')
 const Spotify = require('./SpotifyWebApi')
 const YTSearch = require('./YTSearch')
-const querystring = require('querystring')
 let queryCheck = function (query) {
   return new Promise(function(resolve, reject) {
     if (query.includes('youtube.com')) {
@@ -22,7 +19,18 @@ let queryCheck = function (query) {
       Spotify.searchTrackById(query)
     }
     else {
-      Spotify.searchTrackByQuery(query)
+      Spotify.searchTrackByQuery(query).then(response => {
+        YTSearch.searchVideosByQuery(response.title).then(YTresponse => {
+          resolve({
+            spotifyResult: response,
+            youtubeResult: YTresponse
+          })
+        }).catch(YTerror => {
+          reject(YTerror)
+        })
+      }).catch(error => {
+        reject(error)
+      })
     }
   });
 }

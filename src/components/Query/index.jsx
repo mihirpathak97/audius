@@ -39,14 +39,18 @@ class View extends Component {
   }
 
   componentDidMount() {
-    var log = require('log');
     queryCheck(this.props.query).then(response => {
-      console.log(response);
+      this.setState({
+        spotifyResult: response.spotifyResult,
+        youtubeResult: response.youtubeResult,
+        showInfo: true,
+      });
     }).catch(error => {
-      if (error.code.includes('404')) {
-        this.setState({
-          showInfo: true
-        })
+      this.setState({
+        showInfo: true
+      })
+      if (typeof(error.code) !== 'string') {
+        this.renderDialog("An Error Occured!", error.message)
       }
     });
     // var Spotify = require('../../modules/SpotifyWebApi');

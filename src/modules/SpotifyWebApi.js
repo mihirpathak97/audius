@@ -3,10 +3,10 @@
   SpotifyWebApi.js: JS wrapper for the Spotify Web API providing basic functionalities for searching
 */
 
-var xhr = require('xhr');
-var base64 = require('base-64');
-var querystring = require('querystring');
+const base64 = require('base-64');
+const querystring = require('querystring');
 const axios = require('axios');
+const settings = process.type === 'renderer' ? window.require('electron-settings') : require('electron-settings');
 
 // client Id and Secret for 'Audius' from https://developer.spotify.com
 const clientId = '6c67544dbe4a4d15a6b80eec0a5c0063';
@@ -16,25 +16,24 @@ const clientSecret = '710ba1ba3e324dc190b66eae8d7c613e';
 const endpointURL = 'https://api.spotify.com/v1/';
 
 let getAccessToken = () => {
-  xhr({
-    url: 'https://accounts.spotify.com/api/token',
-    method: 'POST',
-    headers: {
-      'Authorization': 'Basic ' + base64.encode(clientId + ':' + clientSecret),
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: "grant_type=client_credentials"
-  }, function (err, resp, body) {
-    if (err) {
-      const { dialog } = require('electron');
-      dialog.showErrorBox('Error!', 'There was an error generating the Spotify Access Token. Please check your internet connection.');
-      return;
-    }
-
-    const settings = process.type === 'renderer' ? window.require('electron-settings') : require('electron-settings');
-    // Store access_token in a persintant user data file
-    settings.set('spotifyAccessToken', JSON.parse(body).access_token);
-  })
+  return new Promise(function(resolve, reject) {
+    axios({
+      url: 'https://accounts.spotify.com/api/token',
+      method: 'POST',
+      params: {
+        grant_type: 'client_credentials'
+      },
+      headers: {
+        'Authorization': 'Basic ' + base64.encode(clientId + ':' + clientSecret),
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then(response => {
+      settings.set('spotifyAccessToken', response.data.access_token)
+      resolve()
+    }).catch(error => {
+      reject(error)
+    })
+  });
 }
 
 let searchTrackByQuery = (query) => {
