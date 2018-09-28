@@ -5,10 +5,18 @@ let queryCheck = function (query) {
     if (query.includes('youtube.com')) {
       YTSearch.searchVideoById(query.split('?v=')[1]).then(response => {
         // Get Spotify metadata
-        Spotify.searchTrackByQuery(response.data.items[0].title).then(metadata => {
-          console.log(metadata);
+        Spotify.searchTrackByQuery(response[0].title).then(metadata => {
+          resolve({
+            youtubeResult: response,
+            spotifyResult: metadata
+          })
         }).catch(spotifyError => {
-          console.log(spotifyError);
+          if (spotifyError.code === '404S') {
+            resolve({
+              youtubeResult: response,
+              spotifyResult: null
+            })
+          }
           reject(spotifyError)
         })
       }).catch(error => {
@@ -16,7 +24,10 @@ let queryCheck = function (query) {
       })
     }
     else if (query.includes('spotify.com')) {
-      Spotify.searchTrackById(query)
+      reject({
+        code: 403,
+        message: 'Spotify links are not allowed at the moment'
+      })
     }
     else {
       Spotify.searchTrackByQuery(query).then(response => {

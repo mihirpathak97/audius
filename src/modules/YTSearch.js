@@ -38,7 +38,7 @@ let searchVideoById = (youtubeId) => {
   return new Promise(function(resolve, reject) {
     axios.get('https://www.googleapis.com/youtube/v3/videos?' + querystring.stringify({
       id: youtubeId,
-      part: 'snippet',
+      part: 'snippet, contentDetails',
       key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE'
     })).then((response) => {
         if (response.data.items.length === 0) {
@@ -47,7 +47,21 @@ let searchVideoById = (youtubeId) => {
             message: 'Your search did not match any results'
           })
         }
-        resolve(response)
+        console.log(response.data.items);
+        let result = response.data.items.map(function (item) {
+          return {
+            id: item.id,
+            link: 'https://www.youtube.com/watch?v=' + item.id,
+            kind: item.kind,
+            publishedAt: item.snippet.publishedAt,
+            channelId: item.snippet.channelId,
+            channelTitle: item.snippet.channelTitle,
+            title: item.snippet.title,
+            description: item.snippet.description,
+            duration: convertYTDuration(item.contentDetails.duration)
+          }
+        })
+        resolve(result)
     }).catch((error) => {
         reject(error)
     })

@@ -40,6 +40,7 @@ class View extends Component {
 
   componentDidMount() {
     queryCheck(this.props.query).then(response => {
+      console.log(response);
       this.setState({
         spotifyResult: response.spotifyResult,
         youtubeResult: response.youtubeResult,
@@ -53,46 +54,6 @@ class View extends Component {
         this.renderDialog("An Error Occured!", error.message)
       }
     });
-    // var Spotify = require('../../modules/SpotifyWebApi');
-    // var YTSearch = require('../../modules/YTSearch');
-    //
-    // // Search for track in Spotify
-    // Spotify.searchTrack(this.props.query, (err, result) => {
-    //   if (err) {
-    //     // Refresh Access Token
-    //     if(typeof(err) === 'object' && JSON.stringify(err).message === "The access token expired") {
-    //       Spotify.getAccessToken();
-    //       return;
-    //     }
-    //     log.error('Query', JSON.stringify(err));
-    //     this.setState({
-    //       showInfo: true
-    //     })
-    //     return this.renderDialog("An Error Occured!", typeof (err) === 'string' ? err : JSON.stringify(err));
-    //   }
-    //
-    //   // Check if Spotify search found anything
-    //   if(result === null) {
-    //     this.setState({
-    //       showInfo: true
-    //     })
-    //     return;
-    //   }
-    //
-    //   // Use that data to run YouTube search
-    //   YTSearch(result, (error, resp) => {
-    //     if (error) {
-    //       log.error('Query', JSON.stringify(error));
-    //       return this.renderDialog("An Error Occured!", error);
-    //     }
-    //     this.setState({
-    //       spotifyResult: result,
-    //       youtubeResult: resp,
-    //       showInfo: true,
-    //     });
-    //   });
-    //
-    // });
   }
 
   renderDialog = (title, message) => {
@@ -131,11 +92,20 @@ class View extends Component {
                 <Typography variant="title" style={{marginTop: 250}}>Your search did not match any results</Typography>
               ) : (
                 <div style={{overflow: 'auto'}}>
-                  <AudioInfo
-                    classes={{}}
-                    title={result.title}
-                    artist={result.trackArtist}
-                    albumArt={result.albumArt}/>
+                  {
+                    result === null ? (
+                      <AudioInfo
+                        classes={{}}
+                        title={this.state.youtubeResult[0].title}
+                        artist={this.state.youtubeResult[0].channelTitle}
+                        albumArt={""}/>
+                    ) :
+                      (<AudioInfo
+                        classes={{}}
+                        title={result.title}
+                        artist={result.trackArtist}
+                        albumArt={result.albumArt}/>)
+                  }
                   <Typography variant="title" style={{textAlign: 'left', marginLeft: 50, marginTop: 270, marginBottom: 30}}>Search Results</Typography>
                   <Table className={classes.videosContainer}>
                     <TableBody>
