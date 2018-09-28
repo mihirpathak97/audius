@@ -17,6 +17,7 @@
   "homepage": "./",
   "dependencies": {
     "async": "^2.6.1",
+    "axios": "^0.18.0",
     "base-64": "^0.1.0",
     "electron-is-dev": "^1.0.1",
     "electron-log": "^2.2.17",

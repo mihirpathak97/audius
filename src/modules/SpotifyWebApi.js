@@ -4,9 +4,9 @@
 */
 
 var xhr = require('xhr');
-if (!xhr.open) xhr = require('request');
 var base64 = require('base-64');
 var querystring = require('querystring');
+const axios = require('axios');
 
 // client Id and Secret for 'Audius' from https://developer.spotify.com
 const clientId = '6c67544dbe4a4d15a6b80eec0a5c0063';
@@ -37,63 +37,55 @@ let getAccessToken = () => {
   })
 }
 
-let searchTrack = (query, callback) => {
-
-  const settings = window.require('electron-settings');
-
-  var params = {
-    q: query,
-    type: 'track'
-  }
-
-  xhr({
-    url: endpointURL + 'search?' + querystring.stringify(params),
-    method: 'GET',
-    headers: {
+let searchTrackByQuery = (query) => {
+  return new Promise(function(resolve, reject) {
+    const settings = window.require('electron-settings');
+    var params = {
+      q: query,
+      type: 'track'
+    }
+    axios.get(endpointURL + 'search?' + querystring.stringify(params), {headers: {
       'Authorization': 'Bearer ' + settings.get('spotifyAccessToken')
-    }
-  }, function (err, resp, body) {
-    if (err) {
-      return callback(err);
-    }
+    }})
+    .then(response => {
+      // Check if result is obtained
+      if(response.data.tracks.items.length === 0) {
+        reject({
+          code: '404S',
+          message: 'Your search did not match any results'
+        });
+      }
 
-    // Parse JSON response
-    body = JSON.parse(body);
+      // Take the first result
+      var track = response.data.tracks.items[0];
 
-    // Return if Spotify token expires
-    // TODO: refresh token on demand
-    if (body.error) {
-      console.log(body)
-      return callback(body.error.message);
-    }
-
-    // Check if result is obtained
-    if(body.tracks.items.length === 0) {
-      return callback(null, null);
-    }
-
-    // Take the first result
-    var track = body.tracks.items[0];
-
-    // Clean it up
-    track = {
-      title: track.name,
-      trackArtist: track.artists[0].name,
-      albumArtist: track.album.artists[0].name,
-      album: track.album.name,
-      albumArt: track.album.images[1].url,
-      spotifyUrl: track.external_urls.spotify,
-      spotifyId: track.id,
-      SpotifyUri: track.uri,
-      isrc: track.external_ids.isrc,
-      duration_ms: track.duration_ms
-    }
-    // Then return it
-    return callback(null, track);
-  })
+      // Clean it up
+      track = {
+        title: track.name,
+        trackArtist: track.artists[0].name,
+        albumArtist: track.album.artists[0].name,
+        album: track.album.name,
+        albumArt: track.album.images[1].url,
+        spotifyUrl: track.external_urls.spotify,
+        spotifyId: track.id,
+        SpotifyUri: track.uri,
+        isrc: track.external_ids.isrc,
+        duration_ms: track.duration_ms
+      }
+      resolve(track)
+    })
+    .catch(error => {
+      if (error.message.includes('401')) {
+        getAccessToken()
+      }
+      else {
+        reject(error)
+      }
+    })
+  });
 }
 
 module.exports = {
   getAccessToken,
-  searchTrack
-}
+  searchTrackByQuery
+};

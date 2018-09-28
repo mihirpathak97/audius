@@ -16,6 +16,8 @@ import DialogBox from '../Dialog';
 import PlayAudio from './PlayAudio';
 import DownloadAudio from './DownloadAudio';
 
+import { queryCheck } from '../../modules/queryCheck';
+
 const styles = {
   videosContainer: {
     width: '95%',
@@ -38,46 +40,55 @@ class View extends Component {
 
   componentDidMount() {
     var log = require('log');
-    var Spotify = require('../../modules/SpotifyWebApi');
-    var YTSearch = require('../../modules/YTSearch');
-
-    // Search for track in Spotify
-    Spotify.searchTrack(this.props.query, (err, result) => {
-      if (err) {
-        // Refresh Access Token
-        if(JSON.stringify(err).message === "The access token expired") {
-          Spotify.getAccessToken();
-          return;
-        }
-        log.error('Query', JSON.stringify(err));
+    queryCheck(this.props.query).then(response => {
+      console.log(response);
+    }).catch(error => {
+      if (error.code.includes('404')) {
         this.setState({
           showInfo: true
         })
-        return this.renderDialog("An Error Occured!", typeof (err) === 'string' ? err : JSON.stringify(err));
       }
-
-      // Check if Spotify search found anything
-      if(result === null) {
-        this.setState({
-          showInfo: true
-        })
-        return;
-      }
-
-      // Use that data to run YouTube search
-      YTSearch(result, (error, resp) => {
-        if (error) {
-          log.error('Query', JSON.stringify(error));
-          return this.renderDialog("An Error Occured!", error);
-        }
-        this.setState({
-          spotifyResult: result,
-          youtubeResult: resp,
-          showInfo: true,
-        });
-      });
-
     });
+    // var Spotify = require('../../modules/SpotifyWebApi');
+    // var YTSearch = require('../../modules/YTSearch');
+    //
+    // // Search for track in Spotify
+    // Spotify.searchTrack(this.props.query, (err, result) => {
+    //   if (err) {
+    //     // Refresh Access Token
+    //     if(typeof(err) === 'object' && JSON.stringify(err).message === "The access token expired") {
+    //       Spotify.getAccessToken();
+    //       return;
+    //     }
+    //     log.error('Query', JSON.stringify(err));
+    //     this.setState({
+    //       showInfo: true
+    //     })
+    //     return this.renderDialog("An Error Occured!", typeof (err) === 'string' ? err : JSON.stringify(err));
+    //   }
+    //
+    //   // Check if Spotify search found anything
+    //   if(result === null) {
+    //     this.setState({
+    //       showInfo: true
+    //     })
+    //     return;
+    //   }
+    //
+    //   // Use that data to run YouTube search
+    //   YTSearch(result, (error, resp) => {
+    //     if (error) {
+    //       log.error('Query', JSON.stringify(error));
+    //       return this.renderDialog("An Error Occured!", error);
+    //     }
+    //     this.setState({
+    //       spotifyResult: result,
+    //       youtubeResult: resp,
+    //       showInfo: true,
+    //     });
+    //   });
+    //
+    // });
   }
 
   renderDialog = (title, message) => {

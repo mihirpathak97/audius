@@ -3,10 +3,9 @@
   YTSearch.js: YouTube search module using the v3 API
 */
 
+const axios = require('axios');
 var querystring = require('querystring')
-var xhr = require('xhr')
-
-if (!xhr.open) xhr = require('request')
+var log = require('log')
 
 let convertYTDuration = (duration) => {
   var a = duration.match(/\d+/g);
@@ -35,9 +34,28 @@ let convertYTDuration = (duration) => {
   return duration*1000;
 }
 
-module.exports = function search(metadata, callback) {
+let searchVideoById = (youtubeId) => {
+  return new Promise(function(resolve, reject) {
+    axios.get('https://www.googleapis.com/youtube/v3/videos?' + querystring.stringify({
+      id: youtubeId,
+      part: 'snippet',
+      key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE'
+    })).then((response) => {
+        if (response.data.items.length == 0) {
+          reject({
+            code: '404Y',
+            message: 'Your search did not match any results'
+          })
+        }
+        resolve(response)
+    }).catch((error) => {
+        reject(error)
+    })
+  });
+}
 
-  var log = require('log');
+let searchVideosByQuery = (metadata, callback) => {
+
   log.info('YTSearch', 'Recieved search parameters - ' + JSON.stringify(metadata));
 
   var apiParams = {
@@ -49,56 +67,60 @@ module.exports = function search(metadata, callback) {
     topicId: '/m/04rlf'
   }
 
-  xhr({
-    url: 'https://www.googleapis.com/youtube/v3/search?' + querystring.stringify(apiParams),
-    method: 'GET'
-  }, function (err, res, body) {
-    if (err) {
-      log.error('YTSearch', JSON.stringify(err))
-      return callback(err)
-    }
-    try {
-      var result = JSON.parse(body);
+  // xhr({
+  //   url: 'https://www.googleapis.com/youtube/v3/search?' + querystring.stringify(apiParams),
+  //   method: 'GET'
+  // }, function (err, res, body) {
+  //   if (err) {
+  //     log.error('YTSearch', JSON.stringify(err))
+  //     return callback(err)
+  //   }
+    // try {
+    //   var result = JSON.parse(body);
+    //
+    //   // crunch the results into a meaningfull JSON object
+    //   result = result.items.map(function (item) {
+    //     return {
+    //       id: item.id.videoId,
+    //       link: 'https://www.youtube.com/watch?v=' + item.id.videoId,
+    //       kind: item.id.kind,
+    //       publishedAt: item.snippet.publishedAt,
+    //       channelId: item.snippet.channelId,
+    //       channelTitle: item.snippet.channelTitle,
+    //       title: item.snippet.title,
+    //       description: item.snippet.description,
+    //     }
+    //   })
 
-      // crunch the results into a meaningfull JSON object
-      result = result.items.map(function (item) {
-        return {
-          id: item.id.videoId,
-          link: 'https://www.youtube.com/watch?v=' + item.id.videoId,
-          kind: item.id.kind,
-          publishedAt: item.snippet.publishedAt,
-          channelId: item.snippet.channelId,
-          channelTitle: item.snippet.channelTitle,
-          title: item.snippet.title,
-          description: item.snippet.description,
-        }
-      })
-
-      // Asyncronously get video duration and write to result
-      result.forEach(element => {
-        xhr({
-          url: 'https://www.googleapis.com/youtube/v3/videos?' + querystring.stringify({
-            id: element.id,
-            part: 'snippet, contentDetails',
-            key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE'
-          }),
-          method: 'GET',
-        }, function (err, res, body) {
-            if(err) {
-              log.error('YTSearch', err);
-              return '0';
-            }
-            element.duration = convertYTDuration(JSON.parse(body).items[0].contentDetails.duration);
-        });
-      });
-
-      // [TODO]: Implement sorting results by Spotify audio duration
-      log.info('YTSearch', 'Finished querying YouTube');
-      return callback(null, result)
-    } catch (error) {
-      log.error('YTSearch', JSON.stringify(error));
-      return callback(error)
-    }
-  })
-
+    //   // Asyncronously get video duration and write to result
+    //   result.forEach(element => {
+    //     xhr({
+    //       url: 'https://www.googleapis.com/youtube/v3/videos?' + querystring.stringify({
+    //         id: element.id,
+    //         part: 'snippet, contentDetails',
+    //         key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE'
+    //       }),
+    //       method: 'GET',
+    //     }, function (err, res, body) {
+    //         if(err) {
+    //           log.error('YTSearch', err);
+    //           return '0';
+    //         }
+    //         element.duration = convertYTDuration(JSON.parse(body).items[0].contentDetails.duration);
+    //     });
+    //   });
+    //
+    //   // [TODO]: Implement sorting results by Spotify audio duration
+    //   log.info('YTSearch', 'Finished querying YouTube');
+    //   return callback(null, result)
+    // } catch (error) {
+    //   log.error('YTSearch', JSON.stringify(error));
+    //   return callback(error)
+    // }
+  // })
 }
+
+module.exports = {
+  searchVideosByQuery,
+  searchVideoById
+};
