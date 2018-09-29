@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { removeFromQueue } from '../actions/downloadQueue';
-
 import {
   ClickAwayListener,
   Grow,
@@ -14,12 +13,15 @@ import {
   Typography,
   ListItem,
   CircularProgress,
+  Snackbar,
   Avatar,
   IconButton
 } from '@material-ui/core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudDownloadAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import Notification from './Notification'
 
 const styles = theme => ({
   container: {
@@ -30,7 +32,9 @@ const styles = theme => ({
 class DownloadQueue extends React.Component {
   state = {
     open: false,
-    queue: []
+    queue: [],
+    showNotification: false,
+    notificationMessage: ''
   };
 
   handleToggle = () => {
@@ -53,7 +57,9 @@ class DownloadQueue extends React.Component {
           progress: 0,
           waiting: true,
           downloading: false
-        }]
+        }],
+        showNotification: true,
+        notificationMessage: 'Added to Queue'
       })
     }
     // Deleting
@@ -113,7 +119,7 @@ class DownloadQueue extends React.Component {
               style={{marginRight: 12, height: '24px', width: '24px'}}/>
             <Typography>{useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}</Typography>
             <CircularProgress thickness={5} variant={this.state.queue[index].waiting ? 'indeterminate' : 'static'}
-              style={{width: '18px', height: '18px', position: 'absolute', right: '72px'}} 
+              style={{width: '18px', height: '18px', position: 'absolute', right: '72px'}}
               value={this.state.queue[index].progress} color="primary" />
             <IconButton onClick={() => this.deleteFromQueue(index)} style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
               <FontAwesomeIcon icon={faTrash} />
@@ -132,30 +138,33 @@ class DownloadQueue extends React.Component {
     return (
       <div style={{position: 'absolute', right: 120}}>
         <Button
-        buttonRef={node => {
-          this.anchorEl = node;
-        }}
-        aria-owns={open ? 'menu-list-grow' : null}
-        aria-haspopup="true"
-        onClick={this.handleToggle}>
-        Download Queue <FontAwesomeIcon icon={faCloudDownloadAlt} style={{ color: '#2196f3', marginLeft: '5', fontSize: '18' }} />
-      </Button>
-      <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
-        {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            id="menu-list-grow"
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
-            <Paper>
-              <ClickAwayListener onClickAway={this.handleClose}>
-                <MenuList style={{ width: '321px' }}>
-                  { downloadQueue }
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
+          buttonRef={node => {
+            this.anchorEl = node;
+          }}
+          aria-owns={open ? 'menu-list-grow' : null}
+          aria-haspopup="true"
+          onClick={this.handleToggle}>
+          Download Queue <FontAwesomeIcon icon={faCloudDownloadAlt} style={{ color: '#2196f3', marginLeft: '5', fontSize: '18' }} />
+        </Button>
+        <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              id="menu-list-grow"
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
+              <Paper>
+                <ClickAwayListener onClickAway={this.handleClose}>
+                  <MenuList style={{ width: '321px' }}>
+                    { downloadQueue }
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+        {
+          this.state.showNotification ? <Notification message={this.state.notificationMessage} /> : null
+        }
       </div>
     );
   }
