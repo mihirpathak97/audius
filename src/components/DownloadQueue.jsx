@@ -13,6 +13,7 @@ import {
   MenuList,
   Typography,
   ListItem,
+  CircularProgress,
   Avatar,
   IconButton
 } from '@material-ui/core';
@@ -28,7 +29,8 @@ const styles = theme => ({
 
 class DownloadQueue extends React.Component {
   state = {
-    open: false
+    open: false,
+    queue: []
   };
 
   handleToggle = () => {
@@ -43,12 +45,58 @@ class DownloadQueue extends React.Component {
   };
 
   componentWillReceiveProps (newProps) {
-    // Get last added prop
-    let itemToDownload = newProps.queue[this.props.queue.length];
+    // Downloading
+    if (newProps.queue.length > this.props.queue.length) {
+      // Add to component queue
+      this.setState({
+        queue: [...this.state.queue, {
+          progress: 0,
+          waiting: true,
+          downloading: false
+        }]
+      })
+    }
+    // Deleting
+    else {
+
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if ((prevState.queue.length === 0 || prevState.queue[0].progress === 100) && this.props.queue.length > 0) {
+      let itemToDownload = this.props.queue[0];
+      const YTDownload = require ('../modules/YTDownload')
+      YTDownload.downloadAudio(itemToDownload.youtubeMetadata, itemToDownload.spotifyMetadata, (progress) => {
+        this.setState({
+          queue: [{
+              progress: progress.percentage,
+              waiting: false,
+              downloading: true
+            },
+            ...this.state.queue.slice(1)
+          ]
+        })
+      })
+      .then(response => {
+        this.deleteFromQueue(0)
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      })
+    }
+    else {
+      //
+    }
   }
 
   deleteFromQueue = (index) => {
     this.props.dispatch(removeFromQueue(index))
+    this.setState({
+      queue: [
+        ...this.state.queue.slice(0, index),
+        ...this.state.queue.slice(index + 1)
+      ]
+    })
   }
 
   render() {
@@ -64,6 +112,9 @@ class DownloadQueue extends React.Component {
               src={useYT ? '' : queueItem.spotifyMetadata.albumArt}
               style={{marginRight: 12, height: '24px', width: '24px'}}/>
             <Typography>{useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}</Typography>
+            <CircularProgress thickness={5} variant={this.state.queue[index].waiting ? 'indeterminate' : 'static'}
+              style={{width: '18px', height: '18px', position: 'absolute', right: '72px'}} 
+              value={this.state.queue[index].progress} color="primary" />
             <IconButton onClick={() => this.deleteFromQueue(index)} style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
               <FontAwesomeIcon icon={faTrash} />
             </IconButton>
