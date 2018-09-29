@@ -10,11 +10,14 @@ import {
   Popper,
   Button,
   MenuList,
-  MenuItem
+  Typography,
+  MenuItem,
+  Avatar,
+  IconButton
 } from '@material-ui/core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudDownloadAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCloudDownloadAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const styles = theme => ({
   container: {
@@ -44,7 +47,13 @@ class DownloadQueue extends React.Component {
     if (this.props.queue.length > 0) {
       downloadQueue = this.props.queue.map(queueItem => (
         <MenuItem>
-          {queueItem.spotifyMetadata.title}
+          <Avatar alt={queueItem.spotifyMetadata.title}
+            src={queueItem.spotifyMetadata.albumArt}
+            style={{marginRight: 12, height: '24px', width: '24px'}}/>
+          <Typography>{queueItem.spotifyMetadata.title}</Typography>
+          <IconButton style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
+            <FontAwesomeIcon icon={faTrash} />
+          </IconButton>
         </MenuItem>
       ));
     }
