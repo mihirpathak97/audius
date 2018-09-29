@@ -40,7 +40,6 @@ class View extends Component {
 
   componentDidMount() {
     queryCheck(this.props.query).then(response => {
-      console.log(response);
       this.setState({
         spotifyResult: response.spotifyResult,
         youtubeResult: response.youtubeResult,

@@ -10,26 +10,26 @@ var log = require('log')
 let convertYTDuration = (duration) => {
   var a = duration.match(/\d+/g);
   if (duration.indexOf('M') >= 0 && duration.indexOf('H') === -1 && duration.indexOf('S') === -1) {
-      a = [0, a[0], 0];
+    a = [0, a[0], 0];
   }
   if (duration.indexOf('H') >= 0 && duration.indexOf('M') === -1) {
-      a = [a[0], 0, a[1]];
+    a = [a[0], 0, a[1]];
   }
   if (duration.indexOf('H') >= 0 && duration.indexOf('M') === -1 && duration.indexOf('S') === -1) {
-      a = [a[0], 0, 0];
+    a = [a[0], 0, 0];
   }
   duration = 0;
   if (a.length === 3) {
-      duration = duration + parseInt(a[0], 10) * 3600;
-      duration = duration + parseInt(a[1], 10) * 60;
-      duration = duration + parseInt(a[2], 10);
+    duration = duration + parseInt(a[0], 10) * 3600;
+    duration = duration + parseInt(a[1], 10) * 60;
+    duration = duration + parseInt(a[2], 10);
   }
   if (a.length === 2) {
-      duration = duration + parseInt(a[0], 10) * 60;
-      duration = duration + parseInt(a[1], 10);
+    duration = duration + parseInt(a[0], 10) * 60;
+    duration = duration + parseInt(a[1], 10);
   }
   if (a.length === 1) {
-      duration = duration + parseInt(a[0], 10);
+    duration = duration + parseInt(a[0], 10);
   }
   return duration*1000;
 }
@@ -47,7 +47,6 @@ let searchVideoById = (youtubeId) => {
             message: 'Your search did not match any results'
           })
         }
-        console.log(response.data.items);
         let result = response.data.items.map(function (item) {
           return {
             id: item.id,
@@ -68,14 +67,14 @@ let searchVideoById = (youtubeId) => {
   });
 }
 
-let searchVideosByQuery = (metadata) => {
+let searchVideosByQuery = (query) => {
 
-  log.info('YTSearch', 'Recieved search parameters - ' + JSON.stringify(metadata));
+  log.info('YTSearch', 'Recieved search parameters - ' + query);
 
   var apiParams = {
     part: 'snippet',
     maxResults: 10,
-    q: metadata.title,
+    q: query,
     key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE',
     type: 'video',
     topicId: '/m/04rlf'
