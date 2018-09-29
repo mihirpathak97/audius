@@ -41,21 +41,29 @@ class DownloadQueue extends React.Component {
     this.setState({ open: false });
   };
 
+  componentWillReceiveProps (newProps) {
+    console.log(newProps);
+  }
+
   render() {
     const { open } = this.state;
     let downloadQueue;
     if (this.props.queue.length > 0) {
-      downloadQueue = this.props.queue.map(queueItem => (
-        <MenuItem>
-          <Avatar alt={queueItem.spotifyMetadata.title}
-            src={queueItem.spotifyMetadata.albumArt}
-            style={{marginRight: 12, height: '24px', width: '24px'}}/>
-          <Typography>{queueItem.spotifyMetadata.title}</Typography>
-          <IconButton style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
-            <FontAwesomeIcon icon={faTrash} />
-          </IconButton>
-        </MenuItem>
-      ));
+      downloadQueue = this.props.queue.map(queueItem => {
+        let useYT;
+        queueItem.spotifyMetadata == null ? useYT = true : useYT = false
+        return (
+          <MenuItem>
+            <Avatar alt={useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}
+              src={useYT ? '' : queueItem.spotifyMetadata.albumArt}
+              style={{marginRight: 12, height: '24px', width: '24px'}}/>
+            <Typography>{useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}</Typography>
+            <IconButton style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
+              <FontAwesomeIcon icon={faTrash} />
+            </IconButton>
+          </MenuItem>
+        )
+      });
     }
     else {
       downloadQueue = (

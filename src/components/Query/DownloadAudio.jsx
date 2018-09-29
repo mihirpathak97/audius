@@ -39,33 +39,10 @@ class Track extends React.Component {
   }
 
   downloadAudio = () => {
-
     this.props.addToQueue({
-      youtubeLink: this.props.youtubeLink,
+      youtubeMetadata: this.props.youtubeMetadata,
       spotifyMetadata: this.props.spotifyMetadata
     });
-
-    // var YTDownload = require('../../modules/YTDownload');
-    // // Set loading and dialogOpen
-    // this.setState({
-    //   loading: true,
-    //   dialogOpen: false
-    // })
-    // YTDownload.download(this.props.youtubeLink, this.props.spotifyMetadata, (error, response) => {
-    //
-    //   if (error) {
-    //     this.setState({
-    //       loading: false
-    //     })
-    //     this.renderDialog("Error!", "An error occured while downloading! [REASON - " + error + "]");
-    //   }
-    //   if (response === "done") {
-    //     this.setState({
-    //       loading: false
-    //     })
-    //     this.renderDialog("Download Success!", "Your download was successfull. You can find your song in the download location");
-    //   };
-    // })
   }
 
   renderDialog = (title, message) => {

@@ -77,7 +77,7 @@ class View extends Component {
             <PlayAudio id={item.id} />
           </TableCell>
           <TableCell>
-            <DownloadAudio youtubeLink={item.link} spotifyMetadata={this.state.spotifyResult}/>
+            <DownloadAudio youtubeMetadata={item} spotifyMetadata={this.state.spotifyResult}/>
           </TableCell>
         </TableRow>
       )
