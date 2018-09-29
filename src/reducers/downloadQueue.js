@@ -10,6 +10,14 @@ export default function downloadQueue(state = initialState, action) {
       return {
         queue: [...state.queue, action.queueItem]
       }
+    case REMOVE_FROM_QUEUE:
+      return {
+        queue: [
+          ...state.queue.slice(0, action.index),
+          ...state.queue.slice(action.index + 1)
+        ]
+      }
+      break;
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import { removeFromQueue } from '../actions/downloadQueue';
 
 import {
   ClickAwayListener,
@@ -11,7 +12,7 @@ import {
   Button,
   MenuList,
   Typography,
-  MenuItem,
+  ListItem,
   Avatar,
   IconButton
 } from '@material-ui/core';
@@ -42,34 +43,39 @@ class DownloadQueue extends React.Component {
   };
 
   componentWillReceiveProps (newProps) {
-    console.log(newProps);
+    // Get last added prop
+    let itemToDownload = newProps.queue[this.props.queue.length];
+  }
+
+  deleteFromQueue = (index) => {
+    this.props.dispatch(removeFromQueue(index))
   }
 
   render() {
     const { open } = this.state;
     let downloadQueue;
     if (this.props.queue.length > 0) {
-      downloadQueue = this.props.queue.map(queueItem => {
+      downloadQueue = this.props.queue.map((queueItem, index) => {
         let useYT;
         queueItem.spotifyMetadata == null ? useYT = true : useYT = false
         return (
-          <MenuItem>
+          <ListItem key={index}>
             <Avatar alt={useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}
               src={useYT ? '' : queueItem.spotifyMetadata.albumArt}
               style={{marginRight: 12, height: '24px', width: '24px'}}/>
             <Typography>{useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}</Typography>
-            <IconButton style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
+            <IconButton onClick={() => this.deleteFromQueue(index)} style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
               <FontAwesomeIcon icon={faTrash} />
             </IconButton>
-          </MenuItem>
+          </ListItem>
         )
       });
     }
     else {
       downloadQueue = (
-        <MenuItem>
-          You do not have any downloads
-        </MenuItem>
+        <ListItem>
+          <Typography>You do not have any downloads</Typography>
+        </ListItem>
       );
     }
     return (
