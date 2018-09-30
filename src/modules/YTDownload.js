@@ -14,7 +14,7 @@ let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
     const outputFormat = settings.has('defaultAudioOut') ? settings.get('defaultAudioOut') : 'mp3';
     const outputCodec = outputFormat === 'mp3' ? "libmp3lame" : "aac";
     const infoOptions = {
-      quality: 'highest'
+      quality: 'highestaudio'
     }
     const fileName = path.join(settings.get('downloadDirectory'), sanitize(spotifyMetadata.title) + '.' + outputFormat);
 
@@ -25,7 +25,7 @@ let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
       }
 
       var downloadOptions = {
-        quality: 'highest',
+        quality: 'highestaudio',
         requestOptions: { maxRedirects: 5 },
         format: ytdl.filterFormats(info.formats, 'audioonly')[0]
       }
