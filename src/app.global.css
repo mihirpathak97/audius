@@ -1,7 +1,9 @@
-/* 
+/*
   Global CSS
   Styles defined here will be applied throughout the app
 */
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,500');
 
 body {
   margin: 0;

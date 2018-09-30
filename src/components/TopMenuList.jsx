@@ -5,7 +5,9 @@ import {
   MenuItem
 } from '@material-ui/core';
 
-import MenuIcon from '@material-ui/icons/Menu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');
 
@@ -38,7 +40,7 @@ class TopMenuList extends React.Component {
     this.setState({ anchorEl: null });
     const miniWindow = new BrowserWindow({width: 800, height: 600, frame: false});
     miniWindow.setResizable(false);
-    miniWindow.loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000?' + url : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?' + url)}`);
+    miniWindow.loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000/#' + url : `file://${path.join(app.getAppPath(), 'react-compiled/index.html/#' + url)}`);
   }
 
   render() {
@@ -49,9 +51,8 @@ class TopMenuList extends React.Component {
         <IconButton
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
-          onClick={this.handleClick}
-        >
-          <MenuIcon />
+          onClick={this.handleClick}>
+          <FontAwesomeIcon style={{ fontSize: '20' }} icon={faBars} />
         </IconButton>
         <Menu
           id="top-menu"

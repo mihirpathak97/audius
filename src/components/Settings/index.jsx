@@ -31,7 +31,7 @@ const styles = theme => ({
   }
 });
 
-class Settings extends Component {
+class View extends Component {
 
   constructor(props) {
     super(props);
@@ -105,8 +105,8 @@ class Settings extends Component {
   }
 }
 
-Settings.propTypes = {
+View.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Settings);
+export default withStyles(styles)(View);

@@ -1,23 +1,24 @@
 import React from 'react';
 import {
-  Button
+  IconButton
 } from '@material-ui/core';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 class PlayAudio extends React.Component {
 
   playAudio = () => {
-    const { BrowserWindow } = window.require('electron').remote;
-    const aboutWindow = new BrowserWindow({width: 400, height: 200});
-    aboutWindow.setResizable(false);
-    aboutWindow.loadURL('http://localhost:6969/' + this.props.id);
+    var shell = window.require('electron').shell;
+    shell.openExternal('https://youtube.com/watch?v=' + this.props.id);
   }
 
   render() {
     return(
       <div>
-        <Button variant="raised" size="small" color="secondary" onClick={this.playAudio}>
-          Play
-        </Button>
+        <IconButton style={{fontSize: '18px'}} onClick={this.playAudio}>
+          <FontAwesomeIcon icon={faPlay} />
+        </IconButton>
       </div>
     )
   }

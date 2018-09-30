@@ -1,8 +1,31 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-alpha1] - 2018-09-30
+### Added
+- Download Queue!
+- Redux!
+- Support for YouTube links!
+  - **Note** Some YT links will not fetch Spotify data properly. Working on a fix
+
+### Changed
+- Updated node packages
+  - electron - 2.0.7 -> 3.0.2
+  - react - 16.4.x -> 16.5.2
+  - material-ui - 1.x -> 3.1.1
+  - And more!
+- Minor UI changes
+- Move to promise based modules
+- Use HashRouter for in-app routing
+- Fix icons
+
+### Removed
+- Nuked audio play functionality as it violates YouTube's terms
+  - Now opens the link in default browser
+- Nuked `@material-ui/icons`. Using Font Awesome entirely
+
 ## [1.5.0] - 2018-08-19
-** NOTE - ** This is the final release for 1.x.x. I will shortly begin work on 2.x :grin:
+**NOTE -** This is the final release for 1.x.x. I will shortly begin work on 2.x :grin:
 
 This branch may or may not recieve bug fixes. Feel free to fork the repo and make changes
 

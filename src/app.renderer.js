@@ -8,85 +8,50 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter as Router,
+  HashRouter,
   Route
 } from 'react-router-dom';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { ConnectedRouter } from 'connected-react-router'
+
+import { Provider } from 'react-redux';
+import { store, history } from './store/configureStore';
 
 // import global CSS file
 import './app.global.css';
 
 // Views
-import Home from './components/Home/View';
-import About from './components/About/View';
-import Settings from './components/Settings/View';
-import Terms from './components/Terms/View';
-import Query from './components/Query/View';
+import Home from './components/Home';
+import About from './components/About';
+import Settings from './components/Settings';
+import Terms from './components/Terms';
+import Query from './components/Query';
 
 // Components
 import TopAppBar from './components/TopAppBar';
 
+// Theme
+import AudiusTheme from './theme/AudiusTheme';
+
 class App extends Component {
-
-  // Define routes here
-  static Views() {
-    return {
-      Home: <Home />,
-      About: <About />,
-      Settings: <Settings />,
-      Terms: <Terms />,
-      Query: <Query />
-    }
-  }
-
-  state = {
-    showMenu: false,
-    showBack: false
-  }
-
-  componentWillMount() {
-    let view = window.location.href.split('?')[1].split('&')[0];
-    var log = require('log');
-    log.info('app.renderer.js', 'Loading view - ' + view);
-    switch (view) {
-      case 'Home':
-        this.setState({
-          showMenu: true
-        })
-        break;
-      case 'Query':
-        this.setState({
-          showMenu: false,
-          showBack: true
-        })
-        break;
-      default:
-        this.setState({
-          title: view
-        })
-    }
-  }
-
-  static View(props) {
-    let name = props.location.search.substr(1).split('&')[0];
-    let view = App.Views()[name];
-    if(view == null) {
-      var log = require('log');
-      log.error('app.renderer.js', "View '" + name + "' is undefined");
-      throw new Error("View '" + name + "' is undefined");
-    }
-    return view;
-  }
-
   render() {
     return (
-      <div className="App">
-        <TopAppBar showMenu={this.state.showMenu} showBack={this.state.showBack} />
-        <Router>
-          <div>
-            <Route path='/' component={App.View}/>
-          </div>
-        </Router>
-      </div>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <HashRouter hashType="noslash">
+            <MuiThemeProvider theme={AudiusTheme}>
+              <div className="App">
+                <TopAppBar />
+                <Route path='/Home' exact component={Home}/>
+                <Route path='/Query' component={Query} />
+                <Route path='/About' component={About} />
+                <Route path='/Terms' component={Terms} />
+                <Route path='/Settings' component={Settings} />
+              </div>
+            </MuiThemeProvider>
+          </HashRouter>
+        </ConnectedRouter>
+      </Provider>
     );
   }
 }

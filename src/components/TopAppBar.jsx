@@ -1,20 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
+import { connect } from 'react-redux';
 import {
   AppBar,
   Toolbar,
   IconButton
 } from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { Link } from 'react-router-dom';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 import TopMenuList from './TopMenuList';
 import WindowHandlers from './WindowHandlers';
+import DownloadQueue from './DownloadQueue';
 
-const { BrowserWindow, app } = window.require('electron').remote;
-const path = require('path');
-
-const styles = {
+const styles = theme => ({
   root: {
     width: '100%'
   },
@@ -25,35 +26,65 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   }
-};
+});
 
-function TopAppBar(props) {
-  const { classes } = props;
+class TopAppBar extends React.Component {
 
-  function handleClick() {
-    BrowserWindow.getFocusedWindow().loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000?Home' : `file://${path.join(app.getAppPath(), 'react-compiled/index.html?Home')}`);
+  componentDidMount () {
+    console.log(this.props);
   }
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" style={{boxShadow: 'none', backgroundColor: 'inherit'}}>
-        <Toolbar>
-          { /* MenuBar Icon */ }
-          { props.showMenu ? <TopMenuList /> : null }
+  handleClick = () => {
+    //
+  }
 
-          { /* Back Icon for query */ }
-          { props.showBack ? <IconButton onClick={handleClick}><ArrowBackIcon /></IconButton> : null }
-
-          { /* Window Minimise and Quit */ }
-          <WindowHandlers />
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+  render () {
+    const { classes } = this.props;
+    let renderChildren;
+    switch (this.props.hash.split('#')[1]) {
+      case 'Home':
+        renderChildren = (
+          <Toolbar>
+            <TopMenuList />
+            <DownloadQueue />
+            <WindowHandlers />
+          </Toolbar>
+        )
+        break;
+      case 'Query':
+        renderChildren = (
+          <Toolbar>
+            <Link to="/Home" style={{  }}>
+              <IconButton>
+                <FontAwesomeIcon style={{ fontSize: '20' }} icon={faArrowLeft} />
+              </IconButton>
+            </Link>
+            <DownloadQueue />
+            <WindowHandlers />
+          </Toolbar>
+        )
+        break;
+      default:
+        renderChildren = (
+          <Toolbar>
+            <WindowHandlers />
+          </Toolbar>
+        )
+    }
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" style={{boxShadow: 'none', backgroundColor: 'inherit'}}>
+          { renderChildren }
+        </AppBar>
+      </div>
+    );
+  }
 }
 
-TopAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = state => ({
+  pathname: state.router.location.pathname,
+  search: state.router.location.search,
+  hash: state.router.location.hash,
+})
 
-export default withStyles(styles)(TopAppBar);
+export default connect(mapStateToProps)(withStyles(styles)(TopAppBar));

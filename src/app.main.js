@@ -12,7 +12,6 @@ require("./modules/AutoUpdater");
 
 const path = require('path');
 const isDev = require('electron-is-dev');
-const YTCore = require('./modules/YTCore');
 const Spotify = require('./modules/SpotifyWebApi');
 
 // Log
@@ -29,7 +28,7 @@ function createWindow() {
     frame: false
   });
   mainWindow.setResizable(false);
-  mainWindow.loadURL(isDev ? 'http://localhost:3000?Home' : `file://${path.join(__dirname, '../react-compiled/index.html?Home')}`);
+  mainWindow.loadURL(isDev ? 'http://localhost:3000/#Home' : `file://${path.join(__dirname, '../react-compiled/index.html/#Home')}`);
   mainWindow.on('closed', () => mainWindow = null);
 }
 
@@ -39,13 +38,6 @@ app.on('ready', () => {
   require('./modules/Settings');
   // First create BrowserWindow
   createWindow();
-  // Start the audio stream listener
-  // default port set to 6969 [because why not?]
-  // If the port is in use, express will throw an
-  // error. Seriously, who else would use 6969?
-  YTCore.listen(6969, () => {
-    log.info('[app.main.js] YTCore listening on port http://localhost:6969');
-  });
   // Then get Spotify access token
   Spotify.getAccessToken();
 });

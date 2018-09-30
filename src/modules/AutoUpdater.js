@@ -13,7 +13,7 @@ var log = require('electron-log');
  * Refer electron-builder docs
  */
 log.info('[AutoUpdater.js] Checking for updates');
-// autoUpdater.channel = 'beta';
+autoUpdater.channel = 'alpha';
 autoUpdater.checkForUpdatesAndNotify();
 
 // Done in two lines :)

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import {
   CircularProgress,
   Typography,
@@ -17,6 +16,8 @@ import DialogBox from '../Dialog';
 import PlayAudio from './PlayAudio';
 import DownloadAudio from './DownloadAudio';
 
+import { queryCheck } from '../../modules/queryCheck';
+
 const styles = {
   videosContainer: {
     width: '95%',
@@ -26,60 +27,31 @@ const styles = {
   }
 }
 
-class Query extends Component {
+class View extends Component {
 
   state = {
-    query: '',
     spotifyResult: '',
     youtubeResult: '',
     showInfo: false,
     dialogOpen: false,
     dialogTitle: "",
-    dialogMessage: ""
+    dialogMessage: "",
   }
 
   componentDidMount() {
-    var log = require('log');
-    let query = decodeURI(this.props.location.search.split('&')[1].substr(4));
-    this.setState({
-      query: query
-    });
-    var Spotify = require('../../modules/SpotifyWebApi');
-    var YTSearch = require('../../modules/YTSearch');
-
-    // Search for track in Spotify
-    Spotify.searchTrack(query, (err, result) => {
-      if (err) {
-        // Refresh Access Token
-        if(err === "The access token expired") {
-          Spotify.getAccessToken();
-          return;
-        }
-        log.error('Query', JSON.stringify(err));
-        return this.renderDialog("An Error Occured!", JSON.stringify(err));
-      }
-
-      // Check if Spotify search found anything
-      if(result === null) {
-        this.setState({
-          showInfo: true
-        })
-        return;
-      }
-
-      // Use that data to run YouTube search
-      YTSearch(result, (error, resp) => {
-        if (error) {
-          log.error('Query', JSON.stringify(error));
-          return this.renderDialog("An Error Occured!", error);
-        }
-        this.setState({
-          spotifyResult: result,
-          youtubeResult: resp,
-          showInfo: true,
-        });
+    queryCheck(this.props.query).then(response => {
+      this.setState({
+        spotifyResult: response.spotifyResult,
+        youtubeResult: response.youtubeResult,
+        showInfo: true,
       });
-
+    }).catch(error => {
+      this.setState({
+        showInfo: true
+      })
+      if (typeof(error.code) !== 'string') {
+        this.renderDialog("An Error Occured!", error.message)
+      }
     });
   }
 
@@ -105,7 +77,7 @@ class Query extends Component {
             <PlayAudio id={item.id} />
           </TableCell>
           <TableCell>
-            <DownloadAudio youtubeLink={item.link} spotifyMetadata={this.state.spotifyResult}/>
+            <DownloadAudio youtubeMetadata={item} spotifyMetadata={this.state.spotifyResult}/>
           </TableCell>
         </TableRow>
       )
@@ -119,11 +91,20 @@ class Query extends Component {
                 <Typography variant="title" style={{marginTop: 250}}>Your search did not match any results</Typography>
               ) : (
                 <div style={{overflow: 'auto'}}>
-                  <AudioInfo
-                    classes={new Object()}
-                    title={result.title}
-                    artist={result.trackArtist}
-                    albumArt={result.albumArt}/>
+                  {
+                    result === null ? (
+                      <AudioInfo
+                        classes={{}}
+                        title={this.state.youtubeResult[0].title}
+                        artist={this.state.youtubeResult[0].channelTitle}
+                        albumArt={""}/>
+                    ) :
+                      (<AudioInfo
+                        classes={{}}
+                        title={result.title}
+                        artist={result.trackArtist}
+                        albumArt={result.albumArt}/>)
+                  }
                   <Typography variant="title" style={{textAlign: 'left', marginLeft: 50, marginTop: 270, marginBottom: 30}}>Search Results</Typography>
                   <Table className={classes.videosContainer}>
                     <TableBody>
@@ -143,8 +124,12 @@ class Query extends Component {
   }
 }
 
-AudioInfo.propTypes = {
+View.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(Query));
+const mapStateToProps = state => ({
+  query: state.searchQuery.query
+})
+
+export default connect(mapStateToProps, {})(withStyles(styles)(View));

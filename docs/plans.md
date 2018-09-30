@@ -11,4 +11,3 @@ Audius is a very small project that I started to provide a proper way to downloa
 - [ ] Write a more accurate algorithm to select the proper audio from YouTube search results
 - [ ] Fix metadata of songs that are previsously present in local storage
 - [ ] Ditch the use of a prebuilt module to embed ID3 data and move to native JS code
-- [ ] Add a more user-friendly audio player
