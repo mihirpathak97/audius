@@ -9,11 +9,10 @@ import {
   Paper,
   Popper,
   Button,
-  MenuList,
+  List,
   Typography,
   ListItem,
   CircularProgress,
-  Snackbar,
   Avatar,
   IconButton
 } from '@material-ui/core';
@@ -113,15 +112,15 @@ class DownloadQueue extends React.Component {
         let useYT;
         queueItem.spotifyMetadata == null ? useYT = true : useYT = false
         return (
-          <ListItem key={index}>
+          <ListItem key={index} style={{ height: '48px' }}>
             <Avatar alt={useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}
               src={useYT ? '' : queueItem.spotifyMetadata.albumArt}
               style={{marginRight: 12, height: '24px', width: '24px'}}/>
-            <Typography>{useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}</Typography>
+            <Typography style={{maxWidth: '150px', minWidth: '150px', overflow: 'hidden'}}>{useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}</Typography>
             <CircularProgress thickness={5} variant={this.state.queue[index].waiting ? 'indeterminate' : 'static'}
               style={{width: '18px', height: '18px', position: 'absolute', right: '72px'}}
               value={this.state.queue[index].progress} color="primary" />
-            <IconButton onClick={() => this.deleteFromQueue(index)} style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
+            <IconButton onClick={() => this.deleteFromQueue(index)} disabled={index === 0 ? true : false } style={{fontSize: '18px', position: 'absolute', right: '18px'}}>
               <FontAwesomeIcon icon={faTrash} />
             </IconButton>
           </ListItem>
@@ -152,18 +151,23 @@ class DownloadQueue extends React.Component {
               {...TransitionProps}
               id="menu-list-grow"
               style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}>
-              <Paper>
+              <Paper style={{zIndex: '9999'}}>
                 <ClickAwayListener onClickAway={this.handleClose}>
-                  <MenuList style={{ width: '321px' }}>
+                  <List style={{ width: '321px', maxHeight: '200px', overflow: 'auto'}}>
                     { downloadQueue }
-                  </MenuList>
+                  </List>
                 </ClickAwayListener>
               </Paper>
             </Grow>
           )}
         </Popper>
         {
-          this.state.showNotification ? <Notification message={this.state.notificationMessage} /> : null
+          this.state.showNotification ? <Notification message={this.state.notificationMessage} onClose={() => {
+            this.setState({
+              showNotification: false,
+              notificationMessage: ''
+            })
+          }} /> : null
         }
       </div>
     );

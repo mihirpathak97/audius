@@ -20,6 +20,7 @@ class Notification extends React.Component {
       return;
     }
     this.setState({ open: false });
+    this.props.onClose()
   };
 
   render() {
@@ -27,13 +28,13 @@ class Notification extends React.Component {
     return (
       <div>
         <Snackbar
-          style={{ width: '400px', marginBottom: '20px', marginLeft: '20px' }}
+          style={{ maxWidth: '400px', flexGrow: 0, marginBottom: '20px', marginLeft: '20px' }}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
           }}
           open={this.state.open}
-          autoHideDuration={6000}
+          autoHideDuration={3000}
           onClose={this.handleClose}
           ContentProps={{
             'aria-describedby': 'message-id',
