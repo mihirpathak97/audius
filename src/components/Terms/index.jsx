@@ -37,7 +37,7 @@ class View extends Component {
           <Typography variant="display1" style={{fontSize: 18, marginTop: 40, marginBottom: 20, color: 'hsl(348, 100%, 61%)'}}>
             This app is subject to YouTube's terms of use which dictate the following:
           </Typography>
-          <Typography style={{fontWeight: 400, fontSize: 18}} gutterBottom>
+          <Typography style={{fontWeight: 400, fontSize: 18, marginLeft: 20}} gutterBottom>
             <li style={styles.list}>
               An enduser is not allowed to share or redistribute any content downloaded from this software.
             </li>
@@ -46,6 +46,9 @@ class View extends Component {
             </li>
             <li style={styles.list}>
               This software should not be used to download and share any form of copyrighted material.
+            </li>
+            <li style={styles.list}>
+              Read the rest of the terms and conditions <span onClick={() => openExternal("https://www.youtube.com/static?template=terms")} style={styles.link}>here</span>
             </li>
           </Typography>
 
