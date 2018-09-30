@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  IconButton
+  IconButton,
+  CircularProgress
 } from '@material-ui/core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,12 +12,14 @@ import ReactPlayer from 'react-player'
 class PlayAudio extends React.Component {
 
   state = {
-    playing: false
+    playing: false,
+    loading: false
   }
 
   playAudio = () => {
     this.setState({
-      playing: true
+      playing: true,
+      loading: true
     })
   }
 
@@ -32,17 +35,28 @@ class PlayAudio extends React.Component {
         {
           this.state.playing ? (
             <div>
-              <IconButton size="small" onClick={this.pauseAudio}>
-                <FontAwesomeIcon icon={faPause} />
-              </IconButton>
+              {
+                this.state.loading ? (
+                  <CircularProgress variant="indeterminate" thickness={5}
+                    style={{width: '18px', marginLeft: '10px', height: '18px', marginTop: '5px'}} />
+                ) : (
+                  <IconButton style={{fontSize: '18px'}} onClick={this.pauseAudio}>
+                    <FontAwesomeIcon icon={faPause} />
+                  </IconButton>
+                )
+              }
               <ReactPlayer
                 url={'https://youtube.com/watch?v=' + this.props.id}
                 playing={true}
-                onStart={() => console.log('Playing')}
+                onStart={() => {
+                  this.setState({
+                    loading: false
+                  })
+                }}
                 style={{display: 'none'}}/>
             </div>
           ) : (
-            <IconButton size="small" onClick={this.playAudio}>
+            <IconButton style={{fontSize: '18px'}} onClick={this.playAudio}>
               <FontAwesomeIcon icon={faPlay} />
             </IconButton>
           )

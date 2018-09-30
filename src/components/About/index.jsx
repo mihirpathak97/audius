@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
+import {
+  Typography,
+  IconButton
+} from '@material-ui/core';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub, faNodeJs, faChrome, faReact } from '@fortawesome/free-brands-svg-icons';
 
 function openExternal(url) {
   var shell = window.require('electron').shell;
@@ -24,6 +30,12 @@ class View extends Component {
           <Typography variant="subheading" style={{marginTop: 50}} gutterBottom>
             Version {window.require('electron').remote.app.getVersion()}
           </Typography>
+          <div style={{marginTop: 100}}>
+            <IconButton style={{display: 'block'}}>
+              <FontAwesomeIcon icon={faGithub} />
+            </IconButton>
+            <FontAwesomeIcon icon={faNodeJs} />
+          </div>
         </div>
       </div>
     );
