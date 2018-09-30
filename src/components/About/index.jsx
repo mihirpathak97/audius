@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   Typography,
-  IconButton,
   GridList,
   GridListTile
 } from '@material-ui/core';
