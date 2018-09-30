@@ -38,7 +38,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <HashRouter>
+          <HashRouter hashType="noslash">
             <MuiThemeProvider theme={AudiusTheme}>
               <div className="App">
                 <TopAppBar />

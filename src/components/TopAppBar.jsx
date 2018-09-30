@@ -30,6 +30,10 @@ const styles = theme => ({
 
 class TopAppBar extends React.Component {
 
+  componentDidMount () {
+    console.log(this.props);
+  }
+
   handleClick = () => {
     //
   }
@@ -37,7 +41,7 @@ class TopAppBar extends React.Component {
   render () {
     const { classes } = this.props;
     let renderChildren;
-    switch (this.props.hash.split('/')[1]) {
+    switch (this.props.hash.split('#')[1]) {
       case 'Home':
         renderChildren = (
           <Toolbar>
