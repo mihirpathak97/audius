@@ -74,12 +74,7 @@ let searchTrackByQuery = (query) => {
       resolve(track)
     })
     .catch(error => {
-      if (error.message.includes('401')) {
-        getAccessToken()
-      }
-      else {
         reject(error)
-      }
     })
   });
 }
