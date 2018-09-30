@@ -1,66 +1,24 @@
 import React from 'react';
 import {
-  IconButton,
-  CircularProgress
+  IconButton
 } from '@material-ui/core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
-
-import ReactPlayer from 'react-player'
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 class PlayAudio extends React.Component {
 
-  state = {
-    playing: false,
-    loading: false
-  }
-
   playAudio = () => {
-    this.setState({
-      playing: true,
-      loading: true
-    })
-  }
-
-  pauseAudio = () => {
-    this.setState({
-      playing: false
-    })
+    var shell = window.require('electron').shell;
+    shell.openExternal('https://youtube.com/watch?v=' + this.props.id);
   }
 
   render() {
     return(
       <div>
-        {
-          this.state.playing ? (
-            <div>
-              {
-                this.state.loading ? (
-                  <CircularProgress variant="indeterminate" thickness={5}
-                    style={{width: '18px', marginLeft: '10px', height: '18px', marginTop: '5px'}} />
-                ) : (
-                  <IconButton style={{fontSize: '18px'}} onClick={this.pauseAudio}>
-                    <FontAwesomeIcon icon={faPause} />
-                  </IconButton>
-                )
-              }
-              <ReactPlayer
-                url={'https://youtube.com/watch?v=' + this.props.id}
-                playing={true}
-                onStart={() => {
-                  this.setState({
-                    loading: false
-                  })
-                }}
-                style={{display: 'none'}}/>
-            </div>
-          ) : (
-            <IconButton style={{fontSize: '18px'}} onClick={this.playAudio}>
-              <FontAwesomeIcon icon={faPlay} />
-            </IconButton>
-          )
-        }
+        <IconButton style={{fontSize: '18px'}} onClick={this.playAudio}>
+          <FontAwesomeIcon icon={faPlay} />
+        </IconButton>
       </div>
     )
   }
