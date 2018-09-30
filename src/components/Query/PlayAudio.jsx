@@ -1,7 +1,10 @@
 import React from 'react';
 import {
-  Button
+  IconButton
 } from '@material-ui/core';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 class PlayAudio extends React.Component {
 
@@ -15,9 +18,9 @@ class PlayAudio extends React.Component {
   render() {
     return(
       <div>
-        <Button variant="raised" size="small" color="secondary" onClick={this.playAudio}>
-          Play
-        </Button>
+        <IconButton size="small" onClick={this.playAudio}>
+          <FontAwesomeIcon icon={faPlay} />
+        </IconButton>
       </div>
     )
   }
