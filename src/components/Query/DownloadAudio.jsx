@@ -4,8 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { addToQueue } from '../../actions/downloadQueue';
 import {
-  IconButton,
-  CircularProgress
+  IconButton
 } from '@material-ui/core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

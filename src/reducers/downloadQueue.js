@@ -17,7 +17,6 @@ export default function downloadQueue(state = initialState, action) {
           ...state.queue.slice(action.index + 1)
         ]
       }
-      break;
     default:
       return state;
   }
