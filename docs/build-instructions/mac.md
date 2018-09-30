@@ -1,4 +1,4 @@
-# Build Instructions For Windows
+# Build Instructions For MacOS
 
 **NOTE**: if you do not use `yarn`, just substitute the commands with `npm`.
 
@@ -20,13 +20,13 @@ $ yarn init-app
 ```
 
 `init-app` actually downloads the prebuilt binaries for all platforms into the `bin` directory.
-If you don't want to do that, just comment out the extra `downloadBinaries()` call inside 
+If you don't want to do that, just comment out the extra `downloadBinaries()` call inside
 `scripts/bootstrap.js`.
 
 ## Running in Development Mode
 
 Once you've cloned and bootstrapped your local copy of Audius souce, open up a terminal inside
-the folder and run: 
+the folder and run:
 
 ```bash
 $ yarn electron-dev
@@ -57,7 +57,7 @@ Then, to package the app for your current build environment, just run
 $ build
 ```
 
-or 
+or
 
 ```bash
 $ yarn package-mac
