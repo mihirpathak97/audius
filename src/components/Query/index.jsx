@@ -36,7 +36,6 @@ class View extends Component {
     dialogOpen: false,
     dialogTitle: "",
     dialogMessage: "",
-    playing: false
   }
 
   componentDidMount() {
