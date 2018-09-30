@@ -36,7 +36,7 @@
     "resolve": "1.8.1",
     "through2": "^2.0.3",
     "xhr": "^2.5.0",
-    "ytdl-core": "^0.25.0"
+    "ytdl-core": "^0.26.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
@@ -60,7 +60,7 @@
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "download": "^7.1.0",
-    "electron": "^3.0.0",
+    "electron": "^3.0.2",
     "electron-builder": "^20.28.1",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
