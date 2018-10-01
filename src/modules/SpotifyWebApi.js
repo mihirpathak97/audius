@@ -29,7 +29,10 @@ let getAccessToken = () => {
       }
     }).then(response => {
       settings.set('spotifyAccessToken', response.data.access_token)
-      resolve()
+      resolve({
+        code: 200,
+        message: 'OK'
+      })
     }).catch(error => {
       reject(error)
     })
@@ -74,7 +77,7 @@ let searchTrackByQuery = (query) => {
       resolve(track)
     })
     .catch(error => {
-        reject(error)
+      reject(error)
     })
   });
 }

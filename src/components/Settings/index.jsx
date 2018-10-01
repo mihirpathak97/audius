@@ -90,13 +90,23 @@ class View extends Component {
               <TableCell className={classes.tablerow}></TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className={classes.tablerow}><Typography className={classes.text}>Download Location</Typography></TableCell>
-              <TableCell className={classes.tablerow}><Typography>{this.state.downloadDirectory}</Typography></TableCell>
-              <TableCell className={classes.tablerow}><Button variant="raised" onClick={this.selectDirectory} size="small" color="primary">Change</Button></TableCell>
+              <TableCell className={classes.tablerow}>
+                <Typography className={classes.text}>Download Location</Typography>
+              </TableCell>
+              <TableCell className={classes.tablerow}>
+                <Typography>{this.state.downloadDirectory}</Typography>
+              </TableCell>
+              <TableCell className={classes.tablerow}>
+                <Button onClick={this.selectDirectory} size="small" color="primary">Change</Button>
+              </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell className={classes.tablerow}><Typography className={classes.text}>Embed ID3 metadata for songs</Typography></TableCell>
-              <TableCell className={classes.tablerow}><Switch checked={this.state.embedMetadata} onChange={this.handleSwitchChange}/></TableCell>
+              <TableCell className={classes.tablerow}>
+                <Typography className={classes.text}>Embed ID3 metadata for songs</Typography>
+              </TableCell>
+              <TableCell style={{paddingLeft: '10px'}} className={classes.tablerow}>
+                <Switch checked={this.state.embedMetadata} disableRipple onChange={this.handleSwitchChange}/>
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
