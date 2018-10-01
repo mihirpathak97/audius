@@ -49,6 +49,23 @@ app.on('ready', () => {
   });
 });
 
+/**
+ * Refresh token
+ * Called by render and uses electron's IPC to communicate
+ */
+electron.ipcMain.on('refresh-spotify-token', (event) => {
+  Spotify.getAccessToken().then(response => {
+    if (response.code === 200) {
+      log.info('[app.main.js] Refreshed Spotify token');
+      event.sender.send('refresh-token-success');
+    }
+  }).catch(error => {
+    log.error('[app.main.js] Error refreshing Spotify token!');
+    electron.dialog.showErrorBox('Error refreshing Spotify Access Token!', error.message)
+    event.sender.send('refresh-token-error')
+  });
+})
+
 app.on('window-all-closed', () => {
   // [OS X] it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q

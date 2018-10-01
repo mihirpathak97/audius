@@ -46,39 +46,56 @@ let searchTrackByQuery = (query) => {
       q: query,
       type: 'track'
     }
-    axios.get(endpointURL + 'search?' + querystring.stringify(params), {headers: {
-      'Authorization': 'Bearer ' + settings.get('spotifyAccessToken')
-    }})
-    .then(response => {
-      // Check if result is obtained
-      if(response.data.tracks.items.length === 0) {
-        reject({
-          code: '404S',
-          message: 'Your search did not match any results'
-        });
-      }
+    var triesRemaining = 5;
+    function run() {
+      axios.get(endpointURL + 'search?' + querystring.stringify(params), {headers: {
+        'Authorization': 'Bearer ' + settings.get('spotifyAccessToken')
+      }})
+      .then(response => {
+        // Check if result is obtained
+        if(response.data.tracks.items.length === 0) {
+          reject({
+            code: '404S',
+            message: 'Your search did not match any results'
+          });
+        }
 
-      // Take the first result
-      var track = response.data.tracks.items[0];
+        // Take the first result
+        var track = response.data.tracks.items[0];
 
-      // Clean it up
-      track = {
-        title: track.name,
-        trackArtist: track.artists[0].name,
-        albumArtist: track.album.artists[0].name,
-        album: track.album.name,
-        albumArt: track.album.images[1].url,
-        spotifyUrl: track.external_urls.spotify,
-        spotifyId: track.id,
-        SpotifyUri: track.uri,
-        isrc: track.external_ids.isrc,
-        duration_ms: track.duration_ms
-      }
-      resolve(track)
-    })
-    .catch(error => {
-      reject(error)
-    })
+        // Clean it up
+        track = {
+          title: track.name,
+          trackArtist: track.artists[0].name,
+          albumArtist: track.album.artists[0].name,
+          album: track.album.name,
+          albumArt: track.album.images[1].url,
+          spotifyUrl: track.external_urls.spotify,
+          spotifyId: track.id,
+          SpotifyUri: track.uri,
+          isrc: track.external_ids.isrc,
+          duration_ms: track.duration_ms
+        }
+        resolve(track)
+      })
+      .catch(error => {
+        // Send IPC message to main
+        // to refresh token
+        if (error.message.includes('401') && triesRemaining > 0) {
+          triesRemaining--;
+          const renderer = window.require('electron').ipcRenderer;
+          renderer.send('refresh-spotify-token')
+          renderer.on('refresh-token-success', run)
+          renderer.on('refresh-token-error', () => {
+            reject(error)
+          })
+        }
+        else {
+          reject(error)
+        }
+      })
+    }
+    run()
   });
 }
 
