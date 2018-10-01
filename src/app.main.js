@@ -39,7 +39,14 @@ app.on('ready', () => {
   // First create BrowserWindow
   createWindow();
   // Then get Spotify access token
-  Spotify.getAccessToken();
+  Spotify.getAccessToken().then(response => {
+    if (response.code === 200) {
+      log.info('[app.main.js] Generated Spotify token');
+    }
+  }).catch(error => {
+    log.error('[app.main.js] Error generating Spotify token!');
+    electron.dialog.showErrorBox('Error Generating Spotify Access Token!', error.message)
+  });
 });
 
 app.on('window-all-closed', () => {

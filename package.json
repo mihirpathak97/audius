@@ -172,8 +172,7 @@
       "artifactName": "${productName}Setup-x64.${ext}"
     },
     "nsis": {
-      "oneClick": "true",
-      "perMachine": "true"
+      "oneClick": "true"
     }
   },
   "jest": {
