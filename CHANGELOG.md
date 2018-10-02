@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-beta2] - 2018-01-02
+### Fixed
+- [Hack] Relative path issue for loading local fonts
+
 ## [2.0.0-beta1] - 2018-01-02
 ### Added
 - Support for Spotify links!
