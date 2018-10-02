@@ -1,6 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-beta1] - 2018-01-02
+### Added
+- Support for Spotify links!
+  - **Note** Only track links work. Playlists and albums will be supported
+    in the next point release
+- Default art work for songs with unknown Spotify data
+
+### Changed
+- Minor UI changes
+- Add `Open Sans` font locally
+- [win32] Installer will now install per-user
+
+### Fixed
+- Refreshing Spotify access token in runtime
+- Error dialog while getting Spotify access token
+
 ## [2.0.0-alpha1] - 2018-09-30
 ### Added
 - Download Queue!
