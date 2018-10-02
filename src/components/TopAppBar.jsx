@@ -30,14 +30,6 @@ const styles = theme => ({
 
 class TopAppBar extends React.Component {
 
-  componentDidMount () {
-    console.log(this.props);
-  }
-
-  handleClick = () => {
-    //
-  }
-
   render () {
     const { classes } = this.props;
     let renderChildren;

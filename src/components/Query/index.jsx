@@ -16,6 +16,8 @@ import DialogBox from '../Dialog';
 import PlayAudio from './PlayAudio';
 import DownloadAudio from './DownloadAudio';
 
+import defaultArtwork from './default-artwork.png'
+
 import { queryCheck } from '../../modules/queryCheck';
 
 const styles = {
@@ -95,14 +97,14 @@ class View extends Component {
                     result === null ? (
                       <AudioInfo
                         classes={{}}
-                        title={this.state.youtubeResult[0].title}
+                        name={this.state.youtubeResult[0].title}
                         artist={this.state.youtubeResult[0].channelTitle}
-                        albumArt={""}/>
+                        albumArt={defaultArtwork}/>
                     ) :
                       (<AudioInfo
                         classes={{}}
-                        title={result.title}
-                        artist={result.trackArtist}
+                        name={result.name}
+                        artist={result.artist}
                         albumArt={result.albumArt}/>)
                   }
                   <Typography variant="title" style={{textAlign: 'left', marginLeft: 50, marginTop: 270, marginBottom: 30}}>Search Results</Typography>

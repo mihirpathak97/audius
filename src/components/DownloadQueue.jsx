@@ -113,10 +113,10 @@ class DownloadQueue extends React.Component {
         queueItem.spotifyMetadata == null ? useYT = true : useYT = false
         return (
           <ListItem key={index} style={{ height: '48px' }}>
-            <Avatar alt={useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}
+            <Avatar alt={useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.name}
               src={useYT ? '' : queueItem.spotifyMetadata.albumArt}
               style={{marginRight: 12, height: '24px', width: '24px'}}/>
-            <Typography style={{maxWidth: '150px', minWidth: '150px', overflow: 'hidden'}}>{useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.title}</Typography>
+            <Typography style={{maxWidth: '150px', minWidth: '150px', overflow: 'hidden'}}>{useYT ? queueItem.youtubeMetadata.title : queueItem.spotifyMetadata.name}</Typography>
             <CircularProgress thickness={5} variant={this.state.queue[index].waiting ? 'indeterminate' : 'static'}
               style={{width: '18px', height: '18px', position: 'absolute', right: '72px'}}
               value={this.state.queue[index].progress} color="primary" />
