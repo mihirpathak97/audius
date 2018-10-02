@@ -16,6 +16,8 @@ import DialogBox from '../Dialog';
 import PlayAudio from './PlayAudio';
 import DownloadAudio from './DownloadAudio';
 
+import defaultArtwork from './default-artwork.png'
+
 import { queryCheck } from '../../modules/queryCheck';
 
 const styles = {
@@ -97,7 +99,7 @@ class View extends Component {
                         classes={{}}
                         title={this.state.youtubeResult[0].title}
                         artist={this.state.youtubeResult[0].channelTitle}
-                        albumArt={""}/>
+                        albumArt={defaultArtwork}/>
                     ) :
                       (<AudioInfo
                         classes={{}}
