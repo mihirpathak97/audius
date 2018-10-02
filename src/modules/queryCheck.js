@@ -30,14 +30,22 @@ let queryCheck = function (query) {
       })
     }
     else if (query.includes('spotify.com')) {
-      reject({
-        code: 403,
-        message: 'Spotify links are not allowed at the moment'
-      })
+      Spotify.parseSpotifyLink(query)
+        .then(response => {
+          YTSearch.searchVideosByQuery(response.artist + ' ' + response.name).then(YTresponse => {
+            resolve({
+              spotifyResult: response,
+              youtubeResult: YTresponse
+            })
+          }).catch(YTerror => {
+            reject(YTerror)
+          })
+        })
+        .catch(error => reject(error))
     }
     else {
       Spotify.searchTrackByQuery(query).then(response => {
-        YTSearch.searchVideosByQuery(response.title).then(YTresponse => {
+        YTSearch.searchVideosByQuery(response.artist + ' ' + response.name).then(YTresponse => {
           resolve({
             spotifyResult: response,
             youtubeResult: YTresponse

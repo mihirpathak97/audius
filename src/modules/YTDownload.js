@@ -16,7 +16,7 @@ let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
     const infoOptions = {
       quality: 'highestaudio'
     }
-    const fileName = path.join(settings.get('downloadDirectory'), sanitize(spotifyMetadata === null ? youtubeMetadata.title : spotifyMetadata.title) + '.' + outputFormat);
+    const fileName = path.join(settings.get('downloadDirectory'), sanitize(spotifyMetadata === null ? youtubeMetadata.title : spotifyMetadata.name) + '.' + outputFormat);
 
     ytdl.getInfo(youtubeMetadata.link, infoOptions, function(err, info) {
       if (err) {

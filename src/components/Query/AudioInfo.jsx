@@ -39,12 +39,12 @@ class AudioInfo extends React.Component {
       <div style={{display: "inline"}}>
         <div className={classes.artWrapper}>
           <Avatar
-            alt={this.props.album}
+            alt={this.props.name}
             src={this.props.albumArt}
             className={classes.albumArt}/>
         </div>
         <div className={classes.titleWrapper}>
-          <Typography className={classes.title}>{this.props.title} by {this.props.artist}</Typography>
+          <Typography className={classes.title}>{this.props.name} by {this.props.artist}</Typography>
         </div>
       </div>
     )
