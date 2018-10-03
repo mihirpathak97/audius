@@ -62,7 +62,8 @@ checkBrowsers(paths.appPath, isInteractive)
     // if you're in it, you don't end up in Trash
     fs.emptyDirSync(paths.appBuild);
     // Merge with the public folder
-    copyPublicFolder();
+    // Edited - 2018-10-03
+    // copyPublicFolder();
     // Start the webpack build
     return build(previousFileSizes);
   })

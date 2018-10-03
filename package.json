@@ -14,7 +14,7 @@
   },
   "private": true,
   "main": "src/app.main.js",
-  "homepage": "./",
+  "homepage": "../",
   "dependencies": {
     "async": "^2.6.1",
     "axios": "^0.18.0",
