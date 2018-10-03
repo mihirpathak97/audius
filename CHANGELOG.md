@@ -1,11 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [2.0.0-beta2] - 2018-01-02
+## [1.6.0-beta2] - 2018-01-02
 ### Fixed
 - [Hack] Relative path issue for loading local fonts
 
-## [2.0.0-beta1] - 2018-01-02
+## [1.6.0-beta1] - 2018-01-02
 ### Added
 - Support for Spotify links!
   - **Note** Only track links work. Playlists and albums will be supported
@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
 - Refreshing Spotify access token in runtime
 - Error dialog while getting Spotify access token
 
-## [2.0.0-alpha1] - 2018-09-30
+## [1.6.0-alpha1] - 2018-09-30
 ### Added
 - Download Queue!
 - Redux!
