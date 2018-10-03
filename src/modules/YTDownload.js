@@ -76,6 +76,6 @@ let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
   });
 }
 
-module.exports = {
+export {
   downloadAudio
 }

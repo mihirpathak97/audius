@@ -19,6 +19,7 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudDownloadAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { downloadAudio } from '../modules/YTDownload'
 
 import Notification from './Notification'
 
@@ -70,8 +71,7 @@ class DownloadQueue extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if ((prevState.queue.length === 0 || prevState.queue[0].progress === 100) && this.props.queue.length > 0) {
       let itemToDownload = this.props.queue[0];
-      const YTDownload = require ('../modules/YTDownload')
-      YTDownload.downloadAudio(itemToDownload.youtubeMetadata, itemToDownload.spotifyMetadata, (progress) => {
+      downloadAudio(itemToDownload.youtubeMetadata, itemToDownload.spotifyMetadata, (progress) => {
         this.setState({
           queue: [{
               progress: progress.percentage,
