@@ -1,11 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.6.0-beta2] - 2018-01-02
-### Fixed
-- [Hack] Relative path issue for loading local fonts
-
-## [1.6.0-beta1] - 2018-01-02
+## [1.6.0-beta1] - 2018-01-03
 ### Added
 - Support for Spotify links!
   - **Note** Only track links work. Playlists and albums will be supported
@@ -15,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Minor UI changes
 - Add `Open Sans` font locally
+  - [Hack] Relative path issue for loading local fonts
 - [win32] Installer will now install per-user
 
 ### Fixed
