@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 ## [1.6.0-beta1] - 2018-01-03
 ### Added
+- Custom URI protocol `audius://` for serving static files
+
+### Changed
+- Get latest webpack configs from `create-react-app`
+- Moved packages to `devDependencies` to reduce asar bundle size
+
+### Fixed
+- Font issue
+- Webpack production errors
+- [Queue] Fix mixing `require` and `exports`
+
+## [1.6.0-beta1] - 2018-01-03
+### Added
 - Support for Spotify links!
   - **Note** Only track links work. Playlists and albums will be supported
     in the next point release
