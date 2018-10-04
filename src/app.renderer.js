@@ -19,6 +19,8 @@ import { store, history } from './store/configureStore';
 
 // import global CSS file
 import './app.global.css';
+// Open Sans
+import 'typeface-open-sans';
 
 // Views
 import Home from './components/Home';

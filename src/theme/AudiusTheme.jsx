@@ -7,7 +7,10 @@ const theme = createMuiTheme({
     error: { main: '#ff1744' }
   },
   typography: {
-    fontFamily: 'Open Sans'
+    fontFamily: 'Open Sans',
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 600
   }
 });
 

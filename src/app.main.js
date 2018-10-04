@@ -5,6 +5,7 @@
 
 const electron = require('electron');
 const app = require('electron').app;
+const protocol = require('electron').protocol;
 const BrowserWindow = electron.BrowserWindow;
 
 // Auto Updater
@@ -30,6 +31,18 @@ function createWindow() {
   mainWindow.setResizable(false);
   mainWindow.loadURL(isDev ? 'http://localhost:3000/#Home' : `file://${path.join(__dirname, '../react-compiled/index.html/#Home')}`);
   mainWindow.on('closed', () => mainWindow = null);
+
+  // Register protocol `audius` for serving static files
+  // as webpack + chromium causes relative path issue
+  protocol.registerFileProtocol('audius', (request, callback) => {
+    const url = request.url.substr(9)
+    if (url.includes('static')) {
+      callback({ path: path.normalize(`${__dirname}/../react-compiled/${url}`) })
+    }
+  }, (error) => {
+    if (error) console.error('Failed to register protocol')
+  })
+
 }
 
 app.on('ready', () => {
