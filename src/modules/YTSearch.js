@@ -5,7 +5,7 @@
 
 const axios = require('axios');
 var querystring = require('querystring')
-var log = require('log')
+var log = require('./log')
 
 let convertYTDuration = (duration) => {
   var a = duration.match(/\d+/g);

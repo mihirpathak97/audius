@@ -3,7 +3,7 @@ const path = require('path');
 const ytdl = require('ytdl-core');
 const Ffmpeg = require('./ffmpeg-wrapper');
 const sanitize = require("sanitize-filename");
-const log = require('log');
+const log = require('./log');
 
 const settings = window.require('electron-settings');
 
