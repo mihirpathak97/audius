@@ -29,7 +29,7 @@ function createWindow() {
     frame: false
   });
   mainWindow.setResizable(false);
-  mainWindow.loadURL(isDev ? 'http://localhost:3000/#Home' : `file://${path.join(__dirname, '../react-compiled/index.html/#Home')}`);
+  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../react-compiled/index.html')}`);
   mainWindow.on('closed', () => mainWindow = null);
 
   // Register protocol `audius` for serving static files

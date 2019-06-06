@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import {
   AppBar,
   Toolbar,
@@ -30,11 +30,19 @@ const styles = theme => ({
 
 class TopAppBar extends React.Component {
 
+  componentDidMount () {
+    console.log(this.props.location)
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.location)
+  }
+
   render () {
     const { classes } = this.props;
     let renderChildren;
-    switch (this.props.hash.split('#')[1]) {
-      case 'Home':
+    switch (this.props.location.pathname) {
+      case '/':
         renderChildren = (
           <Toolbar>
             <TopMenuList />
@@ -43,7 +51,7 @@ class TopAppBar extends React.Component {
           </Toolbar>
         )
         break;
-      case 'Query':
+      case '/query':
         renderChildren = (
           <Toolbar>
             <Link to="/Home" style={{  }}>
@@ -73,10 +81,4 @@ class TopAppBar extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  pathname: state.router.location.pathname,
-  search: state.router.location.search,
-  hash: state.router.location.hash,
-})
-
-export default connect(mapStateToProps)(withStyles(styles)(TopAppBar));
+export default withRouter(withStyles(styles)(TopAppBar));

@@ -9,37 +9,25 @@ body {
   font-family: sans-serif;
 }
 
-/* APP */
-
 .App {
   text-align: center;
   user-select: none;
   cursor: default;
 }
 
-/* Scrollbar */
-
-/* width */
-
 ::-webkit-scrollbar {
   width: 8px;
   box-sizing: border-box;
 }
 
-/* Track */
-
 ::-webkit-scrollbar-track {
   background: #ffffff;
 }
-
-/* Handle */
 
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 5px;
 }
-
-/* Handle on hover */
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;

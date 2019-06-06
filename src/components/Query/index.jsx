@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import {
   CircularProgress,
   Typography,
@@ -41,6 +41,7 @@ class View extends Component {
   }
 
   componentDidMount() {
+    this.props.history.push('/');
     queryCheck(this.props.query).then(response => {
       this.setState({
         spotifyResult: response.spotifyResult,
@@ -130,8 +131,4 @@ View.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  query: state.searchQuery.query
-})
-
-export default connect(mapStateToProps, {})(withStyles(styles)(View));
+export default withRouter(withStyles(styles)(View));
