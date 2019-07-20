@@ -20,7 +20,8 @@
     "electron-is-dev": "^1.1.0",
     "electron-log": "^3.0.6",
     "electron-settings": "^3.2.0",
-    "electron-updater": "^4.0.6"
+    "electron-updater": "^4.0.6",
+    "node-sass": "^4.12.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.3",

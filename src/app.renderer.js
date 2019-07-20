@@ -15,7 +15,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
 
 // import global CSS file
-import './app.global.css';
+import './app.global.scss';
 
 // Routes
 import Routes from './routes/';
