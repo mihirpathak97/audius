@@ -1,6 +1,11 @@
 import React from 'react';
 
 import {
+  Link,
+  withRouter
+} from 'react-router-dom';
+
+import {
   Menu, 
   Icon,
   Dropdown,
@@ -10,11 +15,9 @@ import {
 const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');
 
-export default function topBar ({
-  location = {
-    pathname: '/'
-  }
-}) {
+export default withRouter(({
+  location
+}) => {
 
   const openWindow = (url) => {
     const miniWindow = new BrowserWindow({width: 800, height: 600, frame: false});
@@ -51,6 +54,14 @@ export default function topBar ({
             <Dropdown overlay={menu} trigger={['click']}>
               <Icon type="menu" style={{color: 'black'}}/>
             </Dropdown>
+          ) : (null)
+        }
+        {
+          location.pathname.includes('search')
+          ? (
+            <Link to="/">
+              <Icon type="arrow-left" style={{color: 'black'}}/>
+            </Link>
           ) : null
         }
       </div>
@@ -71,5 +82,5 @@ export default function topBar ({
       </div>
     </div>
   );
-}
+})
 
