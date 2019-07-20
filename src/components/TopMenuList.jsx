@@ -1,71 +1,39 @@
 import React from 'react';
-import {
-  IconButton,
-  Menu,
-  MenuItem
-} from '@material-ui/core';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { 
+  Menu, 
+  Dropdown, 
+  Icon, 
+  Typography 
+} from 'antd';
 
 const { BrowserWindow, app } = window.require('electron').remote;
 const path = require('path');
 
-class TopMenuList extends React.Component {
-  state = {
-    anchorEl: null,
-  };
-
-  handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
-
-  handleSettings = () => {
-    this.openWindow('Settings');
-  };
-
-  handleAbout = () => {
-    this.openWindow('About');
-  };
-
-  handleTerms = () => {
-    this.openWindow('Terms');
-  }
-
-  openWindow = (url) => {
-    this.setState({ anchorEl: null });
+export default function TopMenuList () {
+  const openWindow = (url) => {
     const miniWindow = new BrowserWindow({width: 800, height: 600, frame: false});
     miniWindow.setResizable(false);
     miniWindow.loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000/#' + url : `file://${path.join(app.getAppPath(), 'react-compiled/index.html/#' + url)}`);
   }
 
-  render() {
-    const { anchorEl } = this.state;
+  const menu = (
+    <Menu onClick={({key}) => openWindow(key)}>
+      <Menu.Item key="about">
+        <Typography.Text>About</Typography.Text>
+      </Menu.Item>
+      <Menu.Item key="settings">
+        <Typography.Text>Settings</Typography.Text>
+      </Menu.Item>
+      <Menu.Item key="terms">
+        <Typography.Text>Terms of Use</Typography.Text>  
+      </Menu.Item>
+    </Menu>
+  )
 
-    return (
-      <div>
-        <IconButton
-          aria-owns={anchorEl ? 'simple-menu' : null}
-          aria-haspopup="true"
-          onClick={this.handleClick}>
-          <FontAwesomeIcon style={{ fontSize: '20' }} icon={faBars} />
-        </IconButton>
-        <Menu
-          id="top-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}>
-          <MenuItem onClick={this.handleAbout}>About</MenuItem>
-          <MenuItem onClick={this.handleSettings}>Settings</MenuItem>
-          <MenuItem onClick={this.handleTerms}>Terms of Use</MenuItem>
-        </Menu>
-      </div>
-    );
-  }
+  return (
+    <Dropdown overlay={menu} trigger={['click']}>
+      <Icon type="menu" style={{color: 'black'}}/>
+    </Dropdown>
+  );
 }
-
-export default TopMenuList;
