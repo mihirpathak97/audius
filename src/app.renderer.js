@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  HashRouter
+  BrowserRouter
 } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -21,18 +21,18 @@ import './app.global.scss';
 import Routes from './routes/';
 
 // Components
-import TopAppBar from './components/TopAppBar';
+import TopBar from './components/TopBar';
 
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <HashRouter>
+        <BrowserRouter>
           <div className="App">
-            <TopAppBar />
+            <TopBar />
             <Routes></Routes>
           </div>
-        </HashRouter>
+        </BrowserRouter>
       </Provider>
     );
   }

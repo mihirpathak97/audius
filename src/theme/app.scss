@@ -1,0 +1,14 @@
+// The App bar
+.top-app-bar {
+  height: 64px;
+  width: 100vw;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.anticon {
+  font-size: 16px !important;
+}
