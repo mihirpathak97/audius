@@ -3,6 +3,9 @@
   Styles defined here will be applied throughout the app
 */
 
+/* Ant Design 🎉 */
+@import '~antd/dist/antd.css';
+
 body {
   margin: 0;
   padding: 0;
