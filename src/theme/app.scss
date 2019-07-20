@@ -12,3 +12,26 @@
 .anticon {
   font-size: 16px !important;
 }
+
+.home {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  height: 50vh;
+  margin: auto;
+  margin-top: 5rem;
+  justify-items: center;
+  align-items: center;
+  img {
+    width: 50vw;
+  }
+  .ant-input-search {
+    display: block;
+    margin: auto;
+    max-width: 60vw;
+    input:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+}

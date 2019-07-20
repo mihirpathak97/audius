@@ -1,36 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import {
-  TextField,
-  Button
-} from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import logo from './audius_big.png';
 
-const styles = theme => ({
-  container: {
-    marginTop: 50
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 500
-  },
-  button: {
-    display: 'block',
-    margin: 'auto',
-    marginTop: 50
-  }
-});
+import {
+  Input
+} from 'antd';
+
+import logo from '@/assets/audius_big.png';
 
 class View extends Component {
-
-  state = {
-    query: ''
-  }
 
   handleChange = event => {
     this.setState({
@@ -38,34 +16,27 @@ class View extends Component {
     })
   };
 
-  handleClick = () => {
+  handleSearch = (value) => {
     this.props.history.push({
       pathname: 'search',
-      search: queryString.stringify(this.state)
+      search: queryString.stringify(value)
     })
   }
 
   render() {
-    const { classes } = this.props;
     return (
-      <div>
-        <img src={logo} style={{marginTop: 70, width: 340}} alt="Audius" />
-          <div className={classes.container}>
-            <TextField
-              label="Enter Song Name, Spotify or YouTube Link"
-              className={classes.textField}
-              value={this.props.query}
-              onChange={this.handleChange}
-              margin="normal"/>
-            <Button color="primary" onClick={this.handleClick} variant="outlined" className={classes.button}>Search</Button>
-          </div>
+      <div className="home">
+        <img 
+          src={logo} 
+          alt="Audius"
+        />
+        <Input.Search
+          placeholder="Enter Song Name, Spotify or YouTube Link"
+          onSearch={this.handleSearch}
+        />
       </div>
     );
   }
 }
 
-View.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withRouter((withStyles(styles)(View)));
+export default withRouter(View);
