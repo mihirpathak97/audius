@@ -90,3 +90,21 @@
     }
   }
 }
+
+.terms {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin: auto;
+  text-align: left;
+  .title {
+    @extend .title
+  }
+  .ant-typography {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  h1.ant-typography {
+    font-weight: 500 !important;
+  }
+}

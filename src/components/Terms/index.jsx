@@ -1,65 +1,29 @@
 import React, { Component } from 'react';
-import Typography from '@material-ui/core/Typography';
-
-const styles = {
-  list: {
-    marginTop: 5,
-    marginBottom: 5,
-    color: 'rgba(0, 0, 0, 0.7)',
-    fontSize: 14
-  },
-  link: {
-    color: 'blue',
-    cursor: 'pointer'
-  }
-}
-
-function openExternal(url) {
-  var shell = window.require('electron').shell;
-  shell.openExternal(url);
-}
+import {
+  Typography
+} from 'antd';
 
 class View extends Component {
 
   render() {
     return (
       <div>
-        <div style={{disply: 'block', width: '87%', margin: 'auto', marginTop: 10, textAlign: 'left'}}>
-
-          <Typography variant="display1" style={{color: 'hsl(348, 100%, 61%)', fontSize: '18', marginBottom: 10}}>
+        <div className="terms">
+          <Typography.Title className="title">
             Terms of Use
-          </Typography>
-          <Typography variant="display1" style={{fontSize: 16, marginTop: 20, marginBottom: 20}}>
-            Copyright (c) 2018 Mihir Pathak All Rights Reserved.
-          </Typography>
+          </Typography.Title>
+          
+          <Typography.Text>
+            Copyright (c) {new Date().getFullYear()} Mihir Pathak All Rights Reserved.
+          </Typography.Text>
 
-          { /* YouTube's Terms and Conditions */ }
-          <Typography variant="display1" style={{fontSize: 18, marginTop: 40, marginBottom: 20, color: 'hsl(348, 100%, 61%)'}}>
-            This app is subject to YouTube's terms of use which dictate the following:
-          </Typography>
-          <Typography style={{fontWeight: 400, fontSize: 18, marginLeft: 20}} gutterBottom>
-            <li style={styles.list}>
-              An enduser is not allowed to share or redistribute any content downloaded from this software.
-            </li>
-            <li style={styles.list}>
-              This software cannot be used in countries where YouTube is illegal.
-            </li>
-            <li style={styles.list}>
-              This software should not be used to download and share any form of copyrighted material.
-            </li>
-            <li style={styles.list}>
-              Read the rest of the terms and conditions <span onClick={() => openExternal("https://www.youtube.com/static?template=terms")} style={styles.link}>here</span>
-            </li>
-          </Typography>
+          <Typography.Title style={{color: 'hsl(348, 100%, 61%)'}}>
+            This application is subject to YouTube's terms of use
+          </Typography.Title>
 
-          { /* FFmpeg */ }
-          <Typography style={{fontWeight: 500, fontSize: 16, marginTop: 35, marginBottom: 20}}>
-            This software uses a pre-compiled version of <span onClick={() => openExternal("http://ffmpeg.org")} style={styles.link}>FFmpeg</span>
-          </Typography>
-
-          <Typography style={{fontSize: 16, marginTop: 35, marginBottom: 20}}>
-            <span style={{fontWeight: 500}}>NOTE</span> : This software is meant for educational purposes only. The developer is not responsible in any way for any form of improper or illegal usage.
-          </Typography>
+          <Typography.Text>
+            This application is meant for educational purposes only. The developer is not responsible in any way for any form of improper or illegal usage.
+          </Typography.Text>
         </div>
       </div>
     );
