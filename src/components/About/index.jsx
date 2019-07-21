@@ -5,7 +5,7 @@ import {
 } from 'antd';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
+import {
   faGithub,
   faNodeJs,
   faChrome,
