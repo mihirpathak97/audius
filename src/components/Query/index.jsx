@@ -11,6 +11,8 @@ import {
   TableRow
 } from '@material-ui/core';
 
+import queryString from 'query-string';
+
 import AudioInfo from './AudioInfo';
 import DialogBox from '../Dialog';
 import PlayAudio from './PlayAudio';
@@ -41,8 +43,7 @@ class View extends Component {
   }
 
   componentDidMount() {
-    this.props.history.push('/');
-    queryCheck(this.props.query).then(response => {
+    queryCheck(queryString.parse(this.props.location.search).query).then(response => {
       this.setState({
         spotifyResult: response.spotifyResult,
         youtubeResult: response.youtubeResult,
