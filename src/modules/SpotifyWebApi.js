@@ -72,7 +72,10 @@ let getSpotifyTrack = (trackId) => {
           artist: response.data.artists[0].name,
           album: response.data.album.name,
           albumArt: response.data.album.images[1].url,
-          spotifyId: response.data.id,
+          spotifyTrackId: response.data.id,
+          spotifyTrackUrl: response.data.external_urls.spotify,
+          spotifyAlbumId: response.data.album.id,
+          spotifyAlbumUrl: response.data.album.external_urls.spotify
         })
       })
       .catch(error => {
@@ -108,7 +111,6 @@ let parseSpotifyLink = (link) => {
 
 let searchTrackByQuery = (query) => {
   return new Promise(function(resolve, reject) {
-    const settings = window.require('electron-settings');
     var params = {
       q: query,
       type: 'track'
