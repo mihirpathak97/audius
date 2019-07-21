@@ -1,3 +1,7 @@
+@import 'variables';
+@import 'common';
+@import 'mixins';
+
 // The App bar
 .top-app-bar {
   height: 64px;
@@ -32,6 +36,57 @@
     input:focus {
       box-shadow: none;
       outline: none;
+    }
+  }
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin: auto;
+  text-align: left;
+  .title {
+    @extend .title
+  }
+  .ant-typography {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  h1.ant-typography {
+    font-weight: 500 !important;
+  }
+  .mention {
+    @include animate-underline($less-purple, 1rem);
+  }
+  .electron {
+    display: flex;
+    margin: 2rem 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 10rem;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+    }
+  }
+  .icons {
+    margin: 2rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    div {
+      svg {
+        font-size: 2rem;
+      }
+      .ant-typography {
+        margin-top: 10px;
+        @include animate-underline(black, 1rem)
+      }
     }
   }
 }

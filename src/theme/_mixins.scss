@@ -1,0 +1,29 @@
+@mixin animate-underline ($color, $font-size, $is-bold: false) {
+  color: $color;
+  font-size: $font-size;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  @if $is-bold {
+    font-weight: bold;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: $color;
+    visibility: visible;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+  }
+  &:hover:before {
+    visibility: visible;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+}
