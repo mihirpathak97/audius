@@ -39,7 +39,7 @@ let searchVideoById = (youtubeId) => {
     axios.get('https://www.googleapis.com/youtube/v3/videos?' + querystring.stringify({
       id: youtubeId,
       part: 'snippet, contentDetails',
-      key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE'
+      key: process.env.YOUTUBE_V3_API_KEY || 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE'
     })).then((response) => {
         if (response.data.items.length === 0) {
           reject({

@@ -9,8 +9,8 @@ const axios = require('axios');
 const settings = process.type === 'renderer' ? window.require('electron-settings') : require('electron-settings');
 
 // client Id and Secret for 'Audius' from https://developer.spotify.com
-const clientId = '6c67544dbe4a4d15a6b80eec0a5c0063';
-const clientSecret = '710ba1ba3e324dc190b66eae8d7c613e';
+const clientId = process.env.SPOTIFY_CLIENT_ID || '6c67544dbe4a4d15a6b80eec0a5c0063';
+const clientSecret = process.env.SPOTIFY_CLIENT_SECRET || '710ba1ba3e324dc190b66eae8d7c613e';
 
 // Spotify API endpoint URL
 const endpointURL = 'https://api.spotify.com/v1/';
