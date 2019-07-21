@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import {
-  GridList,
-  GridListTile
-} from '@material-ui/core';
 
 import {
   Typography
@@ -18,10 +14,9 @@ import {
 
 import electron from '@/assets/electron-logo.svg';
 
-function openExternal(url) {
-  var shell = window.require('electron').shell;
-  shell.openExternal(url);
-}
+const {
+  openExternal
+} = require('@/modules/electronConfig');
 
 class View extends Component {
   render() {
