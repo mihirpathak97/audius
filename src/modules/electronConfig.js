@@ -31,7 +31,6 @@ let openWindow = (url) => {
 }
 
 let openExternal = (url) => {
-  console.log(url)
   var shell = window.require('electron').shell;
   shell.openExternal(url);
 }

@@ -14,7 +14,7 @@
 }
 
 .anticon {
-  font-size: 16px !important;
+  font-size: 16px;
 }
 
 .home {
@@ -142,6 +142,82 @@
           max-width: 25vw !important;
           min-width: 25vw !important;
           word-wrap: break-word;
+        }
+      }
+    }
+  }
+}
+
+.query {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  .container {
+    height: 80vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    align-items: flex-start;
+    overflow: hidden;
+
+    .audio-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-width: 36vw;
+      height: 50vh;
+      overflow: hidden;
+      .avatar {
+        .ant-avatar, img {
+          width: 10rem;
+          height: 10rem;
+          box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+        }
+      }
+      .info {
+        margin-top: 3rem;
+        width: 78%;
+        align-self: flex-end;
+        text-align: left;
+        .ant-typography {
+          font-size: 1rem;
+        }
+        .track-url {
+          @include animate-underline(rgba(0, 0, 0, 0.65), auto);
+        }
+      }
+    }
+    .results {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 100%;
+      overflow: auto;
+      min-width: 60vw;
+      &::-webkit-scrollbar {
+        width: 5px;
+        box-sizing: border-box;
+      }
+      .heading {
+        text-align: left !important;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+      .ant-table {
+        margin-right: 1rem;
+      }
+      .video-actions {
+        display: flex;
+        flex-direction: row;
+        .ant-btn {
+          margin-right: 1rem;
+          margin-left: 1rem;
+          &:first-child {
+            margin-left: 0;
+          }
         }
       }
     }

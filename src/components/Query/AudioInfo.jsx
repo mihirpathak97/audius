@@ -1,58 +1,36 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import {
   Avatar,
   Typography
-} from '@material-ui/core';
+} from 'antd';
 
-const styles = {
-  titleWrapper: {
-    float: 'right',
-    width: '50%',
-    marginRight: 70,
-    marginLeft: 20,
-    marginTop: 100
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'left'
-  },
-  artWrapper: {
-    float: 'left',
-    width: '25%',
-    marginTop: 50,
-    marginLeft: 70,
-    marginBottom: 50
-  },
-  albumArt: {
-    width: 150,
-    height: 150,
-    margin: 'auto'
-  }
-};
+const {
+  openExternal
+} = require('@/modules/electronConfig');
 
-class AudioInfo extends React.Component {
-  render() {
-    const { classes } = this.props;
-    return(
-      <div style={{display: "inline"}}>
-        <div className={classes.artWrapper}>
-          <Avatar
-            alt={this.props.name}
-            src={this.props.albumArt}
-            className={classes.albumArt}/>
-        </div>
-        <div className={classes.titleWrapper}>
-          <Typography className={classes.title}>{this.props.name} by {this.props.artist}</Typography>
-        </div>
+export default ({
+  name,
+  albumArt,
+  artist,
+  spotifyTrackUrl
+}) => {
+  return(
+    <div className="audio-info">
+      <div className="avatar">
+        <Avatar
+          alt={name}
+          src={albumArt}
+          shape={"square"}
+          size="large"
+        />
       </div>
-    )
-  }
+      <div className="info">
+        <Typography.Text>
+          <span className="track-url" onClick={() => openExternal(spotifyTrackUrl)}><strong>{name}</strong></span>
+          <br></br>
+          {artist}
+        </Typography.Text>
+      </div>
+    </div>
+  )
 }
-
-AudioInfo.propTypes = {
-  classes: PropTypes.object,
-};
-
-export default withStyles(styles)(AudioInfo);

@@ -1,135 +1,115 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
+
 import {
-  CircularProgress,
   Typography,
+  Spin,
+  Icon,
+  message,
   Table,
-  TableBody,
-  TableCell,
-  TableRow
-} from '@material-ui/core';
+  Button
+} from 'antd';
+
+import { connect } from 'react-redux';
+import { addToQueue } from '../../actions/downloadQueue';
 
 import queryString from 'query-string';
-
 import AudioInfo from './AudioInfo';
-import DialogBox from '../Dialog';
-import PlayAudio from './PlayAudio';
-import DownloadAudio from './DownloadAudio';
-
-import defaultArtwork from './default-artwork.png'
-
+import defaultArtwork from './default-artwork.png';
 import { queryCheck } from '../../modules/queryCheck';
 
-const styles = {
-  videosContainer: {
-    width: '95%',
-    margin: 'auto',
-    marginTop: 20,
-    marginBottom: 50
-  }
-}
+const {
+  openExternal
+} = require('@/modules/electronConfig');
 
 class View extends Component {
 
   state = {
     spotifyResult: '',
     youtubeResult: '',
-    showInfo: false,
-    dialogOpen: false,
-    dialogTitle: "",
-    dialogMessage: "",
+    loading: false
   }
 
   componentDidMount() {
+    message.config({
+      top: 50
+    })
+    this.setState({
+      loading: true
+    })
     queryCheck(queryString.parse(this.props.location.search).query).then(response => {
       this.setState({
         spotifyResult: response.spotifyResult,
         youtubeResult: response.youtubeResult,
-        showInfo: true,
+        loading: false
       });
     }).catch(error => {
-      this.setState({
-        showInfo: true
-      })
       if (typeof(error.code) !== 'string') {
-        this.renderDialog("An Error Occured!", error.message)
+        this.setState({
+          loading: false
+        })
+        message.error(error.message, 5)
       }
     });
   }
 
-  renderDialog = (title, message) => {
-    this.setState({
-      dialogOpen: true,
-      dialogTitle: title,
-      dialogMessage: message
-    })
+  componentWillUnmount() {
+    message.destroy()
   }
 
   render() {
-    const { classes } = this.props;
-    let result = this.state.spotifyResult;
-    let videoContainer;
-    if(this.state.youtubeResult !== '') {
-      videoContainer = this.state.youtubeResult.map((item) =>
-        <TableRow key={item.id}>
-          <TableCell>
-            {item.title}
-          </TableCell>
-          <TableCell>
-            <PlayAudio id={item.id} />
-          </TableCell>
-          <TableCell>
-            <DownloadAudio youtubeMetadata={item} spotifyMetadata={this.state.spotifyResult}/>
-          </TableCell>
-        </TableRow>
-      )
-    }
+
+    const colums = [
+      {
+        dataIndex: 'title',
+        key: 'title',
+        title: 'Video Title'
+      },
+      {
+        title: 'Actions',
+        key: 'actions',
+        render: (text, record) => (
+          <div className="video-actions">
+            <Button icon="download" onClick={() => {this.props.addToQueue({
+              youtubeMetadata: record,
+              spotifyMetadata: this.state.spotifyResult
+            })}} type="link"></Button>
+            <Button onClick={() => openExternal(record.link)} icon="play-circle" type="link"></Button>
+          </div>
+        )
+      }
+    ]
+
     return (
       <div>
-        <div id="container">
+        <div className="query">
           {
-            this.state.showInfo ? (
-              this.state.spotifyResult === '' ? (
-                <Typography variant="title" style={{marginTop: 250}}>Your search did not match any results</Typography>
-              ) : (
-                <div style={{overflow: 'auto'}}>
-                  {
-                    result === null ? (
-                      <AudioInfo
-                        classes={{}}
-                        name={this.state.youtubeResult[0].title}
-                        artist={this.state.youtubeResult[0].channelTitle}
-                        albumArt={defaultArtwork}/>
-                    ) :
-                      (<AudioInfo
-                        classes={{}}
-                        name={result.name}
-                        artist={result.artist}
-                        albumArt={result.albumArt}/>)
-                  }
-                  <Typography variant="title" style={{textAlign: 'left', marginLeft: 50, marginTop: 270, marginBottom: 30}}>Search Results</Typography>
-                  <Table className={classes.videosContainer}>
-                    <TableBody>
-                      {videoContainer}
-                    </TableBody>
-                  </Table>
+            this.state.loading ? (
+              <Spin indicator={<Icon type="loading" style={{ fontSize: 64 }} spin />} />
+            ) : this.state.spotifyResult === '' ? (
+              <Typography.Text style={{fontSize: '1.5rem'}}>Your search did not match any results</Typography.Text>
+            ) : (
+              <div className="container">
+                {
+                  this.state.spotifyResult === null ? (
+                    <AudioInfo
+                      name={this.state.youtubeResult[0].title}
+                      artist={this.state.youtubeResult[0].channelTitle}
+                      albumArt={defaultArtwork}/>
+                  ) :
+                    (<AudioInfo {...this.state.spotifyResult}/>)
+                }
+                <div className="results">
+                  <Typography.Text className="heading">Search Results</Typography.Text>
+                  <Table columns={colums} rowKey="id" pagination={false} dataSource={this.state.youtubeResult}></Table>
                 </div>
-              )
-            ) : (<CircularProgress style={{ marginTop: 250 }} thickness={5} />)
+              </div>
+            )
           }
         </div>
-        {
-          this.state.dialogOpen ? <DialogBox dialogTitle={this.state.dialogTitle} dialogMessage={this.state.dialogMessage} /> : null
-        }
       </div>
     );
   }
 }
 
-View.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withRouter(withStyles(styles)(View));
+export default connect(null, { addToQueue })(withRouter(View));

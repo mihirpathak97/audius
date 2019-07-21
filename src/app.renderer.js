@@ -22,6 +22,7 @@ import Routes from './routes/';
 
 // Components
 import TopBar from './components/TopBar';
+import ErrorBoundary from './components/ErrorBoundary';
 
 class App extends Component {
   render() {
@@ -30,7 +31,9 @@ class App extends Component {
         <HashRouter>
           <div className="App">
             <TopBar />
-            <Routes></Routes>
+            <ErrorBoundary>
+              <Routes></Routes>
+            </ErrorBoundary>
           </div>
         </HashRouter>
       </Provider>
