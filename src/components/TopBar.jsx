@@ -12,6 +12,8 @@ import {
   Typography
 } from 'antd';
 
+import DownloadQueue from '@/components/DownloadQueue';
+
 const {
   openWindow,
   BrowserWindow
@@ -63,7 +65,10 @@ export default withRouter(({
         }
       </div>
 
-      {/* <DownloadQueue /> */}
+      {
+        location.pathname === '/' || location.pathname.includes('search')
+        ? <DownloadQueue /> : null
+      }
 
       <div className="window-handlers">
         <Icon

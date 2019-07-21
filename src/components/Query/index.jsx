@@ -31,9 +31,6 @@ class View extends Component {
   }
 
   componentDidMount() {
-    message.config({
-      top: 50
-    })
     this.setState({
       loading: true
     })
@@ -51,10 +48,6 @@ class View extends Component {
         message.error(error.message, 5)
       }
     });
-  }
-
-  componentWillUnmount() {
-    message.destroy()
   }
 
   render() {

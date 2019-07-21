@@ -223,3 +223,28 @@
     }
   }
 }
+
+.download-queue {
+  position: absolute;
+  right: 120px;
+}
+
+.dropdown-queue-menu {
+  width: 360px !important;
+  .download-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .ant-avatar {
+      margin-right: 1rem;
+    }
+    .ant-typography {
+      margin-right: 1rem;
+      align-self: flex-start;
+    }
+    .ant-btn {
+      margin-left: 1rem;
+    }
+  }
+}
