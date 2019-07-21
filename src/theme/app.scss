@@ -109,3 +109,41 @@
     font-weight: 500 !important;
   }
 }
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  margin: auto;
+  text-align: left;
+  .title {
+    @extend .title;
+    font-weight: 500 !important;
+  }
+  .ant-table {
+    table {
+      border: none !important;
+      .ant-table-thead {
+        display: none !important;
+      }
+      &:hover {
+        background-color: #fff !important;
+      }
+      tbody {
+        tr:hover {
+          cursor: pointer;
+          // Hover background does'nt seem to affect background 🤔
+        }
+        td {
+          // &:first-child {
+          //   padding-left: 0;
+          // }
+          border: none !important;
+          max-width: 25vw !important;
+          min-width: 25vw !important;
+          word-wrap: break-word;
+        }
+      }
+    }
+  }
+}

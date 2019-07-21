@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+
 import {
-  MenuItem,
-  Select,
   Typography,
   Table,
-  TableCell,
-  TableBody,
-  TableRow,
+  Select,
   Button,
   Switch
-} from '@material-ui/core';
+} from 'antd';
 
 const settings = window.require('electron-settings');
 
@@ -33,21 +30,15 @@ const styles = theme => ({
 
 class View extends Component {
 
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.selectDirectory = this.selectDirectory.bind(this)
-  }
-
   state = {
     defaultAudioOut: settings.get('defaultAudioOut'),
     downloadDirectory: settings.get('downloadDirectory'),
     embedMetadata: settings.get('embedMetadata')
   };
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-    settings.set(event.target.name, event.target.value);
+  handleChange = value => {
+    this.setState({ defaultAudioOut: value });
+    settings.set('defaultAudioOut', value );
   };
 
   selectDirectory = () => {
@@ -62,30 +53,69 @@ class View extends Component {
     })
   }
 
-  handleSwitchChange = event => {
-    this.setState({ embedMetadata: event.target.checked });
-    settings.set('embedMetadata', event.target.checked);
+  handleSwitchChange = value => {
+    this.setState({ embedMetadata: value });
+    settings.set('embedMetadata', value);
   }
 
   render() {
-    const { classes } = this.props;
+
+    const columns = [
+      {
+        dataIndex: 'title',
+        key: 'title'
+      },
+      {
+        dataIndex: 'action',
+        key: 'action'
+      },
+      {
+        dataIndex: 'optional',
+        key: 'optional'
+      }
+    ]
+  
+    const tableData = [
+      {
+        key: 'download-format',
+        title: 'Download Format',
+        action: (
+          <Select
+            value={this.state.defaultAudioOut}
+            onChange={this.handleChange}
+            name="defaultAudioOut">
+              <Select.Option value={'mp3'}>MP3</Select.Option>
+              <Select.Option value={'m4a'}>M4A</Select.Option>
+          </Select>
+        )
+      },
+      {
+        key: 'download-location',
+        title: 'Download Location',
+        action: <Typography.Text>{this.state.downloadDirectory}</Typography.Text>,
+        optional: (
+          <Button onClick={this.selectDirectory} size="small" color="primary">Change</Button>
+        )
+      },
+      {
+        key: 'id3-metadata',
+        title: 'Embed ID3 metadata',
+        action: <Switch checked={this.state.embedMetadata} onChange={this.handleSwitchChange}/>
+      }
+    ]
+
     return (
-      <div style={{disply: 'block', width: '87%', margin: 'auto', marginTop: 10, textAlign: 'left'}}>
-        <Typography variant="display1" style={{color: 'hsl(348, 100%, 61%)', fontSize: '18', marginBottom: 10}}>
+      <div className="settings">
+        <Typography.Title className="title">
           Settings
-        </Typography>
-        <Table className={classes.table}>
+        </Typography.Title>
+        <Table columns={columns} pagination={false} dataSource={tableData} />
+        {/* <Table>
           <TableBody>
             <TableRow>
               <TableCell className={classes.tablerow}><Typography className={classes.text}>Download Format</Typography></TableCell>
               <TableCell className={classes.tablerow}>
-                <Select
-                  value={this.state.defaultAudioOut}
-                  onChange={this.handleChange}
-                  name="defaultAudioOut">
-                  <MenuItem value={'mp3'}>MP3</MenuItem>
-                  <MenuItem value={'m4a'}>M4A</MenuItem>
-                </Select>
+                
               </TableCell>
               <TableCell className={classes.tablerow}></TableCell>
             </TableRow>
@@ -109,7 +139,7 @@ class View extends Component {
               </TableCell>
             </TableRow>
           </TableBody>
-        </Table>
+        </Table> */}
       </div>
     );
   }
