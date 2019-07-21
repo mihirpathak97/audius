@@ -103,6 +103,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
+    "build-rainbow": "cd bin/rainbow && python3 setup.py build && cd ../",
     "test": "node scripts/test.js --env=jsdom",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "package-all": "build -mwl",
@@ -128,13 +129,12 @@
     "directories": {
       "buildResources": "assets"
     },
+    "extraResources": [
+      "bin/rainbow/build"
+    ],
     "mac": {
       "target": "dmg",
-      "artifactName": "${name}-setup.${ext}",
-      "extraResources": [
-        "bin/ffmpeg/darwin",
-        "bin/rainbow/darwin"
-      ]
+      "artifactName": "${name}-setup.${ext}"
     },
     "dmg": {
       "contents": [
@@ -154,11 +154,7 @@
       "category": "Audio",
       "synopsis": "A cross-platform app for downloading songs from YouTube and Spotify",
       "target": "deb",
-      "artifactName": "${name}-${arch}.${ext}",
-      "extraResources": [
-        "bin/ffmpeg/linux",
-        "bin/rainbow/linux"
-      ]
+      "artifactName": "${name}-${arch}.${ext}"
     },
     "deb": {
       "depends": [
@@ -171,10 +167,6 @@
       ]
     },
     "win": {
-      "extraResources": [
-        "bin/ffmpeg/win32",
-        "bin/rainbow/win32"
-      ],
       "target": "nsis",
       "icon": "build/icon.ico",
       "artifactName": "${productName}Setup-x64.${ext}"

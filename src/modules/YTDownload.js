@@ -7,8 +7,6 @@ const log = require('./log');
 
 const settings = window.require('electron-settings');
 
-Ffmpeg.setFfmpegPath(settings.get('FFMPEG_PATH'));
-
 let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
   return new Promise(function(resolve, reject) {
     const outputFormat = settings.has('defaultAudioOut') ? settings.get('defaultAudioOut') : 'mp3';
@@ -49,7 +47,6 @@ let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
 
         // Start encoding
         new Ffmpeg({
-          source: stream,
           source: stream.pipe(str)
         })
         .audioBitrate(info.formats[0].audioBitrate)
@@ -62,7 +59,7 @@ let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
           // Embed metadata
           if(settings.get('embedMetadata') && spotifyMetadata !== null) {
             const rainbow = require('./rainbowWrapper');
-            rainbow.embedMetadata(fileName, spotifyMetadata.spotifyId);
+            rainbow.embedMetadata(fileName, spotifyMetadata.spotifyTrackId);
           }
           log.info('YTDownload', 'Download complete for ' + youtubeMetadata.link);
           resolve({
