@@ -3,16 +3,16 @@ const path = require('path');
 
 const windowConfig = {
   mainWindow: {
-    width: 900,
-    height: 680,
+    width: 800,
+    height: 600,
     frame: false,
     webPreferences: {
       nodeIntegration: true
     }
   },
   miniWindow: {
-    width: 800, 
-    height: 600, 
+    width: 700,
+    height: 500,
     frame: false,
     webPreferences: {
       nodeIntegration: true
