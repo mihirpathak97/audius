@@ -105,7 +105,6 @@
     "ytdl-core": "^0.29.2"
   },
   "scripts": {
-    "init-app": "node scripts/bootstrap.js",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
