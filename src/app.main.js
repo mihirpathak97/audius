@@ -14,6 +14,7 @@ require("./modules/AutoUpdater");
 const path = require('path');
 const isDev = require('electron-is-dev');
 const Spotify = require('./modules/SpotifyWebApi');
+const electronConfig = require('./modules/electronConfig');
 
 // Log
 var log = require('electron-log');
@@ -23,11 +24,7 @@ let mainWindow;
 
 function createWindow() {
   log.info('[app.main.js] Creating window');
-  mainWindow = new BrowserWindow({
-    width: 900,
-    height: 680,
-    frame: false
-  });
+  mainWindow = new BrowserWindow(electronConfig.windowConfig.mainWindow);
   mainWindow.setResizable(false);
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../react-compiled/index.html')}`);
   mainWindow.on('closed', () => mainWindow = null);
@@ -42,7 +39,6 @@ function createWindow() {
   }, (error) => {
     if (error) console.error('Failed to register protocol')
   })
-
 }
 
 app.on('ready', () => {

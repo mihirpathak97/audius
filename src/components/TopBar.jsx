@@ -12,18 +12,15 @@ import {
   Typography
 } from 'antd';
 
-const { BrowserWindow, app } = window.require('electron').remote;
-const path = require('path');
+const {
+  openWindow,
+  BrowserWindow
+} = require('@/modules/electronConfig');
 
 export default withRouter(({
   location
 }) => {
 
-  const openWindow = (url) => {
-    const miniWindow = new BrowserWindow({width: 800, height: 600, frame: false});
-    miniWindow.setResizable(false);
-    miniWindow.loadURL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000/#' + url : `file://${path.join(app.getAppPath(), 'react-compiled/index.html/#' + url)}`);
-  }
   const minimizeApplication = () => {
     BrowserWindow.getFocusedWindow().minimize();
   };

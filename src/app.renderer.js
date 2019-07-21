@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter
+  HashRouter
 } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
@@ -27,12 +27,12 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <BrowserRouter>
+        <HashRouter>
           <div className="App">
             <TopBar />
             <Routes></Routes>
           </div>
-        </BrowserRouter>
+        </HashRouter>
       </Provider>
     );
   }
