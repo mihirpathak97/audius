@@ -15,7 +15,7 @@ import { addToQueue } from '../../actions/downloadQueue';
 
 import queryString from 'query-string';
 import AudioInfo from './AudioInfo';
-import defaultArtwork from './default-artwork.png';
+import defaultArtwork from '@/assets/default-artwork.png';
 import { queryCheck } from '../../modules/queryCheck';
 
 const {
