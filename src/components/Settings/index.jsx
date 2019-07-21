@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 
 import {
   Typography,
@@ -11,22 +9,6 @@ import {
 } from 'antd';
 
 const settings = window.require('electron-settings');
-
-const styles = theme => ({
-  table: {
-    width: '100%',
-    border: 'none',
-    marginTop: 50,
-    marginLeft: -20
-  },
-  tablerow: {
-    border: 'none'
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 500
-  }
-});
 
 class View extends Component {
 
@@ -110,43 +92,9 @@ class View extends Component {
           Settings
         </Typography.Title>
         <Table columns={columns} pagination={false} dataSource={tableData} />
-        {/* <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell className={classes.tablerow}><Typography className={classes.text}>Download Format</Typography></TableCell>
-              <TableCell className={classes.tablerow}>
-                
-              </TableCell>
-              <TableCell className={classes.tablerow}></TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className={classes.tablerow}>
-                <Typography className={classes.text}>Download Location</Typography>
-              </TableCell>
-              <TableCell className={classes.tablerow}>
-                <Typography>{this.state.downloadDirectory}</Typography>
-              </TableCell>
-              <TableCell className={classes.tablerow}>
-                <Button onClick={this.selectDirectory} size="small" color="primary">Change</Button>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell className={classes.tablerow}>
-                <Typography className={classes.text}>Embed ID3 metadata for songs</Typography>
-              </TableCell>
-              <TableCell style={{paddingLeft: '10px'}} className={classes.tablerow}>
-                <Switch checked={this.state.embedMetadata} disableRipple onChange={this.handleSwitchChange}/>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table> */}
       </div>
     );
   }
 }
 
-View.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(View);
+export default View;
