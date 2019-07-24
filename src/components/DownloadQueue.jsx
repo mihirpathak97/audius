@@ -33,13 +33,15 @@ class DownloadQueue extends React.Component {
         }]
       })
       notification.info({
-        message: 'Added to Queue!',
+        message: 'Info!',
+        description: 'A download was added to the queue'
       })
     }
     // Deleting
     else {
       notification.warn({
-        message: 'Deleted from Queue!',
+        message: 'Warning!',
+        description: 'An item was deleted from the queue'
       })
     }
   }
@@ -61,13 +63,14 @@ class DownloadQueue extends React.Component {
       .then(() => {
         this.deleteFromQueue(0)
         notification.success({
-          message: 'Finished downloading an item!',
+          message: 'Success!',
+          description: 'Finished downloading an item'
         })
-      }).catch(() => {
+      }).catch((error) => {
         this.deleteFromQueue(0)
         notification.error({
           message: 'Error!',
-          description: 'An unknown error occured while downloading'
+          description: error
         })
       })
     }

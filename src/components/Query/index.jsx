@@ -46,7 +46,7 @@ class View extends Component {
           loading: false
         })
         notification.error({
-          message: 'Oops!',
+          message: 'Error!',
           description: error.message
         })
       }
