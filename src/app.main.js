@@ -8,9 +8,6 @@ const app = require('electron').app;
 const protocol = require('electron').protocol;
 const BrowserWindow = electron.BrowserWindow;
 
-// Auto Updater
-require("./modules/AutoUpdater");
-
 const path = require('path');
 const isDev = require('electron-is-dev');
 const Spotify = require('./modules/SpotifyWebApi');
@@ -43,10 +40,16 @@ function createWindow() {
 
 app.on('ready', () => {
   log.info('[app.main.js] App ready');
+
+  // Auto Updater
+  require("./modules/AutoUpdater");
+
   // Init persistant storage
   require('./modules/Settings');
+
   // First create BrowserWindow
   createWindow();
+
   // Then get Spotify access token
   Spotify.getAccessToken().then(response => {
     if (response.code === 200) {
