@@ -69,7 +69,7 @@ const resolveModule = (resolveFn, filePath) => {
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp('build'),
+  appBuild: resolveApp('react-compiled'),
   appPublic: resolveApp('src'),
   appHtml: resolveApp('src/app.html'),
   appIndexJs: resolveModule(resolveApp, 'src/app.renderer'),
@@ -82,7 +82,8 @@ module.exports = {
   proxySetup: resolveApp('src/setupProxy.js'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json')),
+  // servedPath: getServedPath(resolveApp('package.json')),
+  servedPath: 'audius://'
 };
 
 
