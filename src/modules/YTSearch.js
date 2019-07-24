@@ -75,8 +75,10 @@ let searchVideosByQuery = (query) => {
     part: 'snippet',
     maxResults: 10,
     q: query,
-    key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE',
+    key: process.env.YOUTUBE_V3_API_KEY || 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE',
     type: 'video',
+    // Topic ID for music
+    // Gives us only music videos as resuts
     topicId: '/m/04rlf'
   }
 
