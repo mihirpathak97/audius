@@ -49,7 +49,7 @@ let refreshSpotifyToken = () => {
   return new Promise(function(resolve, reject) {
     if (triesRemaining > 0) {
       triesRemaining--;
-      const renderer = window.require('electron').ipcRenderer;
+      const renderer = require('electron').ipcRenderer;
       renderer.send('refresh-spotify-token')
       renderer.on('refresh-token-success', () => {
         resolve(true)

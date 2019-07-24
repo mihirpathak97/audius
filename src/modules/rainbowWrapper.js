@@ -4,10 +4,10 @@
  */
 
 const exec = require('child_process').execFileSync;
-const settings = window.require('electron-settings');
+const storage = require('./Store');
 
 function embedMetadata(filePath, spotifyID) {
-  exec(settings.get('RAINBOW_PATH'), [filePath, spotifyID], {}, (error, stdout, stderr) => {
+  exec(storage.get('RAINBOW_PATH'), [filePath, spotifyID], {}, (error, stdout, stderr) => {
     if(error) {
       return;
     }

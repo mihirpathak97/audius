@@ -24,7 +24,7 @@ class View extends Component {
   };
 
   selectDirectory = () => {
-    const { BrowserWindow, dialog } = window.require('electron').remote;
+    const { BrowserWindow, dialog } = require('electron').remote;
     dialog.showOpenDialog(BrowserWindow.getFocusedWindow(), {
       properties: ['openDirectory']
     }, (path) => {

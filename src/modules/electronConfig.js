@@ -1,4 +1,4 @@
-const { BrowserWindow, app } = process.env.NODE_ENV ? window.require('electron').remote : require('electron');
+const { BrowserWindow, app } = process.env.NODE_ENV ? require('electron').remote : require('electron');
 const path = require('path');
 
 const windowConfig = {
@@ -31,7 +31,7 @@ let openWindow = (url) => {
 }
 
 let openExternal = (url) => {
-  var shell = window.require('electron').shell;
+  var shell = require('electron').shell;
   shell.openExternal(url);
 }
 

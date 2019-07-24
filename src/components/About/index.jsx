@@ -34,7 +34,7 @@ class View extends Component {
             Image assets courtesy of <span onClick={() => openExternal("http://github.com/turnerboy")} className="mention">@turnerboy</span>
           </Typography.Text>
           <Typography.Title>
-            Version {window.require('electron').remote.app.getVersion()}
+            Version {require('electron').remote.app.getVersion()}
           </Typography.Title>
           <div className="electron">
             <Typography.Text>Built with</Typography.Text>

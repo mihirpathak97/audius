@@ -1,4 +1,4 @@
-let log = window.require('electron-log')
+let log = require('electron-log')
 
 function getPrefix(filename) {
   return '[' + filename + '] ';

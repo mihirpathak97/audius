@@ -1,4 +1,4 @@
-const electron = require('electron') || window.require('electron');
+const electron = require('electron');
 const Conf = require('conf');
 
 class Store extends Conf {
