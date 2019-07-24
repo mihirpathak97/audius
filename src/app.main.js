@@ -26,6 +26,11 @@ function createWindow() {
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../react-compiled/index.html')}`);
   mainWindow.on('closed', () => mainWindow = null);
 
+  // Set application menu to null in prod
+  if (!isDev) {
+    electron.Menu.setApplicationMenu(null)
+  }
+
   // Register protocol `audius` for serving static files
   // as webpack + chromium causes relative path issue
   protocol.registerFileProtocol('audius', (request, callback) => {
