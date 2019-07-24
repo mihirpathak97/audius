@@ -2,6 +2,7 @@
   "presets": [
     "react-app"
   ],
+  "sourceType": "unambiguous",
   "plugins": [
     ["module-resolver", {
       "root": ["./src"],
