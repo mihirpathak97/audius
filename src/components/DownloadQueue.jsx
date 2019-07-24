@@ -60,12 +60,12 @@ class DownloadQueue extends React.Component {
       })
       .then(() => {
         this.deleteFromQueue(0)
-        notification.info({
+        notification.success({
           message: 'Finished downloading an item!',
         })
       }).catch(() => {
         this.deleteFromQueue(0)
-        notification.info({
+        notification.error({
           message: 'Error!',
           description: 'An unknown error occured while downloading'
         })
