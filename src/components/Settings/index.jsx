@@ -8,19 +8,19 @@ import {
   Switch
 } from 'antd';
 
-const settings = window.require('electron-settings');
+const storage = require('@/modules/Store');
 
 class View extends Component {
 
   state = {
-    defaultAudioOut: settings.get('defaultAudioOut'),
-    downloadDirectory: settings.get('downloadDirectory'),
-    embedMetadata: settings.get('embedMetadata')
+    defaultAudioOut: storage.get('defaultAudioOut'),
+    downloadDirectory: storage.get('downloadDirectory'),
+    embedMetadata: storage.get('embedMetadata')
   };
 
   handleChange = value => {
     this.setState({ defaultAudioOut: value });
-    settings.set('defaultAudioOut', value );
+    storage.set('defaultAudioOut', value );
   };
 
   selectDirectory = () => {
@@ -30,14 +30,14 @@ class View extends Component {
     }, (path) => {
       if (path) {
         this.setState({ downloadDirectory: path[0] });
-        settings.set('downloadDirectory', path[0]);
+        storage.set('downloadDirectory', path[0]);
       }
     })
   }
 
   handleSwitchChange = value => {
     this.setState({ embedMetadata: value });
-    settings.set('embedMetadata', value);
+    storage.set('embedMetadata', value);
   }
 
   render() {

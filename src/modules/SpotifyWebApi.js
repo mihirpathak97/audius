@@ -6,7 +6,7 @@
 const base64 = require('base-64');
 const querystring = require('querystring');
 const axios = require('axios');
-const settings = process.type === 'renderer' ? window.require('electron-settings') : require('electron-settings');
+const storage = require('./Store');
 
 // client Id and Secret for 'Audius' from https://developer.spotify.com
 const clientId = process.env.SPOTIFY_CLIENT_ID || '6c67544dbe4a4d15a6b80eec0a5c0063';
@@ -16,7 +16,7 @@ const clientSecret = process.env.SPOTIFY_CLIENT_SECRET || '710ba1ba3e324dc190b66
 const endpointURL = 'https://api.spotify.com/v1/';
 const commonConfig = {
   headers: {
-  'Authorization': 'Bearer ' + settings.get('spotifyAccessToken')
+  'Authorization': 'Bearer ' + storage.get('spotifyAccessToken')
   }
 }
 var triesRemaining = 5;
@@ -34,7 +34,7 @@ let getAccessToken = () => {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }).then(response => {
-      settings.set('spotifyAccessToken', response.data.access_token)
+      storage.set('spotifyAccessToken', response.data.access_token)
       resolve({
         code: 200,
         message: 'OK'

@@ -8,35 +8,37 @@
 
 const isDev = require('electron-is-dev');
 const path = require('path');
-const settings = require('electron-settings');
 
-let rainbowPath = isDev ? path.join(__dirname, '../../bin/rainbow/build/rainbow') : path.join(process.resourcesPath, 'bin', 'rainbow', 'build', 'rainbow');
-let downloadDirectory = path.join(process.env[process.platform === "win32" ? 'USERPROFILE' : 'HOME'], 'Music');
-let defaultAudioOut = "mp3";
-let embedMetadata = true;
+const storage = require('./Store');
 
-if(process.platform === "win32") {
-  // Add exe for binaries in win32
-  rainbowPath += ".exe";
+var log = require('electron-log');
+log.transports.file.level = 'debug';
+
+if (storage.has('didFirstRun')) {
+  log.info('[Settings.js] Found config. Skipping');
+  return;
 }
+else {
+  log.info('[Settings.js] Setting default config');
 
-if(process.platform === "darwin") {
-  // Default audio out for Mac is M4A
-  defaultAudioOut = "m4a";
-}
+  let rainbowPath = isDev ? path.join(__dirname, '../../bin/rainbow/build/rainbow') : path.join(process.resourcesPath, 'bin', 'rainbow', 'build', 'rainbow');
+  let downloadDirectory = path.join(process.env[process.platform === "win32" ? 'USERPROFILE' : 'HOME'], 'Music');
+  let defaultAudioOut = "mp3";
+  let embedMetadata = true;
 
-// set binary path
-settings.set('RAINBOW_PATH', rainbowPath);
+  if(process.platform === "win32") {
+    // Add exe for binaries in win32
+    rainbowPath += ".exe";
+  }
 
-// Default download directory
-if(!settings.has('downloadDirectory')) { 
-  settings.set('downloadDirectory', downloadDirectory);
-}
-// Default download format
-if(!settings.has('defaultAudioOut')) { 
-  settings.set('defaultAudioOut', defaultAudioOut);
-}
-// Embed meta-data
-if(!settings.has('embedMetadata')) { 
-  settings.set('embedMetadata', embedMetadata);
+  if(process.platform === "darwin") {
+    // Default audio out for Mac is M4A
+    defaultAudioOut = "m4a";
+  }
+
+  storage.set('RAINBOW_PATH', rainbowPath);
+  storage.set('downloadDirectory', downloadDirectory);
+  storage.set('defaultAudioOut', defaultAudioOut);
+  storage.set('embedMetadata', embedMetadata);
+  storage.set('didFirstRun', true);
 }

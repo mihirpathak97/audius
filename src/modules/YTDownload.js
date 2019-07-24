@@ -5,16 +5,16 @@ const Ffmpeg = require('./ffmpeg-wrapper');
 const sanitize = require("sanitize-filename");
 const log = require('./log');
 
-const settings = window.require('electron-settings');
+const storage = require('./Store');
 
 let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
   return new Promise(function(resolve, reject) {
-    const outputFormat = settings.has('defaultAudioOut') ? settings.get('defaultAudioOut') : 'mp3';
+    const outputFormat = storage.has('defaultAudioOut') ? storage.get('defaultAudioOut') : 'mp3';
     const outputCodec = outputFormat === 'mp3' ? "libmp3lame" : "aac";
     const infoOptions = {
       quality: 'highestaudio'
     }
-    const fileName = path.join(settings.get('downloadDirectory'), sanitize(spotifyMetadata === null ? youtubeMetadata.title : spotifyMetadata.name) + '.' + outputFormat);
+    const fileName = path.join(storage.get('downloadDirectory'), sanitize(spotifyMetadata === null ? youtubeMetadata.title : spotifyMetadata.name) + '.' + outputFormat);
 
     ytdl.getInfo(youtubeMetadata.link, infoOptions, function(err, info) {
       if (err) {
@@ -57,7 +57,7 @@ let downloadAudio = (youtubeMetadata, spotifyMetadata, callback) => {
         })
         .on("end", function() {
           // Embed metadata
-          if(settings.get('embedMetadata') && spotifyMetadata !== null) {
+          if(storage.get('embedMetadata') && spotifyMetadata !== null) {
             const rainbow = require('./rainbowWrapper');
             rainbow.embedMetadata(fileName, spotifyMetadata.spotifyTrackId);
           }
