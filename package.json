@@ -110,8 +110,7 @@
   },
   "build": {
     "appId": "in.mihirpathak.audius",
-    "copyright": "Copyright © 2018 Mihir Pathak",
-    "artifactName": "${productName}Setup.${ext}",
+    "copyright": "Copyright © 2019 Mihir Pathak",
     "publish": {
       "provider": "github"
     },
@@ -132,20 +131,6 @@
     "mac": {
       "target": "dmg",
       "artifactName": "${name}-setup.${ext}"
-    },
-    "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
-        },
-        {
-          "x": 240,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
     },
     "linux": {
       "category": "Audio",
