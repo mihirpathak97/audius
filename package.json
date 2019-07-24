@@ -135,26 +135,13 @@
     "linux": {
       "category": "Audio",
       "synopsis": "A cross-platform app for downloading songs from YouTube and Spotify",
-      "target": "deb",
+      "target": "AppImage",
       "artifactName": "${name}-${arch}.${ext}"
-    },
-    "deb": {
-      "depends": [
-        "gconf2",
-        "gconf-service",
-        "libnotify4",
-        "libappindicator1",
-        "libxtst6",
-        "libnss3"
-      ]
     },
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico",
       "artifactName": "${productName}Setup-x64.${ext}"
-    },
-    "nsis": {
-      "oneClick": "true"
     }
   },
   "eslintConfig": {
