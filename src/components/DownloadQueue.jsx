@@ -10,7 +10,7 @@ import {
   Dropdown,
   Avatar,
   Spin,
-  message
+  notification
 } from "antd";
 
 import { downloadAudio } from '../modules/YTDownload';
@@ -32,11 +32,15 @@ class DownloadQueue extends React.Component {
           downloading: false
         }]
       })
-      message.info('Added to Queue', 1.5)
+      notification.info({
+        message: 'Added to Queue!',
+      })
     }
     // Deleting
     else {
-      message.warn('Deleted from Queue', 1.5)
+      notification.warn({
+        message: 'Deleted from Queue!',
+      })
     }
   }
 
@@ -56,10 +60,15 @@ class DownloadQueue extends React.Component {
       })
       .then(() => {
         this.deleteFromQueue(0)
-        message.success('Finished downloading an item', 1.5)
+        notification.info({
+          message: 'Finished downloading an item!',
+        })
       }).catch(() => {
         this.deleteFromQueue(0)
-        message.error('Error occured while downloading!', 1.5)
+        notification.info({
+          message: 'Error!',
+          description: 'An unknown error occured while downloading'
+        })
       })
     }
     else {

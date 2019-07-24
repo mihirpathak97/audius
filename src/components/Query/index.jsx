@@ -5,7 +5,7 @@ import {
   Typography,
   Spin,
   Icon,
-  message,
+  notification,
   Table,
   Button
 } from 'antd';
@@ -45,7 +45,10 @@ class View extends Component {
         this.setState({
           loading: false
         })
-        message.error(error.message, 5)
+        notification.error({
+          message: 'Oops!',
+          description: error.message
+        })
       }
     });
   }

@@ -14,6 +14,10 @@ import {
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
 
+import {
+  notification
+} from 'antd';
+
 // import global CSS file
 import './app.global.scss';
 
@@ -25,6 +29,13 @@ import TopBar from './components/TopBar';
 import ErrorBoundary from './components/ErrorBoundary';
 
 class App extends Component {
+
+  componentDidMount() {
+    notification.config({
+      placement: 'bottomLeft'  
+    })
+  }
+
   render() {
     return (
       <Provider store={store}>
