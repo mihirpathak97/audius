@@ -98,15 +98,14 @@
     "ytdl-core": "^0.29.2"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "concurrently \"cross-env BROWSER=none node scripts/start.js\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "node scripts/build.js",
     "build-rainbow": "cd bin/rainbow && python3 setup.py build && cd ../",
     "test": "node scripts/test.js --env=jsdom",
-    "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "package-all": "build -mwl",
-    "package-linux": "build --linux --x64",
-    "package-win": "electron-builder build --win --x64",
-    "package-mac": "electron-builder build --mac --x64"
+    "package:all": "yarn build && electron-builder build -mwl --64x",
+    "package:linux": "electron-builder build --linux --x64",
+    "package:win": "electron-builder build --win --x64",
+    "package:mac": "electron-builder build --mac --x64"
   },
   "build": {
     "appId": "in.mihirpathak.audius",
