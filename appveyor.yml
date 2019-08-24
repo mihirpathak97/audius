@@ -9,7 +9,7 @@ install:
   - "yarn install"
 
 build_script:
-  - "%PYTHON%/python.exe bin/rainbow/setup.py build"
+  - "cd bin/rainbow && %PYTHON%/python.exe setup.py build && cd ../../"
   - "yarn build"
   - "yarn package:win"
 
