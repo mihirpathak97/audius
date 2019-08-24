@@ -29,10 +29,22 @@ function createWindow() {
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../react-compiled/index.html')}`);
   mainWindow.on('closed', () => mainWindow = null);
 
-  // Set application menu to null in prod
-  if (!isDev) {
-    electron.Menu.setApplicationMenu(null)
-  }
+  process.platform === 'darwin' ? electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(
+    [
+      {
+        label: 'Options',
+        submenu: [
+          {
+            label: 'Quit',
+            accelerator: 'CmdOrCtrl+Q',
+            click() {
+              app.quit()
+            },
+          },
+        ],
+      }
+    ]
+  )) : electron.Menu.setApplicationMenu(null);
 
   // Register protocol `audius` for serving static files
   // as webpack + chromium causes relative path issue
