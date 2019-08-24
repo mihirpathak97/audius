@@ -34,9 +34,11 @@ script:
   - echo "Installing yarn dependencies"
   - yarn install
   - echo "Building raindow"
+  - cd bin/rainbow
   - pip3 install --upgrade --user pip setuptools wheel
   - pip3 install --upgrade --user -r requirements.txt
   - python3 setup.py build
+  - cd ../../
   - echo "Compiling React app for production"
   - yarn build
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
