@@ -4,6 +4,7 @@ environment:
   PYTHON: "C:\\Python36-x64"
 
 install:
+  - git submodule update --init --recursive
   - "%PYTHON%/Scripts/pip.exe install -U -r bin/rainbow/requirements.txt"
   - "yarn install"
 
