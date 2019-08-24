@@ -4,11 +4,11 @@ environment:
   PYTHON: "C:\\Python36-x64"
 
 install:
-  - "%PYTHON%/Scripts/pip.exe install -U -r requirements.txt"
+  - "%PYTHON%/Scripts/pip.exe install -U -r bin/rainbow/requirements.txt"
   - "yarn install"
 
 build_script:
-  - "%PYTHON%/Scripts/pyinstaller.exe rainbow.py"
+  - "%PYTHON%/python.exe bin/rainbow/setup.py build"
   - "yarn build"
   - "yarn package:win"
 
