@@ -1,19 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-alpha2] - 2019-08-24
+### Fixed
+- Build failing in CI
+
 ## [2.0.0-alpha1] - 2019-08-11
 ### Added
 - New UI 🎉
-- Better 
+- Better code
+- Added AppImage for linux
 
 ### Changed
 - Get latest webpack configs from `create-react-app`
 - Moved packages to `devDependencies` to reduce asar bundle size
 
-### Fixed
-- Font issue
-- Webpack production errors
-- [Queue] Fix mixing `require` and `exports`
+### Removed
+- `deb` build for linux
 
 ## [1.6.0-beta1] - 2018-01-03
 ### Added

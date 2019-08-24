@@ -1,7 +1,7 @@
 {
   "name": "audius",
   "productName": "Audius",
-  "version": "2.0.0-alpha1",
+  "version": "2.0.0-alpha2",
   "description": "A cross-platform app for downloading songs from YouTube and Spotify",
   "author": {
     "name": "Mihir Pathak",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mihirpathak97/audius.git"
+    "url": "https://github.com/carbondojo/audius.git"
   },
   "private": true,
   "main": "src/app.main.js",
@@ -108,7 +108,7 @@
     "package:mac": "electron-builder build --mac --x64"
   },
   "build": {
-    "appId": "in.mihirpathak.audius",
+    "appId": "dojo.carbon.audius",
     "copyright": "Copyright © 2019 Mihir Pathak",
     "publish": {
       "provider": "github"
