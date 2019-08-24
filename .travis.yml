@@ -33,16 +33,24 @@ jobs:
 script:
   - echo "Installing yarn dependencies"
   - yarn install
+  
   - echo "Building raindow"
   - cd bin/rainbow
   - pip3 install --upgrade --user pip setuptools wheel
   - pip3 install --upgrade --user -r requirements.txt
   - python3 setup.py build
   - cd ../../
+  
+  - echo "Writing ENV vars"
+  - echo "YOUTUBE_V3_API_KEY=$YOUTUBE_V3_API_KEY" >> .env
+  - echo "SPOTIFY_CLIENT_ID=$SPOTIFY_CLIENT_ID" >> .env
+  - echo "SPOTIFY_CLIENT_SECRET=$SPOTIFY_CLIENT_SECRET" >> .env
+  
   - echo "Compiling React app for production"
   - yarn build
+  
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    echo "Packaging Audius for Linux x64 (AppImage)";
+      echo "Packaging Audius for Linux x64 (AppImage)";
       yarn package:linux;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
