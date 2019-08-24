@@ -8,6 +8,9 @@ const app = require('electron').app;
 const protocol = require('electron').protocol;
 const BrowserWindow = electron.BrowserWindow;
 
+// Require env vars
+require('./modules/env');
+
 const path = require('path');
 const isDev = require('electron-is-dev');
 const Spotify = require('./modules/SpotifyWebApi');

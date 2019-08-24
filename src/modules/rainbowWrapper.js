@@ -7,7 +7,7 @@ const exec = require('child_process').execFileSync;
 const storage = require('./Store');
 
 function embedMetadata(filePath, spotifyID) {
-  exec(storage.get('RAINBOW_PATH'), [filePath, spotifyID], {}, (error, stdout, stderr) => {
+  exec(storage.get('RAINBOW_PATH'), [filePath, spotifyID, process.env.SPOTIFY_CLIENT_ID, process.env.SPOTIFY_CLIENT_SECRET], {}, (error, stdout, stderr) => {
     if(error) {
       return;
     }
