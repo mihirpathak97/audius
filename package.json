@@ -44,7 +44,7 @@
     "dotenv-expand": "4.2.0",
     "electron": "5.0.7",
     "electron-builder": "21.1.1",
-    "eslint": "^6.2.2",
+    "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.1",
     "eslint-loader": "2.1.2",
     "eslint-plugin-flowtype": "2.50.1",
