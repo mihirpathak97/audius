@@ -120,7 +120,7 @@
     "package:mac": "electron-builder build --mac --x64"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,html,scss}": [
+    "src/**/*.{js,jsx,ts,tsx,json,html,scss}": [
       "prettier --single-quote --write",
       "git add"
     ]
