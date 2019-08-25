@@ -7,33 +7,28 @@
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {
-  HashRouter
-} from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
 
-import {
-  notification
-} from 'antd';
+import { notification } from 'antd';
 
 // import global CSS file
 import './app.global.scss';
 
 // Routes
-import Routes from './routes/';
+import Routes from './routes';
 
 // Components
 import TopBar from './components/TopBar';
 import ErrorBoundary from './components/ErrorBoundary';
 
 class App extends Component {
-
   componentDidMount() {
     notification.config({
-      placement: 'bottomLeft'  
-    })
+      placement: 'bottomLeft'
+    });
   }
 
   render() {
