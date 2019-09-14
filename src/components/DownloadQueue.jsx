@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { removeFromQueue } from '../actions/downloadQueue';
 
+import { withRouter } from 'react-router-dom';
+
 import {
   Typography,
   Icon,
@@ -22,7 +24,9 @@ const os = require('os');
 
 const StyledDownloadQueue = styled(Dropdown)`
   position: absolute;
-  right: ${props => (props.platform === 'darwin' ? '20px' : '120px')};
+  right: ${os.platform() === 'darwin' ? '20px' : '120px'};
+  ${props =>
+    props.path === '/' || props.path.includes('search') ? '' : 'display: none'}
 `;
 
 class DownloadQueue extends React.Component {
@@ -145,7 +149,7 @@ class DownloadQueue extends React.Component {
       );
     return (
       <StyledDownloadQueue
-        platform={os.platform()}
+        path={this.props.location.pathname}
         overlayClassName="dropdown-queue-menu"
         overlay={downloadQueue}
         trigger={['click']}
@@ -171,4 +175,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DownloadQueue);
+)(withRouter(DownloadQueue));

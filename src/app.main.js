@@ -8,6 +8,8 @@ const app = require('electron').app;
 const protocol = require('electron').protocol;
 const BrowserWindow = electron.BrowserWindow;
 
+const { osxApplicationMenu } = require('./modules/electronConfig');
+
 // Require env vars
 require('./modules/env');
 
@@ -33,22 +35,11 @@ function createWindow() {
   );
   mainWindow.on('closed', () => (mainWindow = null));
 
-  // process.platform === 'darwin' ? electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(
-  //   [
-  //     {
-  //       label: 'Options',
-  //       submenu: [
-  //         {
-  //           label: 'Quit',
-  //           accelerator: 'CmdOrCtrl+Q',
-  //           click() {
-  //             app.quit()
-  //           },
-  //         },
-  //       ],
-  //     }
-  //   ]
-  // )) : electron.Menu.setApplicationMenu(null);
+  process.platform === 'darwin'
+    ? electron.Menu.setApplicationMenu(
+        electron.Menu.buildFromTemplate(osxApplicationMenu)
+      )
+    : electron.Menu.setApplicationMenu(null);
 
   // Register protocol `audius` for serving static files
   // as webpack + chromium causes relative path issue

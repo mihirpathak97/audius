@@ -1,17 +1,13 @@
 import React from 'react';
-
 import { Link, withRouter } from 'react-router-dom';
-
 import styled from 'styled-components';
-
 import { Menu, Icon, Dropdown, Typography } from 'antd';
-
 import DownloadQueue from '@/components/DownloadQueue';
 
 const os = require('os');
-
 const { openWindow, BrowserWindow } = require('@/modules/electronConfig');
 
+// Styled Components
 const StyledAppBar = styled.div`
   height: 64px;
   width: 100vw;
@@ -68,10 +64,16 @@ const StyledIcon = styled(Icon)`
     : ''}
 `;
 
+/**
+ * Minises current window
+ */
 const minimizeApplication = () => {
   BrowserWindow.getFocusedWindow().minimize();
 };
 
+/**
+ * Closes current window
+ */
 const quitApplication = () => {
   BrowserWindow.getFocusedWindow().close();
 };
