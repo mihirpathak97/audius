@@ -124,6 +124,7 @@ module.exports = function(webpackEnv) {
         {
           loader: require.resolve(preProcessor),
           options: {
+            javascriptEnabled: true,
             sourceMap: true,
           },
         }
