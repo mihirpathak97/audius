@@ -23,12 +23,26 @@ const StyledAppBar = styled.div`
 `;
 
 const StyledDropdown = styled(Dropdown)`
-  display: ${props =>
-    props.path !== '/' || os.platform() === 'darwin' ? 'none' : 'block'};
+  ${props =>
+    props.path !== '/' || os.platform() === 'darwin' ? 'display: none' : ''};
 `;
 
 const GoBack = styled(Link)`
-  display: ${props => (props.path.includes('search') ? 'block' : 'none')};
+  ${props =>
+    props.path.includes('search')
+      ? `
+    display: block;
+    ${
+      os.platform() === 'darwin'
+        ? `
+    position: absolute;
+    left: 97px;
+    top: 23px;
+    `
+        : ''
+    }
+  `
+      : `display: none`};
 `;
 
 const StyledDownloadQueue = styled(DownloadQueue)`
@@ -89,6 +103,7 @@ export default withRouter(({ location }) => {
 
       <GoBack path={location.pathname} to="/">
         <Icon type="arrow-left" style={{ color: 'black' }} />
+        <span style={{ color: 'black', marginLeft: '0.3rem' }}>Go Back</span>
       </GoBack>
 
       <StyledDownloadQueue path={location.pathname} />
