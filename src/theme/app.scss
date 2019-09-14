@@ -2,17 +2,6 @@
 @import 'common';
 @import 'mixins';
 
-// The App bar
-.top-app-bar {
-  height: 64px;
-  width: 100vw;
-  padding: 0 1.5rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .anticon {
   font-size: 16px;
 }
@@ -47,7 +36,7 @@
   margin: auto;
   text-align: left;
   .title {
-    @extend .title
+    @extend .title;
   }
   .ant-typography {
     font-size: 1rem;
@@ -86,7 +75,7 @@
       }
       .ant-typography {
         margin-top: 10px;
-        @include animate-underline(black, 1rem)
+        @include animate-underline(black, 1rem);
       }
     }
   }
@@ -99,7 +88,7 @@
   margin: auto;
   text-align: left;
   .title {
-    @extend .title
+    @extend .title;
   }
   .ant-typography {
     font-size: 1rem;
@@ -170,10 +159,12 @@
       height: 50vh;
       overflow: hidden;
       .avatar {
-        .ant-avatar, img {
+        .ant-avatar,
+        img {
           width: 10rem;
           height: 10rem;
-          box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+            0 2px 10px 0 rgba(0, 0, 0, 0.12);
         }
       }
       .info {
@@ -224,10 +215,10 @@
   }
 }
 
-.download-queue {
-  position: absolute;
-  right: 120px;
-}
+// .download-queue {
+//   position: absolute;
+//   right: 120px;
+// }
 
 .dropdown-queue-menu {
   width: 360px !important;

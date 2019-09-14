@@ -21,7 +21,7 @@ import './app.global.scss';
 import Routes from './routes';
 
 // Components
-import TopBar from './components/TopBar';
+import AppBar from './components/AppBar';
 import ErrorBoundary from './components/ErrorBoundary';
 
 class App extends Component {
@@ -36,7 +36,7 @@ class App extends Component {
       <Provider store={store}>
         <HashRouter>
           <div className="App">
-            <TopBar />
+            <AppBar />
             <ErrorBoundary>
               <Routes></Routes>
             </ErrorBoundary>

@@ -26,43 +26,53 @@ function createWindow() {
   log.info('[app.main.js] Creating window');
   mainWindow = new BrowserWindow(electronConfig.windowConfig.mainWindow);
   mainWindow.setResizable(false);
-  mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../react-compiled/index.html')}`);
-  mainWindow.on('closed', () => mainWindow = null);
+  mainWindow.loadURL(
+    isDev
+      ? 'http://localhost:3000'
+      : `file://${path.join(__dirname, '../react-compiled/index.html')}`
+  );
+  mainWindow.on('closed', () => (mainWindow = null));
 
-  process.platform === 'darwin' ? electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(
-    [
-      {
-        label: 'Options',
-        submenu: [
-          {
-            label: 'Quit',
-            accelerator: 'CmdOrCtrl+Q',
-            click() {
-              app.quit()
-            },
-          },
-        ],
-      }
-    ]
-  )) : electron.Menu.setApplicationMenu(null);
+  // process.platform === 'darwin' ? electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate(
+  //   [
+  //     {
+  //       label: 'Options',
+  //       submenu: [
+  //         {
+  //           label: 'Quit',
+  //           accelerator: 'CmdOrCtrl+Q',
+  //           click() {
+  //             app.quit()
+  //           },
+  //         },
+  //       ],
+  //     }
+  //   ]
+  // )) : electron.Menu.setApplicationMenu(null);
 
   // Register protocol `audius` for serving static files
   // as webpack + chromium causes relative path issue
-  protocol.registerFileProtocol('audius', (request, callback) => {
-    const url = request.url.substr(9)
-    if (url.includes('static')) {
-      callback({ path: path.normalize(`${__dirname}/../react-compiled/${url}`) })
+  protocol.registerFileProtocol(
+    'audius',
+    (request, callback) => {
+      const url = request.url.substr(9);
+      if (url.includes('static')) {
+        callback({
+          path: path.normalize(`${__dirname}/../react-compiled/${url}`)
+        });
+      }
+    },
+    error => {
+      if (error) console.error('Failed to register protocol');
     }
-  }, (error) => {
-    if (error) console.error('Failed to register protocol')
-  })
+  );
 }
 
 app.on('ready', () => {
   log.info('[app.main.js] App ready');
 
   // Auto Updater
-  require("./modules/AutoUpdater");
+  require('./modules/AutoUpdater');
 
   // Init persistant storage
   require('./modules/Settings');
@@ -71,32 +81,42 @@ app.on('ready', () => {
   createWindow();
 
   // Then get Spotify access token
-  Spotify.getAccessToken().then(response => {
-    if (response.code === 200) {
-      log.info('[app.main.js] Generated Spotify token');
-    }
-  }).catch(error => {
-    log.error('[app.main.js] Error generating Spotify token!');
-    electron.dialog.showErrorBox('Error Generating Spotify Access Token!', error.message)
-  });
+  Spotify.getAccessToken()
+    .then(response => {
+      if (response.code === 200) {
+        log.info('[app.main.js] Generated Spotify token');
+      }
+    })
+    .catch(error => {
+      log.error('[app.main.js] Error generating Spotify token!');
+      electron.dialog.showErrorBox(
+        'Error Generating Spotify Access Token!',
+        error.message
+      );
+    });
 });
 
 /**
  * Refresh token
  * Called by render and uses electron's IPC to communicate
  */
-electron.ipcMain.on('refresh-spotify-token', (event) => {
-  Spotify.getAccessToken().then(response => {
-    if (response.code === 200) {
-      log.info('[app.main.js] Refreshed Spotify token');
-      event.sender.send('refresh-token-success');
-    }
-  }).catch(error => {
-    log.error('[app.main.js] Error refreshing Spotify token!');
-    electron.dialog.showErrorBox('Error refreshing Spotify Access Token!', error.message)
-    event.sender.send('refresh-token-error')
-  });
-})
+electron.ipcMain.on('refresh-spotify-token', event => {
+  Spotify.getAccessToken()
+    .then(response => {
+      if (response.code === 200) {
+        log.info('[app.main.js] Refreshed Spotify token');
+        event.sender.send('refresh-token-success');
+      }
+    })
+    .catch(error => {
+      log.error('[app.main.js] Error refreshing Spotify token!');
+      electron.dialog.showErrorBox(
+        'Error refreshing Spotify Access Token!',
+        error.message
+      );
+      event.sender.send('refresh-token-error');
+    });
+});
 
 app.on('window-all-closed', () => {
   // [OS X] it is common for applications and their menu bar
