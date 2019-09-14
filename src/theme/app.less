@@ -1,6 +1,6 @@
-@import 'variables';
-@import 'common';
-@import 'mixins';
+@import './_variables.less';
+@import './_common.less';
+@import './_mixins.less';
 
 .anticon {
   font-size: 16px;
@@ -36,7 +36,7 @@
   margin: auto;
   text-align: left;
   .title {
-    @extend .title;
+    &:extend(.title);
   }
   .ant-typography {
     font-size: 1rem;
@@ -46,7 +46,7 @@
     font-weight: 500 !important;
   }
   .mention {
-    @include animate-underline($less-purple, 1rem);
+    .animate-underline(@less-purple, 1rem);
   }
   .electron {
     display: flex;
@@ -75,7 +75,7 @@
       }
       .ant-typography {
         margin-top: 10px;
-        @include animate-underline(black, 1rem);
+        .animate-underline(black, 1rem);
       }
     }
   }
@@ -88,7 +88,7 @@
   margin: auto;
   text-align: left;
   .title {
-    @extend .title;
+    &:extend(.title);
   }
   .ant-typography {
     font-size: 1rem;
@@ -106,7 +106,7 @@
   margin: auto;
   text-align: left;
   .title {
-    @extend .title;
+    &:extend(.title);
     font-weight: 500 !important;
   }
   .ant-table {
@@ -176,7 +176,7 @@
           font-size: 1rem;
         }
         .track-url {
-          @include animate-underline(rgba(0, 0, 0, 0.65), auto);
+          .animate-underline(rgba(0, 0, 0, 0.65), auto);
         }
       }
     }

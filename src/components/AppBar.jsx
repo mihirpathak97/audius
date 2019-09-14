@@ -79,18 +79,17 @@ const AppMenu = (
 export default withRouter(({ location }) => {
   return (
     <StyledAppBar>
-      <div>
-        <StyledDropdown
-          path={location.pathname}
-          overlay={AppMenu}
-          trigger={['click']}
-        >
-          <Icon type="menu" style={{ color: 'black' }} />
-        </StyledDropdown>
-        <GoBack path={location.pathname} to="/">
-          <Icon type="arrow-left" style={{ color: 'black' }} />
-        </GoBack>
-      </div>
+      <StyledDropdown
+        path={location.pathname}
+        overlay={AppMenu}
+        trigger={['click']}
+      >
+        <Icon type="menu" style={{ color: 'black' }} />
+      </StyledDropdown>
+
+      <GoBack path={location.pathname} to="/">
+        <Icon type="arrow-left" style={{ color: 'black' }} />
+      </GoBack>
 
       <StyledDownloadQueue path={location.pathname} />
 

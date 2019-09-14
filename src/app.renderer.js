@@ -15,7 +15,7 @@ import { store } from './store/configureStore';
 import { notification } from 'antd';
 
 // import global CSS file
-import './app.global.scss';
+import './app.global.less';
 
 // Routes
 import Routes from './routes';
