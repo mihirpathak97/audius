@@ -3,20 +3,25 @@ import {
   REMOVE_FROM_QUEUE,
   UPDATE_QUEUE_ITEM
 } from '../actions/downloadQueue';
-import { downloadAudio } from '@/modules/YTDownload';
+import { downloadAudio } from '../modules/YTDownload';
 
-const initialState = [];
+import {
+  QueueItem,
+  ReduxAction
+} from '../types'
 
-export default function downloadQueue(state = initialState, action) {
+const initialState: Array<QueueItem> = [];
+
+export default function downloadQueue(state = initialState, action: ReduxAction): Array<QueueItem> {
   switch (action.type) {
     case ADD_TO_QUEUE:
       if (state.length === 0) {
         downloadAudio(
-          action.queueItem.youtubeMetadata,
-          action.queueItem.spotifyMetadata
+          action.queuePayload.youtubeMetadata,
+          action.queuePayload.spotifyMetadata
         );
       }
-      return [...state, action.queueItem];
+      return [...state, action.queuePayload];
     case REMOVE_FROM_QUEUE:
       if (state[1]) {
         downloadAudio(state[1].youtubeMetadata, state[1].spotifyMetadata);
@@ -29,7 +34,7 @@ export default function downloadQueue(state = initialState, action) {
       return [
         {
           ...state[0],
-          progress: action.payload
+          progress: action.progressPayload
         },
         ...state.slice(1)
       ];

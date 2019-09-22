@@ -8,7 +8,7 @@ import {
   Input
 } from 'antd';
 
-const logo = require('@/assets/audius_big.png');
+const logo = require('../assets/audius_big.png');
 
 interface Props extends RouteComponentProps<any> {
   // 

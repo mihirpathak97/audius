@@ -1,3 +1,7 @@
+import {
+  QueueItem
+} from '../types'
+
 /**
  * Action Types
  */
@@ -8,23 +12,23 @@ export const UPDATE_QUEUE_ITEM = 'UPDATE_QUEUE_ITEM';
 /**
  * Action Creators
  */
-export function addToQueue(queueItem) {
+export function addToQueue(queuePayload: QueueItem) {
   return {
     type: ADD_TO_QUEUE,
-    queueItem
+    queuePayload
   };
 }
 
-export function removeFromQueue(index) {
+export function removeFromQueue(index: number) {
   return {
     type: REMOVE_FROM_QUEUE,
     index
   };
 }
 
-export function updateQueueItem(payload) {
+export function updateQueueItem(progressPayload: Object) {
   return {
     type: UPDATE_QUEUE_ITEM,
-    payload
+    progressPayload
   };
 }

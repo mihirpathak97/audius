@@ -1,5 +1,5 @@
-import { updateQueueItem, removeFromQueue } from '@/actions/downloadQueue';
-import store from '@/store';
+import { updateQueueItem, removeFromQueue } from '../actions/downloadQueue';
+import store from '../store';
 
 const progress = require('progress-stream');
 const path = require('path');

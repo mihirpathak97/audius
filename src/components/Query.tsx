@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { Typography, Spin, Icon, notification, Table, Button } from 'antd';
 import { useDispatch } from 'react-redux';
-import { addToQueue } from '@/actions/downloadQueue';
+import { addToQueue } from '../actions/downloadQueue';
 import queryString from 'query-string';
 import AudioInfo from './AudioInfo';
-import defaultArtwork from '@/assets/default-artwork.png';
-import { queryCheck } from '../../modules/queryCheck';
+import { queryCheck } from '../modules/queryCheck';
+import {
+  openExternal
+} from '../modules/electronConfig'
 
-const { openExternal } = require('@/modules/electronConfig');
+import {
+  YTResult,
+  SpotifyResult
+} from '../types'
 
-const View = ({ location }) => {
-  const [loading, setLoading] = useState(false);
-  const [spotifyResult, setSpotifyResult] = useState('');
-  const [youtubeResult, setYoutubeResult] = useState('');
+const defaultArtwork = require('../assets/default-artwork.png');
+
+interface Props extends RouteComponentProps<any> {
+  // 
+}
+
+const Query: React.FunctionComponent<Props> = ({ location }) => {
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [spotifyResult, setSpotifyResult] = useState<SpotifyResult>();
+  const [youtubeResult, setYoutubeResult] = useState<Array<YTResult>>();
 
   let dispatch = useDispatch();
 
@@ -27,8 +38,8 @@ const View = ({ location }) => {
         setYoutubeResult(response.youtubeResult);
       })
       .catch(error => {
+        setLoading(false);
         if (typeof error.code !== 'string') {
-          setLoading(false);
           notification.error({
             message: 'Error!',
             description: error.message
@@ -46,7 +57,7 @@ const View = ({ location }) => {
     {
       title: 'Actions',
       key: 'actions',
-      render: (text, record) => (
+      render: (text: String, record: any) => (
         <div className="video-actions">
           <Button
             icon="download"
@@ -77,21 +88,17 @@ const View = ({ location }) => {
           <Spin
             indicator={<Icon type="loading" style={{ fontSize: 64 }} spin />}
           />
-        ) : spotifyResult === '' ? (
-          <Typography.Text style={{ fontSize: '1.5rem' }}>
-            Your search did not match any results
-          </Typography.Text>
-        ) : (
+        ) : spotifyResult || youtubeResult ? (
           <div className="container">
-            {spotifyResult === null ? (
-              <AudioInfo
-                name={youtubeResult[0].title}
-                artist={youtubeResult[0].channelTitle}
-                albumArt={defaultArtwork}
-              />
-            ) : (
+            {spotifyResult ? (
               <AudioInfo {...spotifyResult} />
-            )}
+            ) : (
+                <AudioInfo
+                  name={youtubeResult ? youtubeResult[0].title : ''}
+                  artist={youtubeResult ? youtubeResult[0].channelTitle : ''}
+                  albumArt={defaultArtwork}
+                />
+              )}
             <div className="results">
               <Typography.Text className="heading">
                 Search Results
@@ -104,10 +111,14 @@ const View = ({ location }) => {
               ></Table>
             </div>
           </div>
-        )}
+        ) : (
+              <Typography.Text style={{ fontSize: '1.5rem' }}>
+                Your search did not match any results
+          </Typography.Text>
+            )}
       </div>
     </div>
   );
 };
 
-export default withRouter(View);
+export default withRouter(Query);

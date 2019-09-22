@@ -7,11 +7,11 @@ import React, { Component } from 'react';
  * Import the component or view and define the route
  */
 
-import Home from '@/components/Home/index.tsx';
-import About from '@/components/About';
-import Settings from '@/components/Settings';
-import Terms from '@/components/Terms';
-import Query from '@/components/Query';
+import Home from './components/Home';
+import About from './components/About';
+import Settings from './components/Settings';
+import Terms from './components/Terms';
+import Query from './components/Query';
 
 export default class Router extends Component {
   render() {

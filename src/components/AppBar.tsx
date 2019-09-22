@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   List,
@@ -14,18 +14,30 @@ import {
   Progress
 } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromQueue } from '@/actions/downloadQueue';
+import { removeFromQueue } from '../actions/downloadQueue';
+
+import {
+  Store,
+  StreamProgress,
+  QueueItem
+} from '../types'
 
 const os = require('os');
-const { openWindow, BrowserWindow } = require('@/modules/electronConfig');
+const { openWindow, BrowserWindow } = require('../modules/electronConfig');
 
-let DownloadQueue = ({ path }) => {
+const defaultArtwork = require('../assets/default-artwork.png');
+
+interface DownloadQueueProps {
+  path: string
+}
+
+const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({ path }) => {
   const [showDrawer, setShowDrawer] = useState(false);
 
-  let queue = useSelector(state => state.downloadQueue);
+  let queue = useSelector((state: Store) => state.downloadQueue);
   let dispatch = useDispatch();
 
-  let progressContent = progress => {
+  let progressContent = (progress: StreamProgress | undefined) => {
     return (
       <div>
         {progress ? (
@@ -62,14 +74,14 @@ let DownloadQueue = ({ path }) => {
       >
         {queue && queue.length > 0 ? (
           <List>
-            {queue.map((queueItem, index) => {
+            {queue.map((queueItem: QueueItem, index) => {
               let useYT = queueItem.spotifyMetadata === null ? true : false;
               return (
                 <Popover
                   title={
                     useYT
                       ? queueItem.youtubeMetadata.title
-                      : queueItem.spotifyMetadata.name
+                      : queueItem.spotifyMetadata ? queueItem.spotifyMetadata.name : ''
                   }
                   key={queueItem.youtubeMetadata.id}
                   className="download-item"
@@ -82,14 +94,14 @@ let DownloadQueue = ({ path }) => {
                       alt={
                         useYT
                           ? queueItem.youtubeMetadata.title
-                          : queueItem.spotifyMetadata.name
+                          : queueItem.spotifyMetadata ? queueItem.spotifyMetadata.name : ''
                       }
-                      src={useYT ? '' : queueItem.spotifyMetadata.albumArt}
+                      src={useYT ? defaultArtwork : queueItem.spotifyMetadata ? queueItem.spotifyMetadata.albumArt : defaultArtwork}
                     />
                     <Typography.Text>
                       {useYT
                         ? queueItem.youtubeMetadata.title
-                        : queueItem.spotifyMetadata.name}
+                        : queueItem.spotifyMetadata ? queueItem.spotifyMetadata.name : ''}
                     </Typography.Text>
                     <Button
                       onClick={() => dispatch(removeFromQueue(index))}
@@ -199,7 +211,9 @@ const AppMenu = (
   </Menu>
 );
 
-export default withRouter(({ location }) => {
+const AppBar: React.FunctionComponent<RouteComponentProps> = ({
+  location
+}) => {
   return (
     <StyledAppBar>
       <StyledDropdown
@@ -240,5 +254,7 @@ export default withRouter(({ location }) => {
         />
       </StyledWindowHandlers>
     </StyledAppBar>
-  );
-});
+  )
+}
+
+export default withRouter(AppBar)

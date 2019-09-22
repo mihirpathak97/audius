@@ -4,11 +4,18 @@ import {
   Typography
 } from 'antd';
 
-const {
+import {
   openExternal
-} = require('@/modules/electronConfig');
+} from '../modules/electronConfig'
 
-export default ({
+interface Props {
+  name: string,
+  albumArt: string,
+  artist: string,
+  spotifyTrackUrl?: string
+}
+
+const AudioInfo: React.FunctionComponent<Props> = ({
   name,
   albumArt,
   artist,
@@ -34,3 +41,5 @@ export default ({
     </div>
   )
 }
+
+export default AudioInfo

@@ -15,7 +15,7 @@ import { notification } from 'antd';
 import './app.global.less';
 
 // Routes
-import Routes from './routes';
+import Routes from './Routes';
 
 // Components
 import AppBar from './components/AppBar';
@@ -25,7 +25,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { Provider } from 'react-redux';
 import store from './store';
 
-const App = () => {
+const App: React.FunctionComponent = () => {
   useEffect(() => {
     notification.config({
       placement: 'bottomLeft'

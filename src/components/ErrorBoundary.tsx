@@ -6,13 +6,8 @@ class ErrorBoundary extends React.Component {
     hasError: false
   }
 
-  componentDidMount() {
-    console.log('well')
-  }
-
-  componentDidCatch(error) {
+  componentDidCatch(error: any) {
     console.log(error)
-    // You can also log the error to an error reporting service
     this.setState({
       hasError: true
     })
@@ -24,7 +19,7 @@ class ErrorBoundary extends React.Component {
       return <h1>Something went wrong.</h1>;
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 
