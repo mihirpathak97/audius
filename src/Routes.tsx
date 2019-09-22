@@ -1,5 +1,5 @@
-import { Route, Switch } from 'react-router';
-import React, { Component } from 'react';
+import { Route, Switch } from 'react-router'
+import React, { Component } from 'react'
 
 /**
  * The application routes are defined here
@@ -7,11 +7,11 @@ import React, { Component } from 'react';
  * Import the component or view and define the route
  */
 
-import Home from './components/Home';
-import About from './components/About';
-import Settings from './components/Settings';
-import Terms from './components/Terms';
-import Query from './components/Query';
+import Home from './components/Home'
+import About from './components/About'
+import Settings from './components/Settings'
+import Terms from './components/Terms'
+import Query from './components/Query'
 
 export default class Router extends Component {
   render() {
@@ -23,6 +23,6 @@ export default class Router extends Component {
         <Route exact path="/terms" render={() => <Terms />} />
         <Route exact path="/search" render={() => <Query />} />
       </Switch>
-    );
+    )
   }
 }

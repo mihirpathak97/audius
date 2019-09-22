@@ -3,37 +3,37 @@
  * Calls electron's API to create window and initialize the app
  */
 
-const electron = require('electron');
-const app = require('electron').app;
-const protocol = require('electron').protocol;
-const BrowserWindow = electron.BrowserWindow;
+const electron = require('electron')
+const app = require('electron').app
+const protocol = require('electron').protocol
+const BrowserWindow = electron.BrowserWindow
 
-const { osxApplicationMenu } = require('./modules/electronConfig');
+const { osxApplicationMenu } = require('./modules/electronConfig')
 
 // Require env vars
-require('./modules/env');
+require('./modules/env')
 
-const path = require('path');
-const isDev = require('electron-is-dev');
-const Spotify = require('./modules/SpotifyWebApi');
-const electronConfig = require('./modules/electronConfig');
+const path = require('path')
+const isDev = require('electron-is-dev')
+const Spotify = require('./modules/SpotifyWebApi')
+const electronConfig = require('./modules/electronConfig')
 
 // Log
-var log = require('electron-log');
-log.transports.file.level = 'debug';
+var log = require('electron-log')
+log.transports.file.level = 'debug'
 
-let mainWindow;
+let mainWindow
 
 function createWindow() {
-  log.info('[app.main.js] Creating window');
-  mainWindow = new BrowserWindow(electronConfig.windowConfig.mainWindow);
-  mainWindow.setResizable(false);
+  log.info('[app.main.js] Creating window')
+  mainWindow = new BrowserWindow(electronConfig.windowConfig.mainWindow)
+  mainWindow.setResizable(false)
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
       : `file://${path.join(__dirname, '../react-compiled/index.html')}`
-  );
-  mainWindow.on('closed', () => (mainWindow = null));
+  )
+  mainWindow.on('closed', () => (mainWindow = null))
 
   // process.platform === 'darwin'
   //   ? electron.Menu.setApplicationMenu(
@@ -46,46 +46,46 @@ function createWindow() {
   protocol.registerFileProtocol(
     'audius',
     (request, callback) => {
-      const url = request.url.substr(9);
+      const url = request.url.substr(9)
       if (url.includes('static')) {
         callback({
-          path: path.normalize(`${__dirname}/../react-compiled/${url}`)
-        });
+          path: path.normalize(`${__dirname}/../react-compiled/${url}`),
+        })
       }
     },
     error => {
-      if (error) console.error('Failed to register protocol');
+      if (error) console.error('Failed to register protocol')
     }
-  );
+  )
 }
 
 app.on('ready', () => {
-  log.info('[app.main.js] App ready');
+  log.info('[app.main.js] App ready')
 
   // Auto Updater
-  require('./modules/AutoUpdater');
+  require('./modules/AutoUpdater')
 
   // Init persistant storage
-  require('./modules/Settings');
+  require('./modules/Settings')
 
   // First create BrowserWindow
-  createWindow();
+  createWindow()
 
   // Then get Spotify access token
   Spotify.getAccessToken()
     .then(response => {
       if (response.code === 200) {
-        log.info('[app.main.js] Generated Spotify token');
+        log.info('[app.main.js] Generated Spotify token')
       }
     })
     .catch(error => {
-      log.error('[app.main.js] Error generating Spotify token!');
+      log.error('[app.main.js] Error generating Spotify token!')
       electron.dialog.showErrorBox(
         'Error Generating Spotify Access Token!',
         error.message
-      );
-    });
-});
+      )
+    })
+})
 
 /**
  * Refresh token
@@ -95,33 +95,33 @@ electron.ipcMain.on('refresh-spotify-token', event => {
   Spotify.getAccessToken()
     .then(response => {
       if (response.code === 200) {
-        log.info('[app.main.js] Refreshed Spotify token');
-        event.sender.send('refresh-token-success');
+        log.info('[app.main.js] Refreshed Spotify token')
+        event.sender.send('refresh-token-success')
       }
     })
     .catch(error => {
-      log.error('[app.main.js] Error refreshing Spotify token!');
+      log.error('[app.main.js] Error refreshing Spotify token!')
       electron.dialog.showErrorBox(
         'Error refreshing Spotify Access Token!',
         error.message
-      );
-      event.sender.send('refresh-token-error');
-    });
-});
+      )
+      event.sender.send('refresh-token-error')
+    })
+})
 
 app.on('window-all-closed', () => {
   // [OS X] it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  log.info('[app.main.js] Quitting app');
+  log.info('[app.main.js] Quitting app')
   if (process.platform !== 'darwin') {
-    app.quit();
+    app.quit()
   }
-});
+})
 
 app.on('activate', () => {
   // [OS X] Re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow();
+    createWindow()
   }
-});
+})

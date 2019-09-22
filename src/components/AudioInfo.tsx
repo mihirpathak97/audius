@@ -1,17 +1,12 @@
-import React from 'react';
-import {
-  Avatar,
-  Typography
-} from 'antd';
+import React from 'react'
+import { Avatar, Typography } from 'antd'
 
-import {
-  openExternal
-} from '../modules/electronConfig'
+import { openExternal } from '../modules/electronConfig'
 
 interface Props {
-  name: string,
-  albumArt: string,
-  artist: string,
+  name: string
+  albumArt: string
+  artist: string
   spotifyTrackUrl?: string
 }
 
@@ -19,21 +14,21 @@ const AudioInfo: React.FunctionComponent<Props> = ({
   name,
   albumArt,
   artist,
-  spotifyTrackUrl
+  spotifyTrackUrl,
 }) => {
-  return(
+  return (
     <div className="audio-info">
       <div className="avatar">
-        <Avatar
-          alt={name}
-          src={albumArt}
-          shape={"square"}
-          size="large"
-        />
+        <Avatar alt={name} src={albumArt} shape={'square'} size="large" />
       </div>
       <div className="info">
         <Typography.Text>
-          <span className="track-url" onClick={() => openExternal(spotifyTrackUrl)}><strong>{name}</strong></span>
+          <span
+            className="track-url"
+            onClick={() => openExternal(spotifyTrackUrl)}
+          >
+            <strong>{name}</strong>
+          </span>
           <br></br>
           {artist}
         </Typography.Text>

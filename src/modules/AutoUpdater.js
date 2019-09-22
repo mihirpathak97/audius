@@ -5,15 +5,15 @@
  * and will be automatically downloaded and will be installed
  */
 
-const {autoUpdater} = require("electron-updater");
-var log = require('electron-log');
+const { autoUpdater } = require('electron-updater')
+var log = require('electron-log')
 /**
  * Update Channel
  * supported channels are 'alpha', 'beta' and 'latest'
  * Refer electron-builder docs
  */
-log.info('[AutoUpdater.js] Checking for updates');
-autoUpdater.channel = 'alpha';
-autoUpdater.checkForUpdatesAndNotify();
+log.info('[AutoUpdater.js] Checking for updates')
+autoUpdater.channel = 'alpha'
+autoUpdater.checkForUpdatesAndNotify()
 
 // Done in two lines :)

@@ -1,8 +1,8 @@
 const { BrowserWindow, app } = process.env.NODE_ENV
   ? require('electron').remote
-  : require('electron');
-const isDev = require('electron-is-dev');
-const path = require('path');
+  : require('electron')
+const isDev = require('electron-is-dev')
+const path = require('path')
 
 const windowConfig = {
   mainWindow: {
@@ -10,22 +10,22 @@ const windowConfig = {
     height: 600,
     frame: false,
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   },
   miniWindow: {
     width: 700,
     height: 500,
     frame: false,
     webPreferences: {
-      nodeIntegration: true
-    }
-  }
-};
+      nodeIntegration: true,
+    },
+  },
+}
 
 let openWindow = url => {
-  const miniWindow = new BrowserWindow(windowConfig.miniWindow);
-  miniWindow.setResizable(false);
+  const miniWindow = new BrowserWindow(windowConfig.miniWindow)
+  miniWindow.setResizable(false)
   miniWindow.loadURL(
     process.env.NODE_ENV === 'development' || isDev
       ? 'http://localhost:3000/#' + url
@@ -33,13 +33,13 @@ let openWindow = url => {
           app.getAppPath(),
           'react-compiled/index.html/#' + url
         )}`
-  );
-};
+  )
+}
 
 let openExternal = url => {
-  var shell = require('electron').shell;
-  shell.openExternal(url);
-};
+  var shell = require('electron').shell
+  shell.openExternal(url)
+}
 
 let osxApplicationMenu = [
   {
@@ -48,36 +48,36 @@ let osxApplicationMenu = [
       {
         label: 'About',
         click() {
-          openWindow('about');
-        }
+          openWindow('about')
+        },
       },
       {
         label: 'Settings',
         click() {
-          openWindow('settings');
-        }
+          openWindow('settings')
+        },
       },
       {
         label: 'Terms of Use',
         click() {
-          openWindow('terms');
-        }
+          openWindow('terms')
+        },
       },
       {
         label: 'Quit Audius',
         accelerator: 'CmdOrCtrl+Q',
         click() {
-          app.quit();
-        }
-      }
-    ]
-  }
-];
+          app.quit()
+        },
+      },
+    ],
+  },
+]
 
 module.exports = {
   windowConfig,
   openWindow,
   BrowserWindow,
   openExternal,
-  osxApplicationMenu
-};
+  osxApplicationMenu,
+}

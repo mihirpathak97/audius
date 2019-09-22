@@ -2,44 +2,44 @@
   YTSearch.js: YouTube search module using the v3 API
 */
 
-const axios = require('axios');
-var querystring = require('querystring');
-var log = require('./log');
+const axios = require('axios')
+var querystring = require('querystring')
+var log = require('./log')
 
 let convertYTDuration = duration => {
-  var a = duration.match(/\d+/g);
+  var a = duration.match(/\d+/g)
   if (
     duration.indexOf('M') >= 0 &&
     duration.indexOf('H') === -1 &&
     duration.indexOf('S') === -1
   ) {
-    a = [0, a[0], 0];
+    a = [0, a[0], 0]
   }
   if (duration.indexOf('H') >= 0 && duration.indexOf('M') === -1) {
-    a = [a[0], 0, a[1]];
+    a = [a[0], 0, a[1]]
   }
   if (
     duration.indexOf('H') >= 0 &&
     duration.indexOf('M') === -1 &&
     duration.indexOf('S') === -1
   ) {
-    a = [a[0], 0, 0];
+    a = [a[0], 0, 0]
   }
-  duration = 0;
+  duration = 0
   if (a.length === 3) {
-    duration = duration + parseInt(a[0], 10) * 3600;
-    duration = duration + parseInt(a[1], 10) * 60;
-    duration = duration + parseInt(a[2], 10);
+    duration = duration + parseInt(a[0], 10) * 3600
+    duration = duration + parseInt(a[1], 10) * 60
+    duration = duration + parseInt(a[2], 10)
   }
   if (a.length === 2) {
-    duration = duration + parseInt(a[0], 10) * 60;
-    duration = duration + parseInt(a[1], 10);
+    duration = duration + parseInt(a[0], 10) * 60
+    duration = duration + parseInt(a[1], 10)
   }
   if (a.length === 1) {
-    duration = duration + parseInt(a[0], 10);
+    duration = duration + parseInt(a[0], 10)
   }
-  return duration * 1000;
-};
+  return duration * 1000
+}
 
 let searchVideoById = youtubeId => {
   return new Promise(function(resolve, reject) {
@@ -49,15 +49,15 @@ let searchVideoById = youtubeId => {
           querystring.stringify({
             id: youtubeId,
             part: 'snippet, contentDetails',
-            key: process.env.YOUTUBE_V3_API_KEY
+            key: process.env.YOUTUBE_V3_API_KEY,
           })
       )
       .then(response => {
         if (response.data.items.length === 0) {
           reject({
             code: '404Y',
-            message: 'Your search did not match any results'
-          });
+            message: 'Your search did not match any results',
+          })
         }
         let result = response.data.items.map(function(item) {
           return {
@@ -69,19 +69,19 @@ let searchVideoById = youtubeId => {
             channelTitle: item.snippet.channelTitle,
             title: item.snippet.title,
             description: item.snippet.description,
-            duration: convertYTDuration(item.contentDetails.duration)
-          };
-        });
-        resolve(result);
+            duration: convertYTDuration(item.contentDetails.duration),
+          }
+        })
+        resolve(result)
       })
       .catch(error => {
-        reject(error);
-      });
-  });
-};
+        reject(error)
+      })
+  })
+}
 
 let searchVideosByQuery = query => {
-  log.info('YTSearch', 'Recieved search parameters - ' + query);
+  log.info('YTSearch', 'Recieved search parameters - ' + query)
 
   var apiParams = {
     part: 'snippet',
@@ -91,8 +91,8 @@ let searchVideosByQuery = query => {
     type: 'video',
     // Topic ID for music
     // Gives us only music videos as resuts
-    topicId: '/m/04rlf'
-  };
+    topicId: '/m/04rlf',
+  }
 
   return new Promise(function(resolve, reject) {
     axios
@@ -102,7 +102,7 @@ let searchVideosByQuery = query => {
       )
       .then(response => {
         try {
-          var result = response.data;
+          var result = response.data
 
           // crunch the results into a meaningfull JSON object
           result = result.items.map(function(item) {
@@ -114,9 +114,9 @@ let searchVideosByQuery = query => {
               channelId: item.snippet.channelId,
               channelTitle: item.snippet.channelTitle,
               title: item.snippet.title,
-              description: item.snippet.description
-            };
-          });
+              description: item.snippet.description,
+            }
+          })
           // Asyncronously get video duration and write to result
           result.forEach(element => {
             axios
@@ -125,31 +125,31 @@ let searchVideosByQuery = query => {
                   querystring.stringify({
                     id: element.id,
                     part: 'snippet, contentDetails',
-                    key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE'
+                    key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE',
                   })
               )
               .then(response => {
                 element.duration = convertYTDuration(
                   response.data.items[0].contentDetails.duration
-                );
+                )
               })
               .catch(error => {
-                reject(error.message);
-              });
-          });
+                reject(error.message)
+              })
+          })
 
-          resolve(result);
+          resolve(result)
         } catch (error) {
-          console.log(error);
+          console.log(error)
         }
       })
       .catch(error => {
-        reject(error);
-      });
-  });
-};
+        reject(error)
+      })
+  })
+}
 
 module.exports = {
   searchVideosByQuery,
-  searchVideoById
-};
+  searchVideoById,
+}

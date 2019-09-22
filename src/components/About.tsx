@@ -1,18 +1,18 @@
-import React from 'react';
+import React from 'react'
 
-import { Typography } from 'antd';
+import { Typography } from 'antd'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faGithub,
   faNodeJs,
   faChrome,
-  faReact
-} from '@fortawesome/free-brands-svg-icons';
+  faReact,
+} from '@fortawesome/free-brands-svg-icons'
 
-const electron = require('../assets/electron-logo.svg');
+const electron = require('../assets/electron-logo.svg')
 
-const { openExternal } = require('../modules/electronConfig');
+const { openExternal } = require('../modules/electronConfig')
 
 const About: React.FunctionComponent = () => {
   return (
@@ -71,7 +71,7 @@ const About: React.FunctionComponent = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About

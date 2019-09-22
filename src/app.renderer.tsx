@@ -5,32 +5,32 @@
  * Initialises React App
  */
 
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import ReactDOM from 'react-dom'
+import { HashRouter } from 'react-router-dom'
 
-import { notification } from 'antd';
+import { notification } from 'antd'
 
 // import global CSS file
-import './app.global.less';
+import './app.global.less'
 
 // Routes
-import Routes from './Routes';
+import Routes from './Routes'
 
 // Components
-import AppBar from './components/AppBar';
-import ErrorBoundary from './components/ErrorBoundary';
+import AppBar from './components/AppBar'
+import ErrorBoundary from './components/ErrorBoundary'
 
 // Redux
-import { Provider } from 'react-redux';
-import store from './store';
+import { Provider } from 'react-redux'
+import store from './store'
 
 const App: React.FunctionComponent = () => {
   useEffect(() => {
     notification.config({
-      placement: 'bottomLeft'
-    });
-  }, []);
+      placement: 'bottomLeft',
+    })
+  }, [])
 
   return (
     <Provider store={store}>
@@ -43,8 +43,8 @@ const App: React.FunctionComponent = () => {
         </div>
       </HashRouter>
     </Provider>
-  );
-};
+  )
+}
 
 // Render App to DOM
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'))

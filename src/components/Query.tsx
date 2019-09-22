@@ -1,58 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 
-import { Typography, Spin, Icon, notification, Table, Button } from 'antd';
-import { useDispatch } from 'react-redux';
-import { addToQueue } from '../actions/downloadQueue';
-import queryString from 'query-string';
-import AudioInfo from './AudioInfo';
-import { queryCheck } from '../modules/queryCheck';
-import {
-  openExternal
-} from '../modules/electronConfig'
+import { Typography, Spin, Icon, notification, Table, Button } from 'antd'
+import { useDispatch } from 'react-redux'
+import { addToQueue } from '../actions/downloadQueue'
+import queryString from 'query-string'
+import AudioInfo from './AudioInfo'
+import { queryCheck } from '../modules/queryCheck'
+import { openExternal } from '../modules/electronConfig'
 
-import {
-  YTResult,
-  SpotifyResult
-} from '../types'
+import { YTResult, SpotifyResult } from '../types'
 
-const defaultArtwork = require('../assets/default-artwork.png');
+const defaultArtwork = require('../assets/default-artwork.png')
 
 interface Props extends RouteComponentProps<any> {
-  // 
+  //
 }
 
 const Query: React.FunctionComponent<Props> = ({ location }) => {
-  const [loading, setLoading] = useState<Boolean>(false);
-  const [spotifyResult, setSpotifyResult] = useState<SpotifyResult>();
-  const [youtubeResult, setYoutubeResult] = useState<Array<YTResult>>();
+  const [loading, setLoading] = useState<Boolean>(false)
+  const [spotifyResult, setSpotifyResult] = useState<SpotifyResult>()
+  const [youtubeResult, setYoutubeResult] = useState<Array<YTResult>>()
 
-  let dispatch = useDispatch();
+  let dispatch = useDispatch()
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(true)
     queryCheck(queryString.parse(location.search).query)
       .then(response => {
-        setLoading(false);
-        setSpotifyResult(response.spotifyResult);
-        setYoutubeResult(response.youtubeResult);
+        setLoading(false)
+        setSpotifyResult(response.spotifyResult)
+        setYoutubeResult(response.youtubeResult)
       })
       .catch(error => {
-        setLoading(false);
+        setLoading(false)
         if (typeof error.code !== 'string') {
           notification.error({
             message: 'Error!',
-            description: error.message
-          });
+            description: error.message,
+          })
         }
-      });
-  }, [location]);
+      })
+  }, [location])
 
   const colums = [
     {
       dataIndex: 'title',
       key: 'title',
-      title: 'Video Title'
+      title: 'Video Title',
     },
     {
       title: 'Actions',
@@ -65,7 +60,7 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
               dispatch(
                 addToQueue({
                   youtubeMetadata: record,
-                  spotifyMetadata: spotifyResult
+                  spotifyMetadata: spotifyResult,
                 })
               )
             }
@@ -77,9 +72,9 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
             type="link"
           ></Button>
         </div>
-      )
-    }
-  ];
+      ),
+    },
+  ]
 
   return (
     <div>
@@ -93,12 +88,12 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
             {spotifyResult ? (
               <AudioInfo {...spotifyResult} />
             ) : (
-                <AudioInfo
-                  name={youtubeResult ? youtubeResult[0].title : ''}
-                  artist={youtubeResult ? youtubeResult[0].channelTitle : ''}
-                  albumArt={defaultArtwork}
-                />
-              )}
+              <AudioInfo
+                name={youtubeResult ? youtubeResult[0].title : ''}
+                artist={youtubeResult ? youtubeResult[0].channelTitle : ''}
+                albumArt={defaultArtwork}
+              />
+            )}
             <div className="results">
               <Typography.Text className="heading">
                 Search Results
@@ -112,13 +107,13 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
             </div>
           </div>
         ) : (
-              <Typography.Text style={{ fontSize: '1.5rem' }}>
-                Your search did not match any results
+          <Typography.Text style={{ fontSize: '1.5rem' }}>
+            Your search did not match any results
           </Typography.Text>
-            )}
+        )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default withRouter(Query);
+export default withRouter(Query)

@@ -1,53 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-import { Typography, Table, Select, Button, Switch } from 'antd';
+import { Typography, Table, Select, Button, Switch } from 'antd'
 
-const { BrowserWindow, dialog } = require('electron').remote;
-const storage = require('../modules/Store');
+const { BrowserWindow, dialog } = require('electron').remote
+const storage = require('../modules/Store')
 
 const Settings: React.FunctionComponent = () => {
   const [defaultAudioOut, setDefaultAudioOut] = useState<string>(
     storage.get('defaultAudioOut')
-  );
+  )
   const [downloadDirectory, setDownloadDirectory] = useState<string>(
     storage.get('downloadDirectory')
-  );
+  )
   const [embedMetadata, setEmbedMetadata] = useState<boolean>(
     storage.get('embedMetadata')
-  );
+  )
 
   let selectDirectory = () => {
     dialog.showOpenDialog(
       BrowserWindow.getFocusedWindow() || new BrowserWindow(),
       {
-        properties: ['openDirectory']
+        properties: ['openDirectory'],
       },
       (path: string[] | undefined) => {
-        path && setDownloadDirectory(path[0]);
+        path && setDownloadDirectory(path[0])
       }
-    );
-  };
+    )
+  }
 
   useEffect(() => {
-    storage.set('defaultAudioOut', defaultAudioOut);
-    storage.set('downloadDirectory', downloadDirectory);
-    storage.set('embedMetadata', embedMetadata);
-  }, [defaultAudioOut, downloadDirectory, embedMetadata]);
+    storage.set('defaultAudioOut', defaultAudioOut)
+    storage.set('downloadDirectory', downloadDirectory)
+    storage.set('embedMetadata', embedMetadata)
+  }, [defaultAudioOut, downloadDirectory, embedMetadata])
 
   const columns = [
     {
       dataIndex: 'title',
-      key: 'title'
+      key: 'title',
     },
     {
       dataIndex: 'action',
-      key: 'action'
+      key: 'action',
     },
     {
       dataIndex: 'optional',
-      key: 'optional'
-    }
-  ];
+      key: 'optional',
+    },
+  ]
 
   const tableData = [
     {
@@ -58,7 +58,7 @@ const Settings: React.FunctionComponent = () => {
           <Select.Option value={'mp3'}>MP3</Select.Option>
           <Select.Option value={'m4a'}>M4A</Select.Option>
         </Select>
-      )
+      ),
     },
     {
       key: 'download-location',
@@ -68,21 +68,21 @@ const Settings: React.FunctionComponent = () => {
         <Button onClick={selectDirectory} size="small" color="primary">
           Change
         </Button>
-      )
+      ),
     },
     {
       key: 'id3-metadata',
       title: 'Embed ID3 metadata',
-      action: <Switch checked={embedMetadata} onChange={setEmbedMetadata} />
-    }
-  ];
+      action: <Switch checked={embedMetadata} onChange={setEmbedMetadata} />,
+    },
+  ]
 
   return (
     <div className="settings">
       <Typography.Title className="title">Settings</Typography.Title>
       <Table columns={columns} pagination={false} dataSource={tableData} />
     </div>
-  );
-};
+  )
+}
 
-export default Settings;
+export default Settings

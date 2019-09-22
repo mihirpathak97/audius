@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useState } from 'react'
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
+import styled from 'styled-components'
 import {
   List,
   Menu,
@@ -11,31 +11,29 @@ import {
   Drawer,
   Avatar,
   Popover,
-  Progress
-} from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeFromQueue } from '../actions/downloadQueue';
+  Progress,
+} from 'antd'
+import { useSelector, useDispatch } from 'react-redux'
+import { removeFromQueue } from '../actions/downloadQueue'
 
-import {
-  Store,
-  StreamProgress,
-  QueueItem
-} from '../types'
+import { Store, StreamProgress, QueueItem } from '../types'
 
-const os = require('os');
-const { openWindow, BrowserWindow } = require('../modules/electronConfig');
+const os = require('os')
+const { openWindow, BrowserWindow } = require('../modules/electronConfig')
 
-const defaultArtwork = require('../assets/default-artwork.png');
+const defaultArtwork = require('../assets/default-artwork.png')
 
 interface DownloadQueueProps {
   path: string
 }
 
-const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({ path }) => {
-  const [showDrawer, setShowDrawer] = useState(false);
+const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({
+  path,
+}) => {
+  const [showDrawer, setShowDrawer] = useState(false)
 
-  let queue = useSelector((state: Store) => state.downloadQueue);
-  let dispatch = useDispatch();
+  let queue = useSelector((state: Store) => state.downloadQueue)
+  let dispatch = useDispatch()
 
   let progressContent = (progress: StreamProgress | undefined) => {
     return (
@@ -53,14 +51,14 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({ path }) =>
           <Typography.Text>Waiting in queue</Typography.Text>
         )}
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <StyledDownloadQueue path={path}>
       <Button
         onClick={() => {
-          setShowDrawer(true);
+          setShowDrawer(true)
         }}
       >
         Download Queue <Icon type="cloud-download" />
@@ -75,13 +73,15 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({ path }) =>
         {queue && queue.length > 0 ? (
           <List>
             {queue.map((queueItem: QueueItem, index) => {
-              let useYT = queueItem.spotifyMetadata === null ? true : false;
+              let useYT = queueItem.spotifyMetadata === null ? true : false
               return (
                 <Popover
                   title={
                     useYT
                       ? queueItem.youtubeMetadata.title
-                      : queueItem.spotifyMetadata ? queueItem.spotifyMetadata.name : ''
+                      : queueItem.spotifyMetadata
+                      ? queueItem.spotifyMetadata.name
+                      : ''
                   }
                   key={queueItem.youtubeMetadata.id}
                   className="download-item"
@@ -94,14 +94,24 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({ path }) =>
                       alt={
                         useYT
                           ? queueItem.youtubeMetadata.title
-                          : queueItem.spotifyMetadata ? queueItem.spotifyMetadata.name : ''
+                          : queueItem.spotifyMetadata
+                          ? queueItem.spotifyMetadata.name
+                          : ''
                       }
-                      src={useYT ? defaultArtwork : queueItem.spotifyMetadata ? queueItem.spotifyMetadata.albumArt : defaultArtwork}
+                      src={
+                        useYT
+                          ? defaultArtwork
+                          : queueItem.spotifyMetadata
+                          ? queueItem.spotifyMetadata.albumArt
+                          : defaultArtwork
+                      }
                     />
                     <Typography.Text>
                       {useYT
                         ? queueItem.youtubeMetadata.title
-                        : queueItem.spotifyMetadata ? queueItem.spotifyMetadata.name : ''}
+                        : queueItem.spotifyMetadata
+                        ? queueItem.spotifyMetadata.name
+                        : ''}
                     </Typography.Text>
                     <Button
                       onClick={() => dispatch(removeFromQueue(index))}
@@ -110,7 +120,7 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({ path }) =>
                     />
                   </List.Item>
                 </Popover>
-              );
+              )
             })}
           </List>
         ) : (
@@ -121,8 +131,8 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({ path }) =>
         )}
       </Drawer>
     </StyledDownloadQueue>
-  );
-};
+  )
+}
 
 // Styled Components
 const StyledAppBar = styled.div`
@@ -133,12 +143,12 @@ const StyledAppBar = styled.div`
   flex-direction: ${os.platform() === 'darwin' ? 'row-reverse' : 'row'};
   align-items: center;
   justify-content: space-between;
-`;
+`
 
 const StyledDropdown = styled(Dropdown)`
   ${props =>
     props.path !== '/' || os.platform() === 'darwin' ? 'display: none' : ''};
-`;
+`
 
 const GoBack = styled(Link)`
   ${props =>
@@ -156,14 +166,14 @@ const GoBack = styled(Link)`
     }
   `
       : `display: none`};
-`;
+`
 
 const StyledDownloadQueue = styled.div`
   display: ${props =>
     props.path.includes('search') || props.path === '/' ? 'block' : 'none'};
   position: absolute;
   right: ${os.platform() === 'darwin' ? '20px' : '120px'};
-`;
+`
 
 const StyledWindowHandlers = styled.div`
   ${os.platform() === 'darwin'
@@ -174,28 +184,28 @@ const StyledWindowHandlers = styled.div`
     left: 10px;
     align-items: center;`
     : ''};
-`;
+`
 const StyledIcon = styled(Icon)`
   ${os.platform() === 'darwin'
     ? `
     margin-right: 10px;
   `
     : ''}
-`;
+`
 
 /**
  * Minises current window
  */
 const minimizeApplication = () => {
-  BrowserWindow.getFocusedWindow().minimize();
-};
+  BrowserWindow.getFocusedWindow().minimize()
+}
 
 /**
  * Closes current window
  */
 const quitApplication = () => {
-  BrowserWindow.getFocusedWindow().close();
-};
+  BrowserWindow.getFocusedWindow().close()
+}
 
 const AppMenu = (
   <Menu onClick={({ key }) => openWindow(key)}>
@@ -209,11 +219,9 @@ const AppMenu = (
       <Typography.Text>Terms of Use</Typography.Text>
     </Menu.Item>
   </Menu>
-);
+)
 
-const AppBar: React.FunctionComponent<RouteComponentProps> = ({
-  location
-}) => {
+const AppBar: React.FunctionComponent<RouteComponentProps> = ({ location }) => {
   return (
     <StyledAppBar>
       <StyledDropdown
@@ -236,7 +244,7 @@ const AppBar: React.FunctionComponent<RouteComponentProps> = ({
           style={{
             cursor: 'pointer',
             fontSize: '16px',
-            color: 'hsl(48, 100%, 67%)'
+            color: 'hsl(48, 100%, 67%)',
           }}
           type="minus-circle"
           theme="filled"
@@ -246,7 +254,7 @@ const AppBar: React.FunctionComponent<RouteComponentProps> = ({
           style={{
             paddingLeft: 10,
             fontSize: '16px',
-            color: 'hsl(348, 100%, 61%)'
+            color: 'hsl(348, 100%, 61%)',
           }}
           theme="filled"
           onClick={quitApplication}
