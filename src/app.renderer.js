@@ -5,12 +5,9 @@
  * Initialises React App
  */
 
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
-
-import { Provider } from 'react-redux';
-import { store } from './store/configureStore';
 
 import { notification } from 'antd';
 
@@ -24,28 +21,31 @@ import Routes from './routes';
 import AppBar from './components/AppBar';
 import ErrorBoundary from './components/ErrorBoundary';
 
-class App extends Component {
-  componentDidMount() {
+// Redux
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './reducers';
+
+const App = () => {
+  useEffect(() => {
     notification.config({
       placement: 'bottomLeft'
     });
-  }
+  }, []);
 
-  render() {
-    return (
-      <Provider store={store}>
-        <HashRouter>
-          <div className="App">
-            <AppBar />
-            <ErrorBoundary>
-              <Routes></Routes>
-            </ErrorBoundary>
-          </div>
-        </HashRouter>
-      </Provider>
-    );
-  }
-}
+  return (
+    <Provider store={createStore(rootReducer)}>
+      <HashRouter>
+        <div className="App">
+          <AppBar />
+          <ErrorBoundary>
+            <Routes></Routes>
+          </ErrorBoundary>
+        </div>
+      </HashRouter>
+    </Provider>
+  );
+};
 
 // Render App to DOM
 ReactDOM.render(<App />, document.getElementById('root'));
