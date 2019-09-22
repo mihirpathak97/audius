@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import {
+  List,
   Menu,
   Icon,
   Dropdown,
@@ -9,7 +10,8 @@ import {
   Button,
   Drawer,
   Avatar,
-  Spin
+  Popover,
+  Progress
 } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromQueue } from '@/actions/downloadQueue';
@@ -22,6 +24,25 @@ let DownloadQueue = ({ path }) => {
 
   let queue = useSelector(state => state.downloadQueue);
   let dispatch = useDispatch();
+
+  let progressContent = progress => {
+    return (
+      <div>
+        {progress ? (
+          <div>
+            <Typography.Text>Your song is being downloaded!</Typography.Text>
+            <Progress
+              strokeColor="#652d91"
+              percent={Math.floor(progress.percentage)}
+              status="active"
+            />
+          </div>
+        ) : (
+          <Typography.Text>Waiting in queue</Typography.Text>
+        )}
+      </div>
+    );
+  };
 
   return (
     <StyledDownloadQueue path={path}>
@@ -40,37 +61,46 @@ let DownloadQueue = ({ path }) => {
         width={300}
       >
         {queue && queue.length > 0 ? (
-          <Menu>
+          <List>
             {queue.map((queueItem, index) => {
               let useYT = queueItem.spotifyMetadata === null ? true : false;
               return (
-                <Menu.Item
+                <Popover
+                  title={
+                    useYT
+                      ? queueItem.youtubeMetadata.title
+                      : queueItem.spotifyMetadata.name
+                  }
                   key={queueItem.youtubeMetadata.id}
                   className="download-item"
+                  placement="rightBottom"
+                  trigger="click"
+                  content={progressContent(queueItem.progress)}
                 >
-                  <Avatar
-                    alt={
-                      useYT
+                  <List.Item>
+                    <Avatar
+                      alt={
+                        useYT
+                          ? queueItem.youtubeMetadata.title
+                          : queueItem.spotifyMetadata.name
+                      }
+                      src={useYT ? '' : queueItem.spotifyMetadata.albumArt}
+                    />
+                    <Typography.Text>
+                      {useYT
                         ? queueItem.youtubeMetadata.title
-                        : queueItem.spotifyMetadata.name
-                    }
-                    src={useYT ? '' : queueItem.spotifyMetadata.albumArt}
-                  />
-                  <Typography.Text>
-                    {useYT
-                      ? queueItem.youtubeMetadata.title
-                      : queueItem.spotifyMetadata.name}
-                  </Typography.Text>
-                  {queue[index].waiting ? <Spin /> : null}
-                  <Button
-                    onClick={() => dispatch(removeFromQueue(index))}
-                    icon="delete"
-                    disabled={index === 0 ? true : false}
-                  />
-                </Menu.Item>
+                        : queueItem.spotifyMetadata.name}
+                    </Typography.Text>
+                    <Button
+                      onClick={() => dispatch(removeFromQueue(index))}
+                      icon="delete"
+                      disabled={index === 0 ? true : false}
+                    />
+                  </List.Item>
+                </Popover>
               );
             })}
-          </Menu>
+          </List>
         ) : (
           <Typography.Text>
             You do not have any downloads.

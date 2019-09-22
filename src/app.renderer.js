@@ -22,9 +22,8 @@ import AppBar from './components/AppBar';
 import ErrorBoundary from './components/ErrorBoundary';
 
 // Redux
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './reducers';
+import store from './store';
 
 const App = () => {
   useEffect(() => {
@@ -34,7 +33,7 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={createStore(rootReducer)}>
+    <Provider store={store}>
       <HashRouter>
         <div className="App">
           <AppBar />
