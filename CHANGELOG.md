@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0-alpha3] - 2019-08-24
+### Added
+- TypeScript 🎉
+- Hooks and FC 🎉
+- Redux simplification 🎉
+- Code refactorization 🎉
+
 ## [2.0.0-alpha2] - 2019-08-24
 ### Fixed
 - Build failing in CI
