@@ -35,10 +35,9 @@ let DownloadQueue = ({ path }) => {
       <Drawer
         placement="left"
         closable={false}
-        onClose={() => {
-          setShowDrawer(false);
-        }}
+        onClose={() => setShowDrawer(false)}
         visible={showDrawer}
+        width={300}
       >
         {queue && queue.length > 0 ? (
           <Menu>
@@ -73,10 +72,10 @@ let DownloadQueue = ({ path }) => {
             })}
           </Menu>
         ) : (
-          <Typography>
+          <Typography.Text>
             You do not have any downloads.
             <br /> Try searching for something
-          </Typography>
+          </Typography.Text>
         )}
       </Drawer>
     </StyledDownloadQueue>

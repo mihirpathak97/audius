@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 
 import { Typography, Spin, Icon, notification, Table, Button } from 'antd';
-
-import QueueContext from '@/hooks/queue';
-
+import { useDispatch } from 'react-redux';
+import { addToQueue } from '@/actions/downloadQueue';
 import queryString from 'query-string';
 import AudioInfo from './AudioInfo';
 import defaultArtwork from '@/assets/default-artwork.png';
@@ -16,7 +15,8 @@ const View = ({ location }) => {
   const [loading, setLoading] = useState(false);
   const [spotifyResult, setSpotifyResult] = useState('');
   const [youtubeResult, setYoutubeResult] = useState('');
-  const [queue, dispatch] = useContext(QueueContext);
+
+  let dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(true);
@@ -50,15 +50,14 @@ const View = ({ location }) => {
         <div className="video-actions">
           <Button
             icon="download"
-            onClick={() => {
-              dispatch({
-                type: 'add',
-                payload: {
+            onClick={() =>
+              dispatch(
+                addToQueue({
                   youtubeMetadata: record,
                   spotifyMetadata: spotifyResult
-                }
-              });
-            }}
+                })
+              )
+            }
             type="link"
           ></Button>
           <Button
