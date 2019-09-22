@@ -1,8 +1,6 @@
-import { combineReducers } from 'redux'
-import downloadQueue from './downloadQueue'
-import searchQuery from './searchQuery'
+import { combineReducers } from 'redux';
+import downloadQueue from './downloadQueue';
 
 export default combineReducers({
-  downloadQueue,
-  searchQuery
-})
+  downloadQueue
+});
