@@ -24,8 +24,10 @@ jobs:
       os: osx
       addons:
         homebrew:
+          taps:
+            - sashkab/python
           packages:
-            - python3
+            - python36
 
 # Run the build script depending on OS
 script:
@@ -36,7 +38,7 @@ script:
   - cd bin/rainbow
   - pip3 install --upgrade --user pip setuptools wheel
   - pip3 install --upgrade --user -r requirements.txt
-  - pyinstaller rainbow.py
+  - python3 setup.py build
   - cd ../../
   
   - echo "Compiling React app for production"
