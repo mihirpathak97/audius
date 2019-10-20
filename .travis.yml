@@ -24,10 +24,8 @@ jobs:
       os: osx
       addons:
         homebrew:
-          taps:
-            - sashkab/python
           packages:
-            - python36
+            - python3
 
 # Run the build script depending on OS
 script:
@@ -38,7 +36,7 @@ script:
   - cd bin/rainbow
   - pip3 install --upgrade --user pip setuptools wheel
   - pip3 install --upgrade --user -r requirements.txt
-  - python3 setup.py build
+  - pyinstaller rainbow.py
   - cd ../../
   
   - echo "Writing ENV vars"
