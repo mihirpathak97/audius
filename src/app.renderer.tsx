@@ -27,6 +27,10 @@ import store from './store'
 
 const App: React.FunctionComponent = () => {
   useEffect(() => {
+    /**
+     * Set default notification position
+     * to bottom left.
+     */
     notification.config({
       placement: 'bottomLeft',
     })

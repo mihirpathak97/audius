@@ -27,6 +27,14 @@ interface DownloadQueueProps {
   path: string
 }
 
+interface DropdownProps {
+  path: string
+}
+
+interface GoBackProps {
+  path: string
+}
+
 const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({
   path,
 }) => {
@@ -146,12 +154,12 @@ const StyledAppBar = styled.div`
 `
 
 const StyledDropdown = styled(Dropdown)`
-  ${props =>
+  ${(props: DropdownProps) =>
     props.path !== '/' || os.platform() === 'darwin' ? 'display: none' : ''};
 `
 
 const GoBack = styled(Link)`
-  ${props =>
+  ${(props: GoBackProps) =>
     props.path.includes('search')
       ? `
     display: block;
@@ -169,7 +177,7 @@ const GoBack = styled(Link)`
 `
 
 const StyledDownloadQueue = styled.div`
-  display: ${props =>
+  display: ${(props: DownloadQueueProps) =>
     props.path.includes('search') || props.path === '/' ? 'block' : 'none'};
   position: absolute;
   right: ${os.platform() === 'darwin' ? '20px' : '120px'};
