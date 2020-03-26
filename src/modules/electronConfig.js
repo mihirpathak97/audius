@@ -101,7 +101,7 @@ let osxApplicationMenu = [
       {
         role: 'reload',
       },
-      process.env.NODE_ENV === 'development' && {
+      {
         role: 'toggledevtools',
       },
     ].filter(Boolean),

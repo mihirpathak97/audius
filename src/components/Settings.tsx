@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Typography, Table, Select, Button, Switch, Input } from 'antd'
 
 const { BrowserWindow, dialog } = require('electron').remote
-const storage = require('../modules/Store')
+const storage = require('../modules/store')
 
 const Settings: React.FunctionComponent = () => {
   const [defaultAudioOut, setDefaultAudioOut] = useState<string>(

@@ -9,7 +9,7 @@
 const isDev = require('electron-is-dev')
 const path = require('path')
 
-const storage = require('./Store')
+const storage = require('./store')
 
 var log = require('electron-log')
 log.transports.file.level = 'debug'

@@ -5,7 +5,7 @@
 const base64 = require('base-64')
 const querystring = require('querystring')
 const axios = require('axios')
-const storage = require('./Store')
+const storage = require('./store')
 
 // client Id and Secret for Spotify must be set as env variables
 const clientId = storage.get('spotifyClientId')
@@ -109,6 +109,24 @@ let sanitizeTrackResponse = response => {
   }
 }
 
+let sanitizePlaylistResponse = response => {
+  return {
+    type: response.type,
+    name: response.name,
+    image: response.images[0].url,
+    owner: {
+      name: response.owner.display_name,
+      spotifyUrl: response.owner.external_urls.spotify,
+    },
+    tracks: response.tracks.items.map(({ track }) =>
+      sanitizeTrackResponse(track)
+    ),
+    followers: response.followers.count,
+    spotifyId: response.id,
+    spotifyUrl: response.external_urls.spotify,
+  }
+}
+
 let getSpotifyTrack = trackId => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -124,14 +142,7 @@ let getSpotifyPlaylist = playlistId => {
   return new Promise(async (resolve, reject) => {
     try {
       let response = await fetch('playlists/' + playlistId)
-      resolve({
-        type: response.type,
-        name: response.name,
-        description: response.description,
-        playlistThumbnail: response.images[1].url,
-        spotifyId: response.id,
-        spotifyUrl: response.external_urls.spotify,
-      })
+      resolve(sanitizePlaylistResponse(response))
     } catch (error) {
       reject(error)
     }

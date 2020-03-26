@@ -63,10 +63,10 @@ app.on('ready', () => {
   log.info('[app.main.js] App ready')
 
   // Auto Updater
-  require('./modules/AutoUpdater')
+  require('./modules/autoUpdate')
 
   // Init persistant storage
-  require('./modules/Settings')
+  require('./modules/settings')
 
   // First create BrowserWindow
   createWindow()

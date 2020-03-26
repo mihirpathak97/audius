@@ -8,7 +8,7 @@ const Ffmpeg = require('./ffmpeg-wrapper')
 const sanitize = require('sanitize-filename')
 const log = require('./log')
 
-const storage = require('./Store')
+const storage = require('./store')
 
 let downloadAudio = (youtubeMetadata, spotifyMetadata) => {
   return new Promise(function(resolve, reject) {

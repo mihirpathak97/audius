@@ -1,5 +1,5 @@
-const Spotify = require('./SpotifyWebApi')
-const YTSearch = require('./YTSearch')
+const Spotify = require('../SpotifyWebApi')
+const YTSearch = require('../YTSearch')
 let queryCheck = function(query) {
   return new Promise(function(resolve, reject) {
     if (query.includes('youtube.com')) {
@@ -35,16 +35,46 @@ let queryCheck = function(query) {
     } else if (query.includes('spotify.com')) {
       Spotify.search(query)
         .then(response => {
-          YTSearch.searchVideosByQuery(response.artist + ' ' + response.name)
-            .then(YTresponse => {
+          switch (response.type) {
+            case 'track':
+              YTSearch.searchVideosByQuery(
+                response.artist.name + ' ' + response.name
+              )
+                .then(YTresponse => {
+                  resolve({
+                    spotifyResult: response,
+                    youtubeResult: YTresponse,
+                  })
+                })
+                .catch(YTerror => {
+                  reject(YTerror)
+                })
+              break
+
+            case 'playlist':
+              let youtubeResult = []
+              response.tracks.forEach(track => {
+                YTSearch.searchVideosByQuery(
+                  track.artist.name + ' ' + track.name
+                )
+                  .then(YTresponse => {
+                    youtubeResult.push({
+                      spotifyResult: response,
+                      youtubeResult: YTresponse,
+                    })
+                  })
+                  .catch(YTerror => {
+                    //
+                  })
+              })
               resolve({
                 spotifyResult: response,
-                youtubeResult: YTresponse,
+                youtubeResult: youtubeResult,
               })
-            })
-            .catch(YTerror => {
-              reject(YTerror)
-            })
+              break
+            default:
+              break
+          }
         })
         .catch(error => reject(error))
     } else {

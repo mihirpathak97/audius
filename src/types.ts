@@ -38,6 +38,22 @@ export interface YoutubeTrack {
   duration: number
 }
 
+export interface SpotifyPlaylistOwner {
+  name: string
+  spotifyUrl: string
+}
+
+export interface SpotifyPlaylist {
+  type: string
+  name: string
+  image: string
+  owner: SpotifyPlaylistOwner
+  tracks: Array<SpotifyTrack>
+  followers: number
+  spotifyId: string
+  spotifyUrl: string
+}
+
 export interface SpotifyTrack {
   type: string
   name: string

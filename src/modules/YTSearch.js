@@ -3,7 +3,7 @@
 */
 
 const axios = require('axios')
-const storage = require('./Store')
+const storage = require('./store')
 var querystring = require('querystring')
 var log = require('./log')
 

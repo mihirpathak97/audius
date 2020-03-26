@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux'
 import { addToQueue } from '../actions/downloadQueue'
 import queryString from 'query-string'
 import AudioInfo from './AudioInfo'
-import { queryCheck } from '../modules/queryCheck'
+import { queryCheck } from '../modules/search/queryCheck'
 import { openExternal } from '../modules/electronConfig'
 
-import { YoutubeTrack, SpotifyTrack } from '../types'
+import { YoutubeTrack, SpotifyTrack, SpotifyPlaylist } from '../types'
 import {
   LoadingOutlined,
   PlayCircleFilled,
@@ -22,7 +22,9 @@ interface Props extends RouteComponentProps<any> {
 
 const Query: React.FunctionComponent<Props> = ({ location }) => {
   const [loading, setLoading] = useState<Boolean>(false)
-  const [spotifyResult, setSpotifyResult] = useState<SpotifyTrack>()
+  const [spotifyResult, setSpotifyResult] = useState<
+    SpotifyTrack | SpotifyPlaylist
+  >()
   const [youtubeResult, setYoutubeResult] = useState<Array<YoutubeTrack>>()
 
   let dispatch = useDispatch()
@@ -50,14 +52,14 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
     {
       dataIndex: 'title',
       key: 'title',
-      title: 'Video Title',
+      title: 'Title',
     },
     {
       title: 'Actions',
       key: 'actions',
       render: (text: String, record: any) => (
         <div className="video-actions">
-          <Button
+          {/* <Button
             icon={<DownloadOutlined />}
             onClick={() =>
               dispatch(
@@ -68,7 +70,7 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
               )
             }
             type="link"
-          ></Button>
+          ></Button> */}
           <Button
             onClick={() => openExternal(record.link)}
             icon={<PlayCircleFilled />}
