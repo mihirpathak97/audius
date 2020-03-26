@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 
-import { Typography, Spin, Icon, notification, Table, Button } from 'antd'
+import { Typography, Spin, notification, Table, Button } from 'antd'
 import { useDispatch } from 'react-redux'
 import { addToQueue } from '../actions/downloadQueue'
 import queryString from 'query-string'
@@ -10,6 +10,7 @@ import { queryCheck } from '../modules/queryCheck'
 import { openExternal } from '../modules/electronConfig'
 
 import { YoutubeTrack, SpotifyTrack } from '../types'
+import { LoadingOutlined } from '@ant-design/icons'
 
 const defaultArtwork = require('../assets/default-artwork.png')
 
@@ -80,9 +81,7 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
     <div>
       <div className="query">
         {loading ? (
-          <Spin
-            indicator={<Icon type="loading" style={{ fontSize: 64 }} spin />}
-          />
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 64 }} spin />} />
         ) : spotifyResult || youtubeResult ? (
           <div className="container">
             {spotifyResult ? (

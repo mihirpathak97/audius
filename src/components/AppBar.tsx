@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import {
   List,
   Menu,
-  Icon,
   Dropdown,
   Typography,
   Button,
@@ -13,6 +12,13 @@ import {
   Popover,
   Progress,
 } from 'antd'
+import {
+  CloudDownloadOutlined,
+  ArrowLeftOutlined,
+  MenuOutlined,
+  MinusCircleFilled,
+  CloseCircleFilled,
+} from '@ant-design/icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeFromQueue } from '../actions/downloadQueue'
 
@@ -69,7 +75,7 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({
           setShowDrawer(true)
         }}
       >
-        Download Queue <Icon type="cloud-download" />
+        Download Queue <CloudDownloadOutlined />
       </Button>
       <Drawer
         placement="left"
@@ -193,13 +199,6 @@ const StyledWindowHandlers = styled.div`
     align-items: center;`
     : ''};
 `
-const StyledIcon = styled(Icon)`
-  ${os.platform() === 'darwin'
-    ? `
-    margin-right: 10px;
-  `
-    : ''}
-`
 
 /**
  * Minises current window
@@ -237,36 +236,34 @@ const AppBar: React.FunctionComponent<RouteComponentProps> = ({ location }) => {
         overlay={AppMenu}
         trigger={['click']}
       >
-        <Icon type="menu" style={{ color: 'black' }} />
+        <MenuOutlined style={{ color: 'black' }} />
       </StyledDropdown>
 
       <GoBack path={location.pathname} to="/">
-        <Icon type="arrow-left" style={{ color: 'black' }} />
+        <ArrowLeftOutlined style={{ color: 'black' }} />
         <span style={{ color: 'black', marginLeft: '0.3rem' }}>Go Back</span>
       </GoBack>
 
       <DownloadQueue path={location.pathname} />
 
       <StyledWindowHandlers>
-        <StyledIcon
+        <MinusCircleFilled
           style={{
             cursor: 'pointer',
             fontSize: '16px',
             color: 'hsl(48, 100%, 67%)',
+            marginRight: os.platform() === 'darwin' ? '10px' : '',
           }}
-          type="minus-circle"
-          theme="filled"
           onClick={minimizeApplication}
         />
-        <StyledIcon
+        <CloseCircleFilled
           style={{
             paddingLeft: 10,
             fontSize: '16px',
             color: 'hsl(348, 100%, 61%)',
+            marginRight: os.platform() === 'darwin' ? '10px' : '',
           }}
-          theme="filled"
           onClick={quitApplication}
-          type="close-circle"
         />
       </StyledWindowHandlers>
     </StyledAppBar>

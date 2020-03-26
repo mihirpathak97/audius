@@ -54,7 +54,15 @@ const Settings: React.FunctionComponent = () => {
       key: 'download-format',
       title: 'Download Format',
       action: (
-        <Select value={defaultAudioOut} onChange={setDefaultAudioOut}>
+        <Select
+          showArrow={false}
+          style={{
+            width: '60px',
+          }}
+          showSearch={false}
+          value={defaultAudioOut}
+          onChange={setDefaultAudioOut}
+        >
           <Select.Option value={'mp3'}>MP3</Select.Option>
           <Select.Option value={'m4a'}>M4A</Select.Option>
         </Select>
@@ -80,7 +88,13 @@ const Settings: React.FunctionComponent = () => {
   return (
     <div className="settings">
       <Typography.Title className="title">Settings</Typography.Title>
-      <Table columns={columns} pagination={false} dataSource={tableData} />
+      <Table
+        showHeader={false}
+        tableLayout="fixed"
+        columns={columns}
+        pagination={false}
+        dataSource={tableData}
+      />
     </div>
   )
 }
