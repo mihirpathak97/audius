@@ -71,7 +71,7 @@ let downloadAudio = (youtubeMetadata, spotifyMetadata) => {
             // Embed metadata
             if (storage.get('embedMetadata') && spotifyMetadata !== null) {
               const rainbow = require('./rainbowWrapper')
-              rainbow.embedMetadata(fileName, spotifyMetadata.spotifyTrackId)
+              rainbow.embedMetadata(fileName, spotifyMetadata.spotifyId)
             }
             store.dispatch(removeFromQueue(0))
             log.info(
