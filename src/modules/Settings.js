@@ -44,5 +44,8 @@ if (storage.has('didFirstRun')) {
   storage.set('downloadDirectory', downloadDirectory)
   storage.set('defaultAudioOut', defaultAudioOut)
   storage.set('embedMetadata', embedMetadata)
+  storage.set('youtubeApiKey', '')
+  storage.set('spotifyClientId', '')
+  storage.set('spotifyClientSecret', '')
   storage.set('didFirstRun', true)
 }

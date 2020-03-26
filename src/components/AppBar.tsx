@@ -18,6 +18,7 @@ import {
   MenuOutlined,
   MinusCircleFilled,
   CloseCircleFilled,
+  DeleteFilled,
 } from '@ant-design/icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeFromQueue } from '../actions/downloadQueue'
@@ -129,7 +130,7 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({
                     </Typography.Text>
                     <Button
                       onClick={() => dispatch(removeFromQueue(index))}
-                      icon="delete"
+                      icon={<DeleteFilled />}
                       disabled={index === 0 ? true : false}
                     />
                   </List.Item>

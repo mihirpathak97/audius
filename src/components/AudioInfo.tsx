@@ -11,6 +11,8 @@ interface Props {
   url?: string
 }
 
+const defaultArtwork = require('../assets/default-artwork.png')
+
 const AudioInfo: React.FunctionComponent<Props> = ({
   name,
   album,
@@ -22,7 +24,7 @@ const AudioInfo: React.FunctionComponent<Props> = ({
       <div className="avatar">
         <Avatar
           alt={name}
-          src={album && album.image}
+          src={album ? album.image : defaultArtwork}
           shape={'square'}
           size="large"
         />
@@ -33,7 +35,7 @@ const AudioInfo: React.FunctionComponent<Props> = ({
             <strong>{name}</strong>
           </span>
           <br></br>
-          {artist}
+          {artist && artist.name}
         </Typography.Text>
       </div>
     </div>

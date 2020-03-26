@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { Typography, Table, Select, Button, Switch } from 'antd'
+import { Typography, Table, Select, Button, Switch, Input } from 'antd'
 
 const { BrowserWindow, dialog } = require('electron').remote
 const storage = require('../modules/Store')
@@ -14,6 +14,16 @@ const Settings: React.FunctionComponent = () => {
   )
   const [embedMetadata, setEmbedMetadata] = useState<boolean>(
     storage.get('embedMetadata')
+  )
+
+  const [youtubeApiKey, setYoutubeApiKey] = useState<string>(
+    storage.get('youtubeApiKey')
+  )
+  const [spotifyClientId, setSpotifyClientId] = useState<string>(
+    storage.get('spotifyClientId')
+  )
+  const [spotifyClientSecret, setSpotifyClientSecret] = useState<string>(
+    storage.get('spotifyClientSecret')
   )
 
   let selectDirectory = () => {
@@ -32,7 +42,17 @@ const Settings: React.FunctionComponent = () => {
     storage.set('defaultAudioOut', defaultAudioOut)
     storage.set('downloadDirectory', downloadDirectory)
     storage.set('embedMetadata', embedMetadata)
-  }, [defaultAudioOut, downloadDirectory, embedMetadata])
+    storage.set('youtubeApiKey', youtubeApiKey)
+    storage.set('spotifyClientId', spotifyClientId)
+    storage.set('spotifyClientSecret', spotifyClientSecret)
+  }, [
+    defaultAudioOut,
+    downloadDirectory,
+    embedMetadata,
+    youtubeApiKey,
+    spotifyClientId,
+    spotifyClientSecret,
+  ])
 
   const columns = [
     {
@@ -82,6 +102,36 @@ const Settings: React.FunctionComponent = () => {
       key: 'id3-metadata',
       title: 'Embed ID3 metadata',
       action: <Switch checked={embedMetadata} onChange={setEmbedMetadata} />,
+    },
+    {
+      key: 'youtube-api-key',
+      title: 'YouTube API Key',
+      action: (
+        <Input
+          value={youtubeApiKey}
+          onChange={event => setYoutubeApiKey(event.target.value)}
+        />
+      ),
+    },
+    {
+      key: 'spotify-client-id',
+      title: 'Spotify Client ID',
+      action: (
+        <Input
+          value={spotifyClientId}
+          onChange={event => setSpotifyClientId(event.target.value)}
+        />
+      ),
+    },
+    {
+      key: 'spotify-client-secret',
+      title: 'Spotify Client Secret',
+      action: (
+        <Input
+          value={spotifyClientSecret}
+          onChange={event => setSpotifyClientSecret(event.target.value)}
+        />
+      ),
     },
   ]
 

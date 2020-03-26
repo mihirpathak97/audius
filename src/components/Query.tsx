@@ -10,9 +10,11 @@ import { queryCheck } from '../modules/queryCheck'
 import { openExternal } from '../modules/electronConfig'
 
 import { YoutubeTrack, SpotifyTrack } from '../types'
-import { LoadingOutlined } from '@ant-design/icons'
-
-const defaultArtwork = require('../assets/default-artwork.png')
+import {
+  LoadingOutlined,
+  PlayCircleFilled,
+  DownloadOutlined,
+} from '@ant-design/icons'
 
 interface Props extends RouteComponentProps<any> {
   //
@@ -56,7 +58,7 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
       render: (text: String, record: any) => (
         <div className="video-actions">
           <Button
-            icon="download"
+            icon={<DownloadOutlined />}
             onClick={() =>
               dispatch(
                 addToQueue({
@@ -69,7 +71,7 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
           ></Button>
           <Button
             onClick={() => openExternal(record.link)}
-            icon="play-circle"
+            icon={<PlayCircleFilled />}
             type="link"
           ></Button>
         </div>
@@ -95,6 +97,7 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
               </Typography.Text>
               <Table
                 columns={colums}
+                showHeader={false}
                 rowKey="id"
                 pagination={false}
                 dataSource={youtubeResult}
