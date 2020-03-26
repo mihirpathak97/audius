@@ -4,20 +4,21 @@ skip_non_tags: true
 
 environment:
   PYTHON: "C:\\Python36-x64"
+  nodejs_version: '12'
 
 install:
   - git submodule update --init --recursive
-  - "%PYTHON%/Scripts/pip.exe install -U -r bin/rainbow/requirements.txt"
-  - "yarn install"
+  - '%PYTHON%/Scripts/pip.exe install -U -r bin/rainbow/requirements.txt'
+  - 'yarn install'
 
 build_script:
   - echo "Building raindow"
-  - "cd bin/rainbow && %PYTHON%/python.exe setup.py build && cd ../../"
+  - 'cd bin/rainbow && %PYTHON%/python.exe setup.py build && cd ../../'
 
-  - "yarn build"
+  - 'yarn build'
 
   - echo "Packaging Audius for Windows x64 (EXE)";
-  - "yarn package:win"
+  - 'yarn package:win'
 
 artifacts:
   - path: dist/AudiusSetup-x64.exe

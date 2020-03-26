@@ -7,7 +7,7 @@
 
 # Language configs
 language: node_js
-node_js: "10"
+node_js: '12'
 
 # Job for building
 jobs:
@@ -33,24 +33,24 @@ jobs:
 script:
   - echo "Installing yarn dependencies"
   - yarn install
-  
+
   - echo "Building raindow"
   - cd bin/rainbow
   - pip3 install --upgrade --user pip setuptools wheel
   - pip3 install --upgrade --user -r requirements.txt
   - python3 setup.py build
   - cd ../../
-  
+
   - echo "Compiling React app for production"
   - yarn build
-  
+
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      echo "Packaging Audius for Linux x64 (AppImage)";
-      yarn package:linux;
+    echo "Packaging Audius for Linux x64 (AppImage)";
+    yarn package:linux;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      echo "Packaging Audius for MacOS X (DMG)";
-      yarn package:mac;
+    echo "Packaging Audius for MacOS X (DMG)";
+    yarn package:mac;
     fi
 
 after_success:
