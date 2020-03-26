@@ -39,11 +39,6 @@ script:
   - pyinstaller rainbow.py
   - cd ../../
   
-  - echo "Writing ENV vars"
-  - echo "YOUTUBE_V3_API_KEY=$YOUTUBE_V3_API_KEY" >> .env
-  - echo "SPOTIFY_CLIENT_ID=$SPOTIFY_CLIENT_ID" >> .env
-  - echo "SPOTIFY_CLIENT_SECRET=$SPOTIFY_CLIENT_SECRET" >> .env
-  
   - echo "Compiling React app for production"
   - yarn build
   

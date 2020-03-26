@@ -14,11 +14,6 @@ build_script:
   - echo "Building raindow"
   - "cd bin/rainbow && %PYTHON%/python.exe setup.py build && cd ../../"
 
-  - echo "Writing ENV vars"
-  - echo "YOUTUBE_V3_API_KEY=$YOUTUBE_V3_API_KEY" >> .env
-  - echo "SPOTIFY_CLIENT_ID=$SPOTIFY_CLIENT_ID" >> .env
-  - echo "SPOTIFY_CLIENT_SECRET=$SPOTIFY_CLIENT_SECRET" >> .env
-
   - "yarn build"
 
   - echo "Packaging Audius for Windows x64 (EXE)";
