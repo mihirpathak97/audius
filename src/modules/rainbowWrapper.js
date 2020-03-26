@@ -12,8 +12,8 @@ function embedMetadata(filePath, spotifyID) {
     [
       filePath,
       spotifyID,
-      process.env.SPOTIFY_CLIENT_ID,
-      process.env.SPOTIFY_CLIENT_SECRET,
+      storage.get('spotifyClientId'),
+      storage.get('spotifyClientSecret'),
     ],
     {},
     (error, stdout, stderr) => {

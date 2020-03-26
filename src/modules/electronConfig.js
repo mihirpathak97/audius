@@ -72,6 +72,40 @@ let osxApplicationMenu = [
       },
     ],
   },
+  {
+    label: 'Edit',
+    submenu: [
+      {
+        role: 'undo',
+      },
+      {
+        role: 'redo',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        role: 'cut',
+      },
+      {
+        role: 'copy',
+      },
+      {
+        role: 'paste',
+      },
+    ],
+  },
+  {
+    label: 'View',
+    submenu: [
+      {
+        role: 'reload',
+      },
+      process.env.NODE_ENV === 'development' && {
+        role: 'toggledevtools',
+      },
+    ].filter(Boolean),
+  },
 ]
 
 module.exports = {

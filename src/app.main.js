@@ -35,11 +35,11 @@ function createWindow() {
   )
   mainWindow.on('closed', () => (mainWindow = null))
 
-  // process.platform === 'darwin'
-  //   ? electron.Menu.setApplicationMenu(
-  //       electron.Menu.buildFromTemplate(osxApplicationMenu)
-  //     )
-  //   : electron.Menu.setApplicationMenu(null);
+  process.platform === 'darwin'
+    ? electron.Menu.setApplicationMenu(
+        electron.Menu.buildFromTemplate(osxApplicationMenu)
+      )
+    : electron.Menu.setApplicationMenu(null)
 
   // Register protocol `audius` for serving static files
   // as webpack + chromium causes relative path issue

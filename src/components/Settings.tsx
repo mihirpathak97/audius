@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-
+import React, { useState } from 'react'
 import { Typography, Table, Select, Button, Switch, Input } from 'antd'
 
 const { BrowserWindow, dialog } = require('electron').remote
@@ -38,21 +37,14 @@ const Settings: React.FunctionComponent = () => {
     )
   }
 
-  useEffect(() => {
+  let saveSettings = () => {
     storage.set('defaultAudioOut', defaultAudioOut)
     storage.set('downloadDirectory', downloadDirectory)
     storage.set('embedMetadata', embedMetadata)
     storage.set('youtubeApiKey', youtubeApiKey)
     storage.set('spotifyClientId', spotifyClientId)
     storage.set('spotifyClientSecret', spotifyClientSecret)
-  }, [
-    defaultAudioOut,
-    downloadDirectory,
-    embedMetadata,
-    youtubeApiKey,
-    spotifyClientId,
-    spotifyClientSecret,
-  ])
+  }
 
   const columns = [
     {
@@ -137,7 +129,23 @@ const Settings: React.FunctionComponent = () => {
 
   return (
     <div className="settings">
-      <Typography.Title className="title">Settings</Typography.Title>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Typography.Title className="title">Settings</Typography.Title>
+        <Button
+          style={{
+            width: '120px',
+          }}
+          onClick={() => saveSettings()}
+        >
+          Save
+        </Button>
+      </div>
       <Table
         showHeader={false}
         tableLayout="fixed"

@@ -3,6 +3,7 @@
 */
 
 const axios = require('axios')
+const storage = require('./Store')
 var querystring = require('querystring')
 var log = require('./log')
 
@@ -49,7 +50,7 @@ let searchVideoById = youtubeId => {
           querystring.stringify({
             id: youtubeId,
             part: 'snippet, contentDetails',
-            key: process.env.YOUTUBE_V3_API_KEY,
+            key: storage.get('youtubeApiKey'),
           })
       )
       .then(response => {
@@ -87,7 +88,7 @@ let searchVideosByQuery = query => {
     part: 'snippet',
     maxResults: 10,
     q: query,
-    key: process.env.YOUTUBE_V3_API_KEY,
+    key: storage.get('youtubeApiKey'),
     type: 'video',
     // Topic ID for music
     // Gives us only music videos as resuts
@@ -125,7 +126,7 @@ let searchVideosByQuery = query => {
                   querystring.stringify({
                     id: element.id,
                     part: 'snippet, contentDetails',
-                    key: process.env.YOUTUBE_V3_API_KEY,
+                    key: storage.get('youtubeApiKey'),
                   })
               )
               .then(response => {

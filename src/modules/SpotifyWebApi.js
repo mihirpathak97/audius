@@ -8,8 +8,8 @@ const axios = require('axios')
 const storage = require('./Store')
 
 // client Id and Secret for Spotify must be set as env variables
-const clientId = process.env.SPOTIFY_CLIENT_ID
-const clientSecret = process.env.SPOTIFY_CLIENT_SECRET
+const clientId = storage.get('spotifyClientId')
+const clientSecret = storage.get('spotifyClientSecret')
 
 // Spotify API endpoint URL
 const endpointURL = 'https://api.spotify.com/v1/'
