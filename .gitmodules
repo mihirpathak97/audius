@@ -1,3 +1,4 @@
 [submodule "bin/rainbow"]
 	path = bin/rainbow
 	url = https://github.com/mihirpathak97/rainbow.git
+	branch = audius-mod
