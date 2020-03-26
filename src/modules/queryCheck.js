@@ -33,7 +33,7 @@ let queryCheck = function(query) {
           reject(error)
         })
     } else if (query.includes('spotify.com')) {
-      Spotify.parseSpotifyLink(query)
+      Spotify.search(query)
         .then(response => {
           YTSearch.searchVideosByQuery(response.artist + ' ' + response.name)
             .then(YTresponse => {
@@ -50,7 +50,9 @@ let queryCheck = function(query) {
     } else {
       Spotify.searchTrackByQuery(query)
         .then(response => {
-          YTSearch.searchVideosByQuery(response.artist + ' ' + response.name)
+          YTSearch.searchVideosByQuery(
+            response.artist.name + ' ' + response.name
+          )
             .then(YTresponse => {
               resolve({
                 spotifyResult: response,

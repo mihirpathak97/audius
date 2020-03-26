@@ -125,7 +125,7 @@ let searchVideosByQuery = query => {
                   querystring.stringify({
                     id: element.id,
                     part: 'snippet, contentDetails',
-                    key: 'AIzaSyBVqWn_4aUZnAtJXSTyg-WRevZrRK3ctPE',
+                    key: process.env.YOUTUBE_V3_API_KEY,
                   })
               )
               .then(response => {

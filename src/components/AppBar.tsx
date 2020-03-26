@@ -110,7 +110,7 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({
                         useYT
                           ? defaultArtwork
                           : queueItem.spotifyMetadata
-                          ? queueItem.spotifyMetadata.albumArt
+                          ? queueItem.spotifyMetadata.album.image
                           : defaultArtwork
                       }
                     />

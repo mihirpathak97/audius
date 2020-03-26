@@ -54,6 +54,7 @@ let refreshSpotifyToken = () => {
       renderer.send('refresh-spotify-token')
       renderer.on('refresh-token-success', () => {
         resolve(true)
+        triesRemaining = 0
       })
       renderer.on('refresh-token-error', () => {
         reject(false)
@@ -62,23 +63,16 @@ let refreshSpotifyToken = () => {
   })
 }
 
-let getSpotifyTrack = trackId => {
-  return new Promise(function(resolve, reject) {
+let fetch = (uri, config) => {
+  return new Promise((resolve, reject) => {
     function run() {
       axios
-        .get(endpointURL + 'tracks/' + trackId, commonConfig)
-        .then(response => {
-          resolve({
-            type: response.data.type,
-            name: response.data.name,
-            artist: response.data.artists[0].name,
-            album: response.data.album.name,
-            albumArt: response.data.album.images[1].url,
-            spotifyTrackId: response.data.id,
-            spotifyTrackUrl: response.data.external_urls.spotify,
-            spotifyAlbumId: response.data.album.id,
-            spotifyAlbumUrl: response.data.album.external_urls.spotify,
-          })
+        .get(endpointURL + uri, {
+          ...commonConfig,
+          ...config,
+        })
+        .then(({ data: response }) => {
+          resolve(response)
         })
         .catch(error => {
           // Refresh token
@@ -95,65 +89,104 @@ let getSpotifyTrack = trackId => {
   })
 }
 
-let parseSpotifyLink = link => {
-  return new Promise(function(resolve, reject) {
-    if (link.includes('/track/')) {
-      getSpotifyTrack(link.split('/track/')[1])
-        .then(response => resolve(response))
-        .catch(error => reject(error))
-    } else {
-      reject({
-        code: 400,
-        message: 'Unsupported Spotify link',
+let sanitizeTrackResponse = response => {
+  return {
+    type: response.type,
+    name: response.name,
+    artist: {
+      name: response.artists[0].name,
+      spotifyId: response.artists[0].id,
+      spotifyUrl: response.artists[0].external_urls.spotify,
+    },
+    album: {
+      name: response.album.name,
+      image: response.album.images[1].url,
+      spotifyId: response.album.id,
+      spotifyUrl: response.album.external_urls.spotify,
+    },
+    spotifyId: response.id,
+    spotifyUrl: response.external_urls.spotify,
+  }
+}
+
+let getSpotifyTrack = trackId => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await fetch('tracks/' + trackId)
+      resolve(sanitizeTrackResponse(response))
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+let getSpotifyPlaylist = playlistId => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let response = await fetch('playlists/' + playlistId)
+      resolve({
+        type: response.type,
+        name: response.name,
+        description: response.description,
+        playlistThumbnail: response.images[1].url,
+        spotifyId: response.id,
+        spotifyUrl: response.external_urls.spotify,
       })
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+let search = link => {
+  return new Promise(async (resolve, reject) => {
+    let type = link.split('/')[3]
+    let id = link.split('/')[4]
+    try {
+      switch (type) {
+        case 'track':
+          resolve(await getSpotifyTrack(id))
+          break
+        case 'playlist':
+          resolve(await getSpotifyPlaylist(id))
+          break
+        default:
+          reject({
+            code: 400,
+            message: 'Unsupported Spotify link',
+          })
+          break
+      }
+    } catch (error) {
+      reject(error)
     }
   })
 }
 
 let searchTrackByQuery = query => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(async (resolve, reject) => {
     var params = {
       q: query,
       type: 'track',
     }
     triesRemaining = 5
-    function run() {
-      axios
-        .get(
-          endpointURL + 'search?' + querystring.stringify(params),
-          commonConfig
-        )
-        .then(response => {
-          // Check if result is obtained
-          if (response.data.tracks.items.length === 0) {
-            reject({
-              code: '404S',
-              message: 'Your search did not match any results',
-            })
-          }
-
-          // Take the first result and send it back
-          getSpotifyTrack(response.data.tracks.items[0].id)
-            .then(trackResonse => resolve(trackResonse))
-            .catch(trackError => reject(trackError))
+    try {
+      let response = await fetch('search?' + querystring.stringify(params))
+      if (response.tracks.items.length === 0) {
+        reject({
+          code: '404S',
+          message: 'Your search did not match any results',
         })
-        .catch(error => {
-          // Refresh token
-          if (error.message.includes('401')) {
-            refreshSpotifyToken()
-              .then(run)
-              .catch(reject(error))
-          } else {
-            reject(error)
-          }
-        })
+      }
+      resolve(sanitizeTrackResponse(response.tracks.items[0]))
+    } catch (error) {
+      reject(error)
     }
-    run()
   })
 }
 
 module.exports = {
   getAccessToken,
   searchTrackByQuery,
-  parseSpotifyLink,
+  search,
 }

@@ -9,7 +9,7 @@ import AudioInfo from './AudioInfo'
 import { queryCheck } from '../modules/queryCheck'
 import { openExternal } from '../modules/electronConfig'
 
-import { YTResult, SpotifyResult } from '../types'
+import { YoutubeTrack, SpotifyTrack } from '../types'
 
 const defaultArtwork = require('../assets/default-artwork.png')
 
@@ -19,18 +19,18 @@ interface Props extends RouteComponentProps<any> {
 
 const Query: React.FunctionComponent<Props> = ({ location }) => {
   const [loading, setLoading] = useState<Boolean>(false)
-  const [spotifyResult, setSpotifyResult] = useState<SpotifyResult>()
-  const [youtubeResult, setYoutubeResult] = useState<Array<YTResult>>()
+  const [spotifyResult, setSpotifyResult] = useState<SpotifyTrack>()
+  const [youtubeResult, setYoutubeResult] = useState<Array<YoutubeTrack>>()
 
   let dispatch = useDispatch()
 
   useEffect(() => {
     setLoading(true)
     queryCheck(queryString.parse(location.search).query)
-      .then(response => {
+      .then(({ spotifyResult, youtubeResult }) => {
         setLoading(false)
-        setSpotifyResult(response.spotifyResult)
-        setYoutubeResult(response.youtubeResult)
+        setSpotifyResult(spotifyResult)
+        setYoutubeResult(youtubeResult)
       })
       .catch(error => {
         setLoading(false)
@@ -86,14 +86,10 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
         ) : spotifyResult || youtubeResult ? (
           <div className="container">
             {spotifyResult ? (
-              <AudioInfo {...spotifyResult} />
-            ) : (
-              <AudioInfo
-                name={youtubeResult ? youtubeResult[0].title : ''}
-                artist={youtubeResult ? youtubeResult[0].channelTitle : ''}
-                albumArt={defaultArtwork}
-              />
-            )}
+              <AudioInfo {...spotifyResult} url={spotifyResult.spotifyUrl} />
+            ) : youtubeResult ? (
+              <AudioInfo {...youtubeResult[0]} name={youtubeResult[0].title} />
+            ) : null}
             <div className="results">
               <Typography.Text className="heading">
                 Search Results

@@ -14,8 +14,8 @@ export interface Store {
 }
 
 export interface QueueItem {
-  youtubeMetadata: YTResult
-  spotifyMetadata?: SpotifyResult
+  youtubeMetadata: YoutubeTrack
+  spotifyMetadata?: SpotifyTrack
   progress?: StreamProgress
 }
 
@@ -26,7 +26,7 @@ export interface ReduxAction {
   index: number
 }
 
-export interface YTResult {
+export interface YoutubeTrack {
   id: string
   link: string
   kind: string
@@ -38,14 +38,24 @@ export interface YTResult {
   duration: number
 }
 
-export interface SpotifyResult {
+export interface SpotifyTrack {
   type: string
   name: string
-  artist: string
-  album: string
-  albumArt: string
-  spotifyTrackId: string
-  spotifyTrackUrl: string
-  spotifyAlbumId: string
-  spotifyAlbumUrl: string
+  artist: SpotifyArtist
+  album: SpotifyAlbum
+  spotifyId: string
+  spotifyUrl: string
+}
+
+export interface SpotifyAlbum {
+  name: string
+  image: string
+  spotifyId: string
+  spotifyUrl: string
+}
+
+export interface SpotifyArtist {
+  name: string
+  spotifyId: string
+  spotifyUrl: string
 }
