@@ -6,15 +6,17 @@ import { useDispatch } from 'react-redux'
 import { addToQueue } from '../actions/downloadQueue'
 import queryString from 'query-string'
 import AudioInfo from './AudioInfo'
-import { queryCheck } from '../modules/search/queryCheck'
+import search from '../modules/search'
 import { openExternal } from '../modules/electronConfig'
 
-import { YoutubeTrack, SpotifyTrack, SpotifyPlaylist } from '../types'
+import { Track, Response } from '../types'
 import {
   LoadingOutlined,
   PlayCircleFilled,
   DownloadOutlined,
 } from '@ant-design/icons'
+import { SpotifyTrack, SpotifyAlbum, SpotifyPlaylist } from '../types/spotify'
+import { YTVideo } from '../types/youtube'
 
 interface Props extends RouteComponentProps<any> {
   //
@@ -22,20 +24,21 @@ interface Props extends RouteComponentProps<any> {
 
 const Query: React.FunctionComponent<Props> = ({ location }) => {
   const [loading, setLoading] = useState<Boolean>(false)
-  const [spotifyResult, setSpotifyResult] = useState<
-    SpotifyTrack | SpotifyPlaylist
+  const [info, setInfo] = useState<
+    SpotifyTrack | SpotifyAlbum | SpotifyPlaylist
   >()
-  const [youtubeResult, setYoutubeResult] = useState<Array<YoutubeTrack>>()
+  const [tracks, setTracks] = useState<Array<Track>>([])
 
   let dispatch = useDispatch()
 
   useEffect(() => {
     setLoading(true)
-    queryCheck(queryString.parse(location.search).query)
-      .then(({ spotifyResult, youtubeResult }) => {
+    search(String(queryString.parse(location.search).query))
+      .then((response: Response) => {
         setLoading(false)
-        setSpotifyResult(spotifyResult)
-        setYoutubeResult(youtubeResult)
+        setInfo(response.info)
+        setTracks(response.tracks)
+        console.log(response.tracks)
       })
       .catch(error => {
         setLoading(false)
@@ -50,29 +53,30 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
 
   const colums = [
     {
-      dataIndex: 'title',
-      key: 'title',
+      dataIndex: ['metadata', 'name'],
+      key: 'spotifyId',
       title: 'Title',
+      width: '80%',
     },
     {
       title: 'Actions',
       key: 'actions',
-      render: (text: String, record: any) => (
+      render: (text: String, record: Track) => (
         <div className="video-actions">
-          {/* <Button
+          <Button
             icon={<DownloadOutlined />}
             onClick={() =>
               dispatch(
                 addToQueue({
-                  youtubeMetadata: record,
-                  spotifyMetadata: spotifyResult,
+                  video: record.video || record.videos[0],
+                  metadata: record.metadata,
                 })
               )
             }
             type="link"
-          ></Button> */}
+          ></Button>
           <Button
-            onClick={() => openExternal(record.link)}
+            onClick={() => openExternal(record.metadata.spotifyUrl)}
             icon={<PlayCircleFilled />}
             type="link"
           ></Button>
@@ -86,13 +90,37 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
       <div className="query">
         {loading ? (
           <Spin indicator={<LoadingOutlined style={{ fontSize: 64 }} spin />} />
-        ) : spotifyResult || youtubeResult ? (
+        ) : tracks.length > 0 ? (
           <div className="container">
-            {spotifyResult ? (
-              <AudioInfo {...spotifyResult} url={spotifyResult.spotifyUrl} />
-            ) : youtubeResult ? (
-              <AudioInfo {...youtubeResult[0]} name={youtubeResult[0].title} />
-            ) : null}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                minWidth: '33%',
+                maxWidth: '33%',
+              }}
+            >
+              {info && <AudioInfo {...info} />}
+              {tracks.length > 1 && (
+                <Button
+                  style={{
+                    width: '160px',
+                  }}
+                  onClick={() => {
+                    tracks.forEach(track => {
+                      dispatch(
+                        addToQueue({
+                          video: track.video || track.videos[0],
+                          metadata: track.metadata,
+                        })
+                      )
+                    })
+                  }}
+                >
+                  Download All
+                </Button>
+              )}
+            </div>
             <div className="results">
               <Typography.Text className="heading">
                 Search Results
@@ -100,10 +128,11 @@ const Query: React.FunctionComponent<Props> = ({ location }) => {
               <Table
                 columns={colums}
                 showHeader={false}
+                tableLayout="fixed"
                 rowKey="id"
                 pagination={false}
-                dataSource={youtubeResult}
-              ></Table>
+                dataSource={tracks}
+              />
             </div>
           </div>
         ) : (

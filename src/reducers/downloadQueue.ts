@@ -16,15 +16,12 @@ export default function downloadQueue(
   switch (action.type) {
     case ADD_TO_QUEUE:
       if (state.length === 0) {
-        downloadAudio(
-          action.queuePayload.youtubeMetadata,
-          action.queuePayload.spotifyMetadata
-        )
+        downloadAudio(action.queuePayload.video, action.queuePayload.metadata)
       }
       return [...state, action.queuePayload]
     case REMOVE_FROM_QUEUE:
       if (state[1]) {
-        downloadAudio(state[1].youtubeMetadata, state[1].spotifyMetadata)
+        downloadAudio(state[1].video, state[1].metadata)
       }
       return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
     case UPDATE_QUEUE_ITEM:

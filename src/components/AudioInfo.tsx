@@ -2,40 +2,35 @@ import React from 'react'
 import { Avatar, Typography } from 'antd'
 
 import { openExternal } from '../modules/electronConfig'
-import { SpotifyAlbum, SpotifyArtist } from '../types'
-
-interface Props {
-  name: string
-  album?: SpotifyAlbum
-  artist?: SpotifyArtist
-  url?: string
-}
+import { SpotifyAlbum } from '../types/spotify'
 
 const defaultArtwork = require('../assets/default-artwork.png')
 
-const AudioInfo: React.FunctionComponent<Props> = ({
-  name,
-  album,
-  artist,
-  url,
-}) => {
+interface Props {
+  name: string
+  image?: string
+  spotifyUrl: string
+  album?: SpotifyAlbum
+}
+
+const AudioInfo: React.FunctionComponent<Props> = ({ name, image, album }) => {
   return (
     <div className="audio-info">
       <div className="avatar">
         <Avatar
           alt={name}
-          src={album ? album.image : defaultArtwork}
+          src={image ? image : album ? album.image : defaultArtwork}
           shape={'square'}
           size="large"
         />
       </div>
       <div className="info">
         <Typography.Text>
-          <span className="track-url" onClick={() => openExternal(url)}>
+          <span className="track-url" onClick={() => openExternal('')}>
             <strong>{name}</strong>
           </span>
           <br></br>
-          {artist && artist.name}
+          {album ? album.name : null}
         </Typography.Text>
       </div>
     </div>

@@ -88,17 +88,17 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({
         {queue && queue.length > 0 ? (
           <List>
             {queue.map((queueItem: QueueItem, index) => {
-              let useYT = queueItem.spotifyMetadata === null ? true : false
+              let useYT = queueItem.metadata === null ? true : false
               return (
                 <Popover
                   title={
                     useYT
-                      ? queueItem.youtubeMetadata.title
-                      : queueItem.spotifyMetadata
-                      ? queueItem.spotifyMetadata.name
+                      ? queueItem.video.title
+                      : queueItem.metadata
+                      ? queueItem.metadata.name
                       : ''
                   }
-                  key={queueItem.youtubeMetadata.id}
+                  key={queueItem.video.id}
                   className="download-item"
                   placement="rightBottom"
                   trigger="click"
@@ -108,24 +108,24 @@ const DownloadQueue: React.FunctionComponent<DownloadQueueProps> = ({
                     <Avatar
                       alt={
                         useYT
-                          ? queueItem.youtubeMetadata.title
-                          : queueItem.spotifyMetadata
-                          ? queueItem.spotifyMetadata.name
+                          ? queueItem.video.title
+                          : queueItem.metadata
+                          ? queueItem.metadata.name
                           : ''
                       }
                       src={
                         useYT
                           ? defaultArtwork
-                          : queueItem.spotifyMetadata
-                          ? queueItem.spotifyMetadata.album.image
+                          : queueItem.metadata
+                          ? queueItem.metadata.album.image
                           : defaultArtwork
                       }
                     />
                     <Typography.Text>
                       {useYT
-                        ? queueItem.youtubeMetadata.title
-                        : queueItem.spotifyMetadata
-                        ? queueItem.spotifyMetadata.name
+                        ? queueItem.video.title
+                        : queueItem.metadata
+                        ? queueItem.metadata.name
                         : ''}
                     </Typography.Text>
                     <Button

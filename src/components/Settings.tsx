@@ -26,15 +26,16 @@ const Settings: React.FunctionComponent = () => {
   )
 
   let selectDirectory = () => {
-    dialog.showOpenDialog(
-      BrowserWindow.getFocusedWindow() || new BrowserWindow(),
-      {
+    dialog
+      .showOpenDialog(BrowserWindow.getFocusedWindow() || new BrowserWindow(), {
         properties: ['openDirectory'],
-      },
-      (path: string[] | undefined) => {
-        path && setDownloadDirectory(path[0])
-      }
-    )
+      })
+      .then(({ filePaths }) => {
+        filePaths.length && setDownloadDirectory(filePaths[0])
+      })
+      .catch(error => {
+        //
+      })
   }
 
   let saveSettings = () => {

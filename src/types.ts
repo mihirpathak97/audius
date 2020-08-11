@@ -1,3 +1,6 @@
+import { SpotifyTrack, SpotifyPlaylist, SpotifyAlbum } from './types/spotify'
+import { YTVideo } from './types/youtube'
+
 export interface StreamProgress {
   percentage: number
   transferred: number
@@ -14,8 +17,8 @@ export interface Store {
 }
 
 export interface QueueItem {
-  youtubeMetadata: YoutubeTrack
-  spotifyMetadata?: SpotifyTrack
+  video: YTVideo
+  metadata?: SpotifyTrack
   progress?: StreamProgress
 }
 
@@ -26,52 +29,13 @@ export interface ReduxAction {
   index: number
 }
 
-export interface YoutubeTrack {
-  id: string
-  link: string
-  kind: string
-  publishedAt: string
-  channelId: string
-  channelTitle: string
-  title: string
-  description: string
-  duration: number
+export interface Track {
+  metadata: SpotifyTrack
+  videos: Array<YTVideo>
+  video?: YTVideo
 }
 
-export interface SpotifyPlaylistOwner {
-  name: string
-  spotifyUrl: string
-}
-
-export interface SpotifyPlaylist {
-  type: string
-  name: string
-  image: string
-  owner: SpotifyPlaylistOwner
-  tracks: Array<SpotifyTrack>
-  followers: number
-  spotifyId: string
-  spotifyUrl: string
-}
-
-export interface SpotifyTrack {
-  type: string
-  name: string
-  artist: SpotifyArtist
-  album: SpotifyAlbum
-  spotifyId: string
-  spotifyUrl: string
-}
-
-export interface SpotifyAlbum {
-  name: string
-  image: string
-  spotifyId: string
-  spotifyUrl: string
-}
-
-export interface SpotifyArtist {
-  name: string
-  spotifyId: string
-  spotifyUrl: string
+export interface Response {
+  info: SpotifyTrack | SpotifyAlbum | SpotifyPlaylist
+  tracks: Array<Track>
 }

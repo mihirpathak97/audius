@@ -3,26 +3,20 @@
  * Calls electron's API to create window and initialize the app
  */
 
-const electron = require('electron')
-const app = require('electron').app
-const protocol = require('electron').protocol
-const BrowserWindow = electron.BrowserWindow
+const { app, protocol, BrowserWindow, Menu } = require('electron')
 
 const { osxApplicationMenu } = require('./modules/electronConfig')
 
-// Require env vars
-require('./modules/env')
-
 const path = require('path')
 const isDev = require('electron-is-dev')
-const Spotify = require('./modules/SpotifyWebApi')
 const electronConfig = require('./modules/electronConfig')
 
-// Log
 var log = require('electron-log')
 log.transports.file.level = 'debug'
 
 let mainWindow
+
+require('dotenv').config()
 
 function createWindow() {
   log.info('[app.main.js] Creating window')
@@ -36,10 +30,8 @@ function createWindow() {
   mainWindow.on('closed', () => (mainWindow = null))
 
   process.platform === 'darwin'
-    ? electron.Menu.setApplicationMenu(
-        electron.Menu.buildFromTemplate(osxApplicationMenu)
-      )
-    : electron.Menu.setApplicationMenu(null)
+    ? Menu.setApplicationMenu(Menu.buildFromTemplate(osxApplicationMenu))
+    : Menu.setApplicationMenu(null)
 
   // Register protocol `audius` for serving static files
   // as webpack + chromium causes relative path issue
@@ -59,54 +51,13 @@ function createWindow() {
   )
 }
 
-app.on('ready', () => {
-  log.info('[app.main.js] App ready')
-
-  // Auto Updater
+app.whenReady().then(() => {
   require('./modules/autoUpdate')
-
-  // Init persistant storage
   require('./modules/settings')
+  require('./lib/listeners')
 
-  // First create BrowserWindow
+  log.info('[app.main.js] App ready')
   createWindow()
-
-  // Then get Spotify access token
-  Spotify.getAccessToken()
-    .then(response => {
-      if (response.code === 200) {
-        log.info('[app.main.js] Generated Spotify token')
-      }
-    })
-    .catch(error => {
-      log.error('[app.main.js] Error generating Spotify token!')
-      electron.dialog.showErrorBox(
-        'Error Generating Spotify Access Token!',
-        error.message
-      )
-    })
-})
-
-/**
- * Refresh token
- * Called by render and uses electron's IPC to communicate
- */
-electron.ipcMain.on('refresh-spotify-token', event => {
-  Spotify.getAccessToken()
-    .then(response => {
-      if (response.code === 200) {
-        log.info('[app.main.js] Refreshed Spotify token')
-        event.sender.send('refresh-token-success')
-      }
-    })
-    .catch(error => {
-      log.error('[app.main.js] Error refreshing Spotify token!')
-      electron.dialog.showErrorBox(
-        'Error refreshing Spotify Access Token!',
-        error.message
-      )
-      event.sender.send('refresh-token-error')
-    })
 })
 
 app.on('window-all-closed', () => {
