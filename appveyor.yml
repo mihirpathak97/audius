@@ -1,0 +1,24 @@
+image: Visual Studio 2015
+
+skip_non_tags: true
+
+environment:
+  PYTHON: "C:\\Python36-x64"
+
+install:
+  - ps: Install-Product node 12
+  - git submodule update --init --recursive
+  - '%PYTHON%/Scripts/pip.exe install -U -r bin/rainbow/requirements.txt'
+  - 'yarn install'
+
+build_script:
+  - echo "Building raindow"
+  - 'cd bin/rainbow && %PYTHON%/python.exe setup.py build && cd ../../'
+
+  - 'yarn build'
+
+  - echo "Packaging Audius for Windows x64 (EXE)";
+  - 'yarn package:win'
+
+artifacts:
+  - path: dist/AudiusSetup-x64.exe

@@ -2,55 +2,55 @@
 # Author - Mihir Pathak
 #
 # Consists of 2 jobs -
-#   - Linux environment builds for debian
-#   - OSX builds for Mac and Windows
+#   - Ubuntu bionic environment builds for Linux
+#   - OSX builds for Mac
 
-# Build with Node JS 8 [9+ causes fsevetns build to crash in darwin]
+# Language configs
 language: node_js
-node_js: "8"
+node_js: '12'
 
 # Job for building
 jobs:
   include:
     - if: tag IS present
       os: linux
-      dist: trusty
+      dist: bionic
+      addons:
+        apt:
+          packages:
+            - python3-pip
+            - python3-setuptools
     - if: tag IS present
       os: osx
-      osx_image: xcode9.3
+      addons:
+        homebrew:
+          taps:
+            - sashkab/python
+          packages:
+            - python36
 
-# Global environment variables
-env:
-  global:
-    - ELECTRON_CACHE=$HOME/.cache/electron
-    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-
-# Cache directorries
-cache:
-  directories:
-  - node_modules
-  - $HOME/.cache/electron
-  - $HOME/.cache/electron-builder
-
-# Perform build [win32's exe and darwin's dmg in osx and linux's deb in linux]
+# Run the build script depending on OS
 script:
-  - echo "Initializing app files..."
-  - yarn init-app
+  - echo "Installing yarn dependencies"
+  - yarn install
+
+  - echo "Building raindow"
+  - cd bin/rainbow
+  - pip3 install --upgrade --user pip setuptools wheel
+  - pip3 install --upgrade --user -r requirements.txt
+  - python3 setup.py build
+  - cd ../../
+
   - echo "Compiling React app for production"
   - yarn build
+
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      echo "Packaging Audius for Linux x64 (.deb)";
-      chmod a+x bin/ffmpeg/linux/ffmpeg;
-      chmod a+x bin/rainbow/linux/rainbow;
-      yarn package-linux;
+    echo "Packaging Audius for Linux x64 (AppImage)";
+    yarn package:linux;
     fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      echo "Packaging Audius for MacOS X (.dmg)";
-      chmod a+x bin/ffmpeg/darwin/ffmpeg;
-      chmod a+x bin/rainbow/darwin/rainbow;
-      yarn package-mac;
-      echo "Packaging Audius for Windows x64 (.exe)";
-      yarn package-win;
+    echo "Packaging Audius for MacOS X (DMG)";
+    yarn package:mac;
     fi
 
 after_success:

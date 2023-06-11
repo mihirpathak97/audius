@@ -3,17 +3,27 @@
  * Refer - https://github.com/mihirpathak97/rainbow/tree/audius-mod
  */
 
-const exec = require('child_process').execFileSync;
-const settings = window.require('electron-settings');
+const exec = require('child_process').execFileSync
+const storage = require('./store')
 
 function embedMetadata(filePath, spotifyID) {
-  exec(settings.get('RAINBOW_PATH'), [filePath, spotifyID], {}, (error, stdout, stderr) => {
-    if(error) {
-      return;
+  exec(
+    storage.get('RAINBOW_PATH'),
+    [
+      filePath,
+      spotifyID,
+      storage.get('spotifyClientId'),
+      storage.get('spotifyClientSecret'),
+    ],
+    {},
+    (error, stdout, stderr) => {
+      if (error) {
+        return
+      }
     }
-  });
+  )
 }
 
 module.exports = {
-  embedMetadata
+  embedMetadata,
 }

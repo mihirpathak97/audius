@@ -1,44 +1,100 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
-## [1.6.0-beta1] - 2018-01-03
+## [2.0.0-beta1] - 2020-03-25
+
 ### Added
+
+- Option to set spotify and youtube API keys in settings
+
+### Changed
+
+- Minor types and defs update
+- ⬆️ - ant-design 4.x, react 16.13.x
+- Users need to provide their own API keys for YT and Spotify
+
+## [2.0.0-alpha3] - 2019-08-24
+
+### Added
+
+- TypeScript 🎉
+- Hooks and FC 🎉
+- Redux simplification 🎉
+- Code refactorization 🎉
+
+## [2.0.0-alpha2] - 2019-08-24
+
+### Fixed
+
+- Build failing in CI
+
+## [2.0.0-alpha1] - 2019-08-11
+
+### Added
+
+- New UI 🎉
+- Better code
+- Added AppImage for linux
+
+### Changed
+
+- Get latest webpack configs from `create-react-app`
+- Moved packages to `devDependencies` to reduce asar bundle size
+
+### Removed
+
+- `deb` build for linux
+
+## [1.6.0-beta1] - 2018-01-03
+
+### Added
+
 - Custom URI protocol `audius://` for serving static files
 
 ### Changed
+
 - Get latest webpack configs from `create-react-app`
 - Moved packages to `devDependencies` to reduce asar bundle size
 
 ### Fixed
+
 - Font issue
 - Webpack production errors
 - [Queue] Fix mixing `require` and `exports`
 
 ## [1.6.0-beta1] - 2018-01-03
+
 ### Added
+
 - Support for Spotify links!
   - **Note** Only track links work. Playlists and albums will be supported
     in the next point release
 - Default art work for songs with unknown Spotify data
 
 ### Changed
+
 - Minor UI changes
 - Add `Open Sans` font locally
   - [Hack] Relative path issue for loading local fonts
 - [win32] Installer will now install per-user
 
 ### Fixed
+
 - Refreshing Spotify access token in runtime
 - Error dialog while getting Spotify access token
 
 ## [1.6.0-alpha1] - 2018-09-30
+
 ### Added
+
 - Download Queue!
 - Redux!
 - Support for YouTube links!
   - **Note** Some YT links will not fetch Spotify data properly. Working on a fix
 
 ### Changed
+
 - Updated node packages
   - electron - 2.0.7 -> 3.0.2
   - react - 16.4.x -> 16.5.2
@@ -50,142 +106,189 @@ All notable changes to this project will be documented in this file.
 - Fix icons
 
 ### Removed
+
 - Nuked audio play functionality as it violates YouTube's terms
   - Now opens the link in default browser
 - Nuked `@material-ui/icons`. Using Font Awesome entirely
 
 ## [1.5.0] - 2018-08-19
+
 **NOTE -** This is the final release for 1.x.x. I will shortly begin work on 2.x :grin:
 
 This branch may or may not recieve bug fixes. Feel free to fork the repo and make changes
 
 ### Changed
+
 - Updated node packages
   - electron - 2.0.7 -> 2.0.10
 
 ## [1.5.0-beta1] - 2018-08-19
+
 ### Added
+
 - Logging! Now it's easier to debug the application
   - Log files location is platform dependent
 
 ### Changed
+
 - Updated node packages
   - electron - 2.0.2 -> 2.0.7
   - electron-updater - 2.21.10 -> 3.1.1
   - And more!
 
 ## [1.4.2] - 2018-08-18
+
 ### Fixed
+
 - Uncaught error while fetching access token in main process
 
 ## [1.4.1] - 2018-08-01
+
 ### Fixed
+
 - Refresh Spotify token on-demand
 
 ## [1.4.0] - 2018-07-01
+
 ### Changed
+
 - Display upto 10 search results
 
 ### Fixed
+
 - "Go back" re-renders current view
 
 ## [1.3.0-beta1] - 2018-06-26
+
 ### Changed
+
 - rainbow is no longer experimental!
 - Default download format for OSX is m4a
 - rainbow is enabled by default
 
 ## [1.3.0-beta1] - 2018-06-26
+
 ### Added
+
 - [Experimental] Rainbow can now embed tags in M4A files too!
 
 ### Changed
+
 - rainbow now uses positional arguments
 
 ## [1.3.0-alpha2] - 2018-06-24
+
 ### Added
+
 - [Experimental] Added rainbow for all platforms
 - Added toggle switch in Settigns to embed metadata
 
 ### Changed
+
 - Changed the way the app compiles external binaries
 
 ### Removed
+
 - All built in binaries inside the repository
 
 ## [1.3.0-alpha1] - 2018-06-23
+
 ### Added
+
 - [Experimental] Added rainbow for embedding ID3 in win32
 
 ### Changed
+
 - Lint ES6 code
 
 ## [1.2.1] - 2018-06-22
+
 ### Changed
+
 - Remove unused dependencies [lesser app size]
 - NSIS installer will not ask for elevated permissions
 
 ## [1.2.0] - 2018-06-22
+
 ### Changed
+
 - include files for electron-builder
 
 ## [1.2.0-beta1] - 2018-06-22
+
 ### Changed
+
 - New Layout!
 - Cleaner, Leaner code
 - Re-organize entire app structure for efficiency
 
 ### Fixed
+
 - FFmpeg path issues in production
 
 ## [1.1.0] - 2018-06-20
+
 ### Added
+
 - Auto Update is now fully functional
 
 ## [1.0.2] - 2018-06-19
+
 ### Changed
+
 - Use proper JSX syntax
 - Query - remove useless code
 - Modified build scripts
 
 ## [1.0.1] - 2018-06-15
+
 ### Added
+
 - electron-log for logging
 
 ### Changed
+
 - Cleanup unnecessary build code
 - Temporarily drop auto-updater support
 - Clean up Terms and About
 
 ## [1.0.0] - 2018-06-08
+
 ### Added
+
 - FFmpeg binary for all platforms
 - Added ability to modify settings
 
 ### Changed
+
 - Debian package specific config
 - Settings - use table layout
 - Default download location is `$HOME/Misic`
 - electron-builder publish config
 
 ### Fixed
+
 - Fix FFMPEG_PATH related issues for all platforms
 - Fix Query onSubmit
 - Fix FFmpeg binary permission issues in OsX and Linux
 
 ## [1.0.0-beta3] - 2018-06-06
+
 ### Added
+
 - Add custom dialog box to display messages and errors
 - Customize build script
 - **Drop 32-bit support entirely**
 
 ### Changed
+
 - New dialog box layout
 - Make DialogBox as a separate React component
 - YouTube and Spotify links are disabled
 - Removed useless console log calls
 
 ### Fixed
+
 - TrackContainer - dialog opens on render()
 - YTDownload - return on error
 - QueryField - fixed invalid view error
@@ -194,43 +297,57 @@ This branch may or may not recieve bug fixes. Feel free to fork the repo and mak
 - TrackContainer, Query - dialog will not open after first trigger
 
 ## [1.0.0-beta2] - 2018-06-05
+
 ### Added
+
 - Custom script to build in CI
 
 ### Changed
+
 - Travis - use a more complex build config
 
 ### Fixed
+
 - FFMPEG_PATH in non-windows platforms
   - **NOTE** - Linux and OSX users need to manually install FFmpeg and set to PATH
 
 ## [1.0.0-beta1] - 2018-06-05
+
 ### Changed
+
 - Remove unused packages [reduces build size]
 
 ### Fixed
+
 - Build failure because of condition require in fluent-ffmpeg
 
 ## [1.0.0-alpha3] - 2018-06-05
+
 ### Added
+
 - Custom README
 - Travis CI configuration [Supports multi-platform build!]
 - Added image assets
 
 ### Changed
-- Final build files will not have ${platform}
+
+- Final build files will not have \${platform}
 
 ### Fixed
+
 - Menu stays open when miniWindow is triggered
 
 ## [1.0.0-alpha2] - 2018-06-04
+
 ### Added
+
 - Module YTDownload for downloading in MP3
 - YTDownload - add progress listener
 - YTDownload - multi-format download (mp3 and m4a)
 - Settings - basic settings functionalities
 
 ### Changed
+
 - TrackContainer - implement YTDownload
 - TrackContainer - migrate to React.Component
 - YTDownload - use filter options to grab 'auidioonly'
@@ -241,17 +358,22 @@ This branch may or may not recieve bug fixes. Feel free to fork the repo and mak
 - YTDownload - get Spotify metadata from props
 
 ### Fixed
+
 - YTDownload - fix improper module export
 - TrackContainer - fix CircularProgress on error
 - Fix class names in About and Terms
 
 ## [1.0.0-alpha1] - 2018-06-03
+
 ### Added
+
 - Terms - add terms of use
 - About - add basic content
 
 ## [1.0.0-pre-alpha] - 2018-06-02
+
 ### Added
+
 - Module YTCore - streaming audio from YouTube
 - Module YTSearch - uses YouTube's V3 API to search for songs
 - Module SpotifyWebApi - uses Spotify's Web API for requesting metadata
@@ -265,6 +387,7 @@ This branch may or may not recieve bug fixes. Feel free to fork the repo and mak
 - VideoContainer - add onClick handler to play audio
 
 ### Changed
+
 - Use seperate build directory (react-compiled) for react's production builds
 - TopAppBar - go back to per-view render mode
 - TopAppBar - add "go back" in Search
@@ -280,7 +403,8 @@ This branch may or may not recieve bug fixes. Feel free to fork the repo and mak
 - package.json - add important fields (author, productName, description and more) and remove unused packages
 
 ### Fixed
--  QueryField - wrong URL passed while invoking new BrowserWindow
+
+- QueryField - wrong URL passed while invoking new BrowserWindow
 - electron.js - fix URL path
 - Query - fix displaying encoded URI as title
 - Query - use decodeURI() before passing to search()

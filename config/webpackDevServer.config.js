@@ -4,7 +4,6 @@ const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware')
 const evalSourceMapMiddleware = require('react-dev-utils/evalSourceMapMiddleware');
 const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
 const ignoredFiles = require('react-dev-utils/ignoredFiles');
-const config = require('./webpack.config.dev');
 const paths = require('./paths');
 const fs = require('fs');
 
@@ -44,7 +43,7 @@ module.exports = function(proxy, allowedHost) {
     // Instead, we establish a convention that only files in `public` directory
     // get served. Our build script will copy `public` into the `build` folder.
     // In `index.html`, you can get URL of `public` folder with %PUBLIC_URL%:
-    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    // <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
     // In JavaScript code, you can access it with `process.env.PUBLIC_URL`.
     // Note that we only recommend to use `public` folder as an escape hatch
     // for files like `favicon.ico`, `manifest.json`, and libraries that are
@@ -61,7 +60,7 @@ module.exports = function(proxy, allowedHost) {
     hot: true,
     // It is important to tell WebpackDevServer to use the same "root" path
     // as we specified in the config. In development, we always serve from /.
-    publicPath: config.output.publicPath,
+    publicPath: '/',
     // WebpackDevServer is noisy by default so we emit custom message instead
     // by listening to the compiler events with `compiler.hooks[...].tap` calls above.
     quiet: true,
